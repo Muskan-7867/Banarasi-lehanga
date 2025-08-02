@@ -5,6 +5,7 @@ import SecondNavbar from '@/components/user/home/components/SecondNavbar'
 import Banner from '@/components/user/home/components/Banner'
 import Features from '@/components/user/home/components/Features'
 import Products from '@/components/user/home/components/Products'
+import SwiperCards from '@/components/user/home/components/SwiperCards'
 
 export default function Homepage() {
   return (
@@ -15,6 +16,7 @@ export default function Homepage() {
    <Banner />
    <Features />
    <Products />
+   <SwiperCards />
     </div>
   )
 }
