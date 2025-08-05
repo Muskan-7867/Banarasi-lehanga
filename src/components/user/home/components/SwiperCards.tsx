@@ -4,41 +4,65 @@ import React from "react";
 export default function SwiperCards() {
   const images = [
     {
-      src: "http://5.imimg.com/data5/SELLER/Default/2022/2/MD/QV/DK/83545762/g-500x500.jpeg",
+      src: "https://kalki.gumlet.io/cdn/shop/files/blue-silk-kurta-sharara-suit-with-cutdana-sequins-work-sg247642-1.jpg?w=1000&",
       alt: "Image 1"
     },
     {
-      src: "http://5.imimg.com/data5/SELLER/Default/2022/2/MD/QV/DK/83545762/g-500x500.jpeg",
-      alt: "Image 2"
-    },
-    {
-      src: "http://5.imimg.com/data5/SELLER/Default/2022/2/MD/QV/DK/83545762/g-500x500.jpeg",
-      alt: "Image 3"
-    },
-    {
-      src: "http://5.imimg.com/data5/SELLER/Default/2022/2/MD/QV/DK/83545762/g-500x500.jpeg",
-      alt: "Image 4"
-    },
-    {
-      src: "http://5.imimg.com/data5/SELLER/Default/2022/2/MD/QV/DK/83545762/g-500x500.jpeg",
+      src: "https://kalki.gumlet.io/cdn/shop/files/blue-silk-kurta-sharara-suit-with-cutdana-sequins-work-sg247642-1.jpg?w=1000&",
       alt: "Image 1"
     },
     {
-      src: "http://5.imimg.com/data5/SELLER/Default/2022/2/MD/QV/DK/83545762/g-500x500.jpeg",
-      alt: "Image 2"
+      src: "https://kalki.gumlet.io/cdn/shop/files/rani_pink_saree_with_bandhani_jaal_and_cutdana-sg264507_2.jpg?w=1000&",
+      alt: "Image 1"
     },
     {
-      src: "http://5.imimg.com/data5/SELLER/Default/2022/2/MD/QV/DK/83545762/g-500x500.jpeg",
-      alt: "Image 3"
+      src: "https://kalki.gumlet.io/cdn/shop/files/rani_pink_saree_with_bandhani_jaal_and_cutdana-sg264507_2.jpg?w=1000&",
+      alt: "Image 1"
     },
     {
-      src: "http://5.imimg.com/data5/SELLER/Default/2022/2/MD/QV/DK/83545762/g-500x500.jpeg",
-      alt: "Image 3"
+      src: "https://kalki.gumlet.io/cdn/shop/files/blue-silk-kurta-sharara-suit-with-cutdana-sequins-work-sg247642-1.jpg?w=1000&",
+      alt: "Image 1"
+    },
+    {
+      src: "https://kalki.gumlet.io/cdn/shop/files/rani_pink_saree_with_bandhani_jaal_and_cutdana-sg264507_2.jpg?w=1000&",
+      alt: "Image 1"
+    },
+    {
+      src: "https://kalki.gumlet.io/cdn/shop/files/blue-silk-kurta-sharara-suit-with-cutdana-sequins-work-sg247642-1.jpg?w=1000&",
+      alt: "Image 1"
+    },
+    {
+      src: "https://kalki.gumlet.io/cdn/shop/files/rani_pink_saree_with_bandhani_jaal_and_cutdana-sg264507_2.jpg?w=1000&",
+      alt: "Image 1"
+    },
+    {
+      src: "https://kalki.gumlet.io/cdn/shop/files/blue-silk-kurta-sharara-suit-with-cutdana-sequins-work-sg247642-1.jpg?w=1000&",
+      alt: "Image 1"
+    },
+    {
+      src: "https://kalki.gumlet.io/cdn/shop/files/rani_pink_saree_with_bandhani_jaal_and_cutdana-sg264507_2.jpg?w=1000&",
+      alt: "Image 1"
+    },
+    {
+      src: "https://kalki.gumlet.io/cdn/shop/files/blue-silk-kurta-sharara-suit-with-cutdana-sequins-work-sg247642-1.jpg?w=1000&",
+      alt: "Image 1"
+    },
+    {
+      src: "https://kalki.gumlet.io/cdn/shop/files/rani_pink_saree_with_bandhani_jaal_and_cutdana-sg264507_2.jpg?w=1000&",
+      alt: "Image 1"
+    },
+    {
+      src: "https://kalki.gumlet.io/cdn/shop/files/blue-silk-kurta-sharara-suit-with-cutdana-sequins-work-sg247642-1.jpg?w=1000&",
+      alt: "Image 1"
     }
   ];
 
   return (
-    <div className="pt-40">
+    <div className="pt-6">
+      <h1 className="text-2xl font-bold app-text-color text-center mb-2">
+        Trending Looks To Watch
+      </h1>
+
       <CardCarousel
         images={images}
         autoplayDelay={2000}

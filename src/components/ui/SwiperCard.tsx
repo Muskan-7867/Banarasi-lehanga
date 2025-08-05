@@ -104,7 +104,7 @@ export const CardCarousel: React.FC<CarouselProps> = ({
       <div className="flex w-full items-center justify-center">
         <div className="w-full relative">
           <Swiper
-            spaceBetween={30}
+            spaceBetween={10} // Default space between slides for all devices
             autoplay={{
               delay: autoplayDelay,
               disableOnInteraction: false,
@@ -120,7 +120,7 @@ export const CardCarousel: React.FC<CarouselProps> = ({
             breakpoints={{
               // when window width is >= 320px
               320: {
-                spaceBetween: 20,
+                spaceBetween: 8, // Reduced from 10 to 8 for very small devices
                 coverflowEffect: {
                   rotate: 0,
                   stretch: 0,
@@ -130,7 +130,7 @@ export const CardCarousel: React.FC<CarouselProps> = ({
               },
               // when window width is >= 640px
               640: {
-                spaceBetween: 30,
+                spaceBetween: 12, // Reduced from 20 to 12 for sm devices
                 coverflowEffect: {
                   rotate: 0,
                   stretch: 0,
@@ -138,9 +138,19 @@ export const CardCarousel: React.FC<CarouselProps> = ({
                   modifier: 1.5
                 }
               },
+              // when window width is >= 768px
+              768: {
+                spaceBetween: 16, // Added intermediate step
+                coverflowEffect: {
+                  rotate: 0,
+                  stretch: 0,
+                  depth: 120,
+                  modifier: 2
+                }
+              },
               // when window width is >= 1024px
               1024: {
-                spaceBetween: 40,
+                spaceBetween: 20, // Keep original for larger devices
                 coverflowEffect: {
                   rotate: 0,
                   stretch: 0,
@@ -167,7 +177,7 @@ export const CardCarousel: React.FC<CarouselProps> = ({
                     src={image.src}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 60vw"
-                    className="h-full w-full rounded-xl object-cover"
+                    className="h-full w-full rounded-xl object-contain"
                     alt={image.alt}
                     priority={index < 3}
                   />
