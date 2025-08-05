@@ -1,6 +1,11 @@
 import React from "react";
 
-import { delivery, EasyReturn, quality, support } from "@/app/constants/imagePath"; 
+import {
+  delivery,
+  EasyReturn,
+  quality,
+  support
+} from "@/app/constants/imagePath";
 import Image from "next/image";
 
 export default function Features() {
@@ -10,41 +15,41 @@ export default function Features() {
         <Image
           src={delivery}
           alt="Easy Return"
-          className="w-14 h-14 object-contain" 
+          className="lg:w-14 lg:h-14 w-10 h-10 object-contain"
         />
       ),
-      title: "Fast Delivery",
+      title: "Fast Delivery"
     },
     {
       icon: (
         <Image
           src={EasyReturn}
           alt="Easy Return"
-          className="w-14 h-14 object-contain" 
+          className="lg:w-14 lg:h-14 w-10 h-10 object-contain"
         />
       ),
-      title: "Easy Return",
+      title: "Easy Return"
     },
     {
       icon: (
         <Image
           src={quality}
           alt="Easy Return"
-          className="w-14 h-14 object-contain" 
+          className="lg:w-14 lg:h-14 w-10 h-10 object-contain"
         />
       ),
-      title: "Quality Assurance",
+      title: "Quality Assurance"
     },
     {
-      icon:(
+      icon: (
         <Image
           src={support}
           alt="Easy Return"
-          className="w-13 h-13 object-contain" 
+          className="lg:w-14 lg:h-14 w-10 h-10 object-contain"
         />
       ),
-      title: "24/7 Customer Support",
-    },
+      title: "Customer Support"
+    }
   ];
 
   return (
@@ -55,7 +60,7 @@ export default function Features() {
             key={index}
             className="flex flex-col items-center text-center space-y-3"
           >
-            <div >{feature.icon}</div>
+            <div>{feature.icon}</div>
             <h2 className="text-lg font-medium text-gray-800">
               {feature.title}
             </h2>
