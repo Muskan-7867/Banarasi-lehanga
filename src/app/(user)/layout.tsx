@@ -1,9 +1,21 @@
-import React from 'react'
+import Footer from "@/components/user/home/components/Footer";
+import Header from "@/components/user/home/components/Header";
+import Navbar from "@/components/user/home/components/Navbar";
+import SecondNavbar from "@/components/user/home/components/SecondNavbar";
+import React from "react";
 
-export default function UserLayout({ children}: {children:React.ReactNode}) {
+export default function UserLayout({
+  children
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <div className=''>
+    <div className="">
+      <Header />
+      <Navbar />
+      <SecondNavbar />
       {children}
+      <Footer />
     </div>
-  )
+  );
 }
