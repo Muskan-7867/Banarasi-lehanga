@@ -7,7 +7,7 @@ export default function BestSellers() {
   return (
     <div className="min-h-screen ">
       <Header />
-      <div className='flex mt-12 px-32'>
+      <div className='flex mt-28 px-32'>
         <Categories />
         <ProductsSection />
       </div>
