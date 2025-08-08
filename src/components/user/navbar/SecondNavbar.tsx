@@ -57,7 +57,7 @@ export default function SecondNavbar() {
   const visibleCategories = showMore ? uniqueCategories : uniqueCategories.slice(0, 5);
 
   return (
-    <div className="border-b border-gray-300">
+    <div className="border-b border-gray-300 bg-white">
       {/* Desktop View */}
       <div className="hidden md:block">
         <div className="flex overflow-x-auto hide-scrollbar">

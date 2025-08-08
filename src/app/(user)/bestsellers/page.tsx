@@ -5,9 +5,9 @@ import React from 'react'
 
 export default function BestSellers() {
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen">
       <Header />
-      <div className='flex mt-28 px-32'>
+      <div className='flex flex-col lg:flex-row mt-12 lg:mt-20 md:mt-28 px-4 sm:px-8 md:px-16 lg:px-32'>
         <Categories />
         <ProductsSection />
       </div>
