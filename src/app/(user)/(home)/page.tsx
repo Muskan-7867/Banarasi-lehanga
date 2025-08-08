@@ -8,6 +8,7 @@ import SecondBanner from "@/components/user/banners/SecondBanner";
 import ImageSections from "@/components/user/home/components/ImageSections";
 import GridBanner from "@/components/user/home/components/GridBanner";
 import BridalBaneer from "@/components/user/banners/BridalBaneer";
+import AppointmentBanner from "@/components/user/banners/AppointmentBanner";
 
 export default function Homepage() {
   return (
@@ -26,6 +27,7 @@ export default function Homepage() {
       <Products  />
       <BridalBaneer />
       <Products />
+      <AppointmentBanner />
     </div>
   );
 }

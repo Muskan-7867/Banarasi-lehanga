@@ -1,7 +1,7 @@
-import Footer from "@/components/user/home/components/Footer";
-import Header from "@/components/user/home/components/Header";
-import Navbar from "@/components/user/home/components/Navbar";
-import SecondNavbar from "@/components/user/home/components/SecondNavbar";
+import NewFooter from "@/components/user/footer/NewFooter";
+import Header from "@/components/user/navbar/Header";
+import Navbar from "@/components/user/navbar/Navbar";
+import SecondNavbar from "@/components/user/navbar/SecondNavbar";
 import React from "react";
 
 export default function UserLayout({
@@ -15,7 +15,7 @@ export default function UserLayout({
       <Navbar />
       <SecondNavbar />
       {children}
-      <Footer />
+      <NewFooter/>
     </div>
   );
 }
