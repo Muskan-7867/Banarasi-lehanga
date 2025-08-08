@@ -1,19 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation"; // Important for client-side navigation
 
 export default function SecondNavbar() {
-  const [activeCategory, setActiveCategory] = useState("BRIDAL");
+  const [activeCategory, setActiveCategory] = useState("BEST SELLERS");
   const [showMore, setShowMore] = useState(false);
+  const router = useRouter();
 
   const categories = [
+    "BEST SELLERS",
     "BRIDAL",
     "WOMEN",
     "MEN",
     "WEDDING",
-    "BEST SELLERS",
     "GOWNS",
-    "LEHENGAS", 
+    "LEHENGAS",
     "JEWELRY",
     "ACCESSORIES",
     "FOOTWEAR",
@@ -23,15 +25,40 @@ export default function SecondNavbar() {
     "NEW ARRIVALS"
   ];
 
-  // Deduplicate categories
-  const uniqueCategories = [...new Set(categories)];
+  const categoryRoutes: Record<string, string> = {
+    "BEST SELLERS": "/bestsellers",
+    "BRIDAL": "/bridal",
+    "WOMEN": "/women",
+    "MEN": "/men",
+    "WEDDING": "/wedding",
+    "GOWNS": "/gowns",
+    "LEHENGAS": "/lehengas",
+    "JEWELRY": "/jewelry/collections",
+    "ACCESSORIES": "/accessories",
+    "FOOTWEAR": "/footwear",
+    "KIDS": "/kids",
+    "HOME": "/home-decor",
+    "SALE": "/offers/sale",
 
-  // For mobile, we'll show a condensed version with "More" dropdown
+    "NEW ARRIVALS": "/products/new-arrivals"
+  };
+
+  const handleCategoryClick = (category: string) => {
+    const path = categoryRoutes[category];
+    if (path) {
+      setActiveCategory(category);
+      router.push(path); // Navigate to the correct page
+    } else {
+      console.warn("No path defined for:", category);
+    }
+  };
+
+  const uniqueCategories = [...new Set(categories)];
   const visibleCategories = showMore ? uniqueCategories : uniqueCategories.slice(0, 5);
 
   return (
     <div className="border-b border-gray-300">
-      {/* Desktop View (hidden on mobile) */}
+      {/* Desktop View */}
       <div className="hidden md:block">
         <div className="flex overflow-x-auto hide-scrollbar">
           <ul className="flex w-full justify-around cursor-pointer">
@@ -44,7 +71,7 @@ export default function SecondNavbar() {
                       ? "app-text-color border-b-2 border-app-color"
                       : "text-black hover:text-app-color"
                   }`}
-                onClick={() => setActiveCategory(category)}
+                onClick={() => handleCategoryClick(category)}
               >
                 {category}
               </li>
@@ -53,7 +80,7 @@ export default function SecondNavbar() {
         </div>
       </div>
 
-      {/* Mobile View (hidden on desktop) */}
+      {/* Mobile View */}
       <div className="md:hidden">
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex overflow-x-auto hide-scrollbar space-x-4">
@@ -66,13 +93,13 @@ export default function SecondNavbar() {
                       ? "app-text-color border-b-2 border-app-color"
                       : "text-black"
                   }`}
-                onClick={() => setActiveCategory(category)}
+                onClick={() => handleCategoryClick(category)}
               >
                 {category}
               </div>
             ))}
           </div>
-          
+
           {!showMore && uniqueCategories.length > 5 && (
             <button 
               onClick={() => setShowMore(true)}
@@ -81,7 +108,7 @@ export default function SecondNavbar() {
               More ▼
             </button>
           )}
-          
+
           {showMore && (
             <button 
               onClick={() => setShowMore(false)}
@@ -98,15 +125,15 @@ export default function SecondNavbar() {
             {uniqueCategories.slice(5).map((category) => (
               <div
                 key={category}
-                className={`px-2 py-2 text-sm font-medium
+                className={`px-2 py-2 text-sm font-medium cursor-pointer
                   ${
                     activeCategory === category
                       ? "app-text-color"
                       : "text-black"
                   }`}
                 onClick={() => {
-                  setActiveCategory(category);
                   setShowMore(false);
+                  handleCategoryClick(category);
                 }}
               >
                 {category}
