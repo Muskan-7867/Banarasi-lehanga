@@ -4,7 +4,7 @@ import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 
 export default function Banner() {
   return (
-    <div className="w-full aspect-[16/6] relative  mt-34 lg:mt-40">
+    <div className="w-full aspect-[16/6] relative">
       <Image
         src="https://www.cbazaar.com/blog/wp-content/uploads/2020/01/WP_BLog_Jan21.jpg"
         alt="banner"

@@ -3,6 +3,7 @@ import { BiSearch, BiUserCircle, BiMenu } from "react-icons/bi";
 import { BsWhatsapp } from "react-icons/bs";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { useState } from "react";
+import Link from "next/link";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,12 +51,12 @@ const Navbar = () => {
 
       {/* Center Logo */}
       <div className="text-center mx-auto lg:mx-0">
-        <p className="text-lg md:text-2xl lg:text-4xl text-black font-bold font-serif tracking-tight">
+        <Link href="/" className="text-lg md:text-2xl lg:text-4xl text-black font-bold font-serif tracking-tight">
           BANARASI LEHANGA
-        </p>
-        <p className="font-medium text-black text-xs md:text-sm tracking-widest hidden lg:block">
+        </Link>
+        <Link href="/" className="font-medium text-black text-xs md:text-sm tracking-widest hidden lg:block">
           HOUSE
-        </p>
+        </Link>
       </div>
 
       {/* Right Icons */}

@@ -28,7 +28,7 @@ export default function Categories() {
   };
 
   return (
-    <div className="hidden lg:block w-full lg:w-64 p-4 border-b lg:border-r border-gray-200 text-black">
+    <div className="hidden lg:block w-full lg:w-64 p-4  lg:border-r border-gray-200 text-black">
       <div className="mb-6">
         <h1 className="text-xl font-bold">FILTERS</h1>
       </div>
