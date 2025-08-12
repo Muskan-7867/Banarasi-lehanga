@@ -1,63 +1,76 @@
 "use client";
-
 import React, { useState } from "react";
-import { useRouter } from "next/navigation"; // Important for client-side navigation
+import { useRouter } from "next/navigation";
+import CategoryDropdown from "@/components/ui/Category/CategoryDropdown";
 
 export default function SecondNavbar() {
-  const [activeCategory, setActiveCategory] = useState("BEST SELLERS");
+  const [activeCategory, setActiveCategory] = useState("");
   const [showMore, setShowMore] = useState(false);
   const router = useRouter();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [hoveredCategory, setHoveredCategory] = useState("");
+  const [dropdownPosition, setDropdownPosition] = useState({
+    left: 0,
+    width: 0
+  });
 
   const categories = [
-    "BEST SELLERS",
-    "BRIDAL",
-    "WOMEN",
-    "MEN",
-    "WEDDING",
+    "BRIDAL LEHANGA",
+    "PARTY WEAR",
     "GOWNS",
-    "LEHENGAS",
-    "JEWELRY",
-    "ACCESSORIES",
-    "FOOTWEAR",
-    "KIDS",
-    "HOME",
-    "SALE",
-    "NEW ARRIVALS"
+    "ARTIFICIAL JEWELLERY",
+    "BRIDAL CLUTCHES",
+    "FULKARIES",
+    "SUITS",
+    "WEDDING SHERVANIES",
+    "INDO WESTERN",
+    "DESIGNER COAT PENTS"
   ];
 
   const categoryRoutes: Record<string, string> = {
-    "BEST SELLERS": "/bestsellers",
-    "BRIDAL": "/bridal",
-    "WOMEN": "/women",
-    "MEN": "/men",
-    "WEDDING": "/wedding",
-    "GOWNS": "/gowns",
-    "LEHENGAS": "/lehengas",
-    "JEWELRY": "/jewelry/collections",
-    "ACCESSORIES": "/accessories",
-    "FOOTWEAR": "/footwear",
-    "KIDS": "/kids",
-    "HOME": "/home-decor",
-    "SALE": "/offers/sale",
-
-    "NEW ARRIVALS": "/products/new-arrivals"
+    "BRIDAL LEHANGA": "/bridal-lehanga",
+    "PARTY WEAR": "/partywear",
+    GOWNS: "/gowns",
+    "ARTIFICIAL JEWELLERY": "/artificialjewellery",
+    "BRIDAL CLUTCHES": "/bridalclutches",
+    FULKARIES: "/fulkaries",
+    SUITS: "/suits",
+    "WEDDING SHERVANIES": "/weddingshervanies",
+    "INDO WESTERN": "/indowestern",
+    "DESIGNER COAT PENTS": "/designercoatpents"
   };
 
   const handleCategoryClick = (category: string) => {
     const path = categoryRoutes[category];
     if (path) {
       setActiveCategory(category);
-      router.push(path); // Navigate to the correct page
+      router.push(path);
     } else {
       console.warn("No path defined for:", category);
     }
   };
 
+  const handleCategoryHover = (
+    category: string,
+    event: React.MouseEvent<HTMLLIElement>
+  ) => {
+    const target = event.currentTarget;
+    const rect = target.getBoundingClientRect();
+    setHoveredCategory(category);
+    setShowDropdown(true);
+    setDropdownPosition({
+      left: rect.left,
+      width: rect.width
+    });
+  };
+
   const uniqueCategories = [...new Set(categories)];
-  const visibleCategories = showMore ? uniqueCategories : uniqueCategories.slice(0, 5);
+  const visibleCategories = showMore
+    ? uniqueCategories
+    : uniqueCategories.slice(0, 5);
 
   return (
-    <div className="border-b border-gray-300 bg-white">
+    <div className="border-b border-gray-300 bg-white relative">
       {/* Desktop View */}
       <div className="hidden md:block">
         <div className="flex overflow-x-auto hide-scrollbar">
@@ -72,6 +85,8 @@ export default function SecondNavbar() {
                       : "text-black hover:text-app-color"
                   }`}
                 onClick={() => handleCategoryClick(category)}
+                onMouseEnter={(e) => handleCategoryHover(category, e)}
+                onMouseLeave={() => setShowDropdown(false)}
               >
                 {category}
               </li>
@@ -79,6 +94,13 @@ export default function SecondNavbar() {
           </ul>
         </div>
       </div>
+
+      {showDropdown && hoveredCategory && (
+        <CategoryDropdown
+          setShowDropdown={setShowDropdown}
+          hoveredCategory={hoveredCategory}
+        />
+      )}
 
       {/* Mobile View */}
       <div className="md:hidden">
@@ -101,7 +123,7 @@ export default function SecondNavbar() {
           </div>
 
           {!showMore && uniqueCategories.length > 5 && (
-            <button 
+            <button
               onClick={() => setShowMore(true)}
               className="ml-2 text-sm font-medium app-text-color whitespace-nowrap"
             >
@@ -110,7 +132,7 @@ export default function SecondNavbar() {
           )}
 
           {showMore && (
-            <button 
+            <button
               onClick={() => setShowMore(false)}
               className="ml-2 text-sm font-medium app-text-color whitespace-nowrap"
             >
