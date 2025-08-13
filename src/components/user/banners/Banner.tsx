@@ -1,24 +1,102 @@
+"use client"
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 
-export default function Banner() {
-  return (
-    <div className="w-full aspect-[16/6] relative">
-      <Image
-        src="https://www.cbazaar.com/blog/wp-content/uploads/2020/01/WP_BLog_Jan21.jpg"
-        alt="banner"
-        fill
-        className="object-cover"
-        priority
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1400px"
-      />
-      <div className="absolute top-1/2 left-4 -translate-y-1/2 ">
-        <SlArrowLeft size={28} />
-      </div>
+interface BannerProps {
+  image: {
+    src: string;
+    alt: string;
+  }[];
+  aspectRatio?: string; // e.g. "16/6"
+  autoPlay?: boolean;
+  interval?: number; // in milliseconds
+  showNavigation?: boolean;
+  priority?: boolean;
+}
 
-      <div className="absolute top-1/2 right-4 -translate-y-1/2 ">
-        <SlArrowRight size={28} />
+export default function Banner({
+  image,
+  aspectRatio = "16/6",
+  autoPlay = false,
+  interval = 5000,
+  showNavigation = true,
+  priority = false,
+}: BannerProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const goToPrevious = () => {
+    const isFirstImage = currentIndex === 0;
+    const newIndex = isFirstImage ? image.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
+  };
+
+  const goToNext = () => {
+    const isLastImage = currentIndex === image.length - 1;
+    const newIndex = isLastImage ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
+  };
+
+  // Auto-play functionality
+  React.useEffect(() => {
+    if (!autoPlay) return;
+
+    const timer = setInterval(() => {
+      goToNext();
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, [currentIndex, autoPlay, interval]);
+
+  if (image.length === 0) return null;
+
+  return (
+    <div className="w-full" style={{ aspectRatio }}>
+      <div className="relative w-full h-full">
+        <Image
+          src={image[currentIndex].src}
+          alt={image[currentIndex].alt}
+          fill
+          className="object-cover"
+          priority={priority}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1400px"
+        />
+
+        {showNavigation && image.length > 1 && (
+          <>
+            <button
+              onClick={goToPrevious}
+              className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all"
+              aria-label="Previous image"
+            >
+              <SlArrowLeft size={28} />
+            </button>
+
+            <button
+              onClick={goToNext}
+              className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all"
+              aria-label="Next image"
+            >
+              <SlArrowRight size={28} />
+            </button>
+          </>
+        )}
+
+        {/* Indicator dots */}
+        {image.length > 1 && (
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            {image.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-3 h-3 rounded-full transition-all ${
+                  index === currentIndex ? "bg-white" : "bg-white/50"
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
