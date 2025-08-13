@@ -1,5 +1,4 @@
 import React from "react";
-import Banner from "@/components/user/banners/Banner";
 import Features from "@/components/user/home/components/Features";
 import Products from "@/components/user/home/components/Products";
 import SwiperCards from "@/components/user/home/components/SwiperCards";
@@ -9,11 +8,12 @@ import ImageSections from "@/components/user/home/components/ImageSections";
 import GridBanner from "@/components/user/home/components/GridBanner";
 import BridalBaneer from "@/components/user/banners/BridalBaneer";
 import AppointmentBanner from "@/components/user/banners/AppointmentBanner";
+import HomeBanner from "@/components/user/home/components/HomeBanner";
 
 export default function Homepage() {
   return (
     <div className=" w-full min-h-screen flex flex-col">
-      <Banner />
+      <HomeBanner />
       <Features />
       <Products />
       <SwiperCards />
