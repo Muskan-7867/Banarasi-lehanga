@@ -32,7 +32,7 @@ export default function ImageWrapper({
       onMouseLeave={onMouseLeave}
       onClick={onClick}
       className={cn(
-        "relative w-full aspect-[3/4] overflow-hidden rounded-md shadow-sm hover:shadow-md transition-shadow",
+        "relative w-full aspect-[3/4] overflow-hidden  shadow-sm hover:shadow-md transition-shadow",
         className
       )}
     >

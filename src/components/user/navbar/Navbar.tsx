@@ -21,9 +21,6 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="absolute top-full left-0 w-full bg-white shadow-lg z-50 lg:hidden">
           <ul className="flex flex-col">
-            <li className="px-4 py-3 border-b border-gray-200 bg-black text-white font-medium">
-              BRIDAL
-            </li>
             <li className="px-4 py-3 border-b border-gray-200 text-black font-medium ">
               WOMEN
             </li>
@@ -37,24 +34,27 @@ const Navbar = () => {
       {/* Left Navigation (Desktop) */}
       <div className="hidden lg:block">
         <ul className="flex items-center gap-8">
-          <li className="bg-black text-white px-4 py-2 text-sm font-medium tracking-wider cursor-pointer hover:bg-gray-800 transition">
-            BRIDAL
-          </li>
-          <li className="text-gray-700 font-medium hover:text-black cursor-pointer transition">
+          <Link href="/" className="text-gray-700 font-medium hover:bg-black hover:text-white p-2 cursor-pointer transition ">
             WOMEN
-          </li>
-          <li className="text-gray-700 font-medium hover:text-black cursor-pointer transition">
+          </Link>
+          <Link href="/men" className="text-gray-700 font-medium hover:bg-black hover:text-white p-2 cursor-pointer transition">
             MEN
-          </li>
+          </Link>
         </ul>
       </div>
 
       {/* Center Logo */}
       <div className="text-center mx-auto lg:mx-0">
-        <Link href="/" className="text-lg md:text-2xl lg:text-4xl text-black font-bold font-serif tracking-tight">
+        <Link
+          href="/"
+          className="text-lg md:text-2xl lg:text-4xl text-black font-bold font-serif tracking-tight"
+        >
           BANARASI LEHANGA
         </Link>
-        <Link href="/" className="font-medium text-black text-xs md:text-sm tracking-widest hidden lg:block">
+        <Link
+          href="/"
+          className="font-medium text-black text-xs md:text-sm tracking-widest hidden lg:block"
+        >
           HOUSE
         </Link>
       </div>

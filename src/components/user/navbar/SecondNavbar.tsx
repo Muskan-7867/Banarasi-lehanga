@@ -30,11 +30,11 @@ export default function SecondNavbar() {
   const categoryRoutes: Record<string, string> = {
     "BRIDAL LEHANGA": "/bridal-lehanga",
     "PARTY WEAR": "/partywear",
-    GOWNS: "/gowns",
+    "GOWNS": "/gowns",
     "ARTIFICIAL JEWELLERY": "/artificialjewellery",
     "BRIDAL CLUTCHES": "/bridalclutches",
-    FULKARIES: "/fulkaries",
-    SUITS: "/suits",
+    "FULKARIES": "/fulkaries",
+    "SUITS": "/suits",
     "WEDDING SHERVANIES": "/weddingshervanies",
     "INDO WESTERN": "/indowestern",
     "DESIGNER COAT PENTS": "/designercoatpents"
