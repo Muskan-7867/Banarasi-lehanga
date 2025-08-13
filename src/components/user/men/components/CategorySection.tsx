@@ -179,7 +179,7 @@ const CategorySection = () => {
             transition={{ duration: 0.5, delay: index * 0.05 }}
             className="flex flex-col items-center min-w-fit"
           >
-            <div className="lg:w-32 lg:h-32 w-28 h-28 rounded-full shadow-md border-2 border-white hover:border-pink-600 transition-all duration-500 group overflow-hidden relative">
+            <div className="lg:w-40 lg:h-40 w-28 h-28 rounded-full shadow-md border-2 border-white hover:border-pink-600 transition-all duration-500 group overflow-hidden relative">
               <div className="absolute -top-12 w-12 h-[16rem] bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-16 -rotate-45 group-hover:translate-x-[11rem] transition-all duration-500" />
               <motion.img
                 src={
@@ -200,7 +200,7 @@ const CategorySection = () => {
       {showRightBtn && (
         <button
           onClick={scrollRight}
-          className="absolute right-6 top-[9rem] z-10 rounded-full w-8 h-8 flex items-center justify-center shadow-md hover:bg-gray-100 transition bg-white/80 backdrop-blur-sm border-primary border-1"
+          className="absolute right-6 top-[10rem] z-10 rounded-full w-8 h-8 flex items-center justify-center shadow-md hover:bg-gray-100 transition bg-white/80 backdrop-blur-sm border-primary border-1"
         >
           <FaChevronRight className="w-4 h-4 text-black" />
         </button>

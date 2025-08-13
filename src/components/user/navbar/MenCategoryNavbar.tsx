@@ -13,14 +13,14 @@ export const MenCategoryNavbar = () => {
   ];
 
   const categoryRoutes: Record<string, string> = {
-    "SEE ALL CATEGORIES": "/seeall",
-    "KURTA JACKET SETS": "/kurta-jacket-sets",
-    "KURTA SETS": "/kurtasets",
-    "INDOWESTERN": "/indowestern",
-    "NEW ARRIVAL": "/newarrival",
-    "SALE": "/sale",
-    "KIDS": "/kids",
-    "JODHPURIS": "/jodhpuries"
+    "SEE ALL CATEGORIES": "/men/seeall",
+    "KURTA JACKET SETS": "/men/kurtajacketsets",
+    "KURTA SETS": "/men/kurtasets",
+    "INDOWESTERN": "/men/indowestern",
+    "NEW ARRIVAL": "/men/newarrival",
+    "SALE": "/men/sale",
+    "KIDS": "/men/kids",
+    "JODHPURIS": "/men/jodhpuries"
   };
   
   return (

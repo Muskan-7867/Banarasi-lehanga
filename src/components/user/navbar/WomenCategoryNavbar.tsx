@@ -9,22 +9,22 @@ export const WomenCategoryNavbar = () => {
     "BRIDAL CLUTCHES",
     "FULKARIES",
     "SUITS",
-    "WEDDING SHERVANIES",
+ 
     "INDO WESTERN",
-    "DESIGNER COAT PENTS"
+   
   ];
 
   const categoryRoutes: Record<string, string> = {
-    "BRIDAL LEHANGA": "/bridal-lehanga",
-    "PARTY WEAR": "/partywear",
-    GOWNS: "/gowns",
-    "ARTIFICIAL JEWELLERY": "/artificialjewellery",
-    "BRIDAL CLUTCHES": "/bridalclutches",
-    FULKARIES: "/fulkaries",
-    SUITS: "/suits",
-    "WEDDING SHERVANIES": "/weddingshervanies",
-    "INDO WESTERN": "/indowestern",
-    "DESIGNER COAT PENTS": "/designercoatpents"
+    "BRIDAL LEHANGA": "/women/bridal-lehanga",
+    "PARTY WEAR": "/women/partywear",
+    GOWNS: "/women/gowns",
+    "ARTIFICIAL JEWELLERY": "/women/artificialjewellery",
+    "BRIDAL CLUTCHES": "/women/bridalclutches",
+    FULKARIES: "/women/fulkaries",
+    SUITS: "/women/suits",
+  
+    "INDO WESTERN": "/women/indowestern",
+   
   };
   return (
     <CategoryNavbar
