@@ -10,10 +10,10 @@ export default function Products() {
           Ready to Ship Styles
         </h1>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4  gap-1">
-          <ProductCard imageOverlay={<ImageNamingOverlay />} />
-          <ProductCard imageOverlay={<ImageNamingOverlay />} />
-         <ProductCard imageOverlay={<ImageNamingOverlay />} />
-         <ProductCard imageOverlay={<ImageNamingOverlay />} />
+          <ProductCard imageOverlay={<ImageNamingOverlay title="24 Hr dispatch" buttonText="Shop Now"/>} />
+          <ProductCard imageOverlay={<ImageNamingOverlay title="24 Hr dispatch" buttonText="Shop Now"/>} />
+          <ProductCard imageOverlay={<ImageNamingOverlay title="24 Hr dispatch" buttonText="Shop Now"/>} />
+          <ProductCard imageOverlay={<ImageNamingOverlay title="24 Hr dispatch" buttonText="Shop Now"/>} />
         </div>
       </div>
     </div>
