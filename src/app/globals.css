@@ -53,3 +53,12 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.hide-horizontal-scrollbar::-webkit-scrollbar:horizontal {
+  display: none;
+  height: 0;
+}
+.hide-horizontal-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
