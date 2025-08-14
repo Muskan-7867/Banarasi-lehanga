@@ -12,7 +12,7 @@ const Footer = () => {
   ];
 
   return (
-    <div className="bg-transparent w-full">
+    <div className="bg-transparent w-full mt-6">
       <div className="bg-gray-900 h-auto min-h-[25rem] p-6 sm:p-[4rem]">
         <div className="max-w-[85%] mx-auto">
           {/* Main content row */}
