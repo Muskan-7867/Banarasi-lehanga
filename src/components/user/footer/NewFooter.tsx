@@ -15,27 +15,27 @@ const NewFooter = () => {
         <Image
           alt="JuicerJag"
           src={saree}
-          className="w-[3rem] lg:w-[20rem] md:w-[8rem] aspect-auto cursor-pointer"
+          className="w-[3rem] lg:w-[9rem] md:w-[8rem] aspect-auto cursor-pointer"
         />
         <Image
           alt="JuicerJag"
           src={lehanga}
-          className="w-[3rem] lg:w-[15rem] md:w-[8rem] aspect-auto cursor-pointer"
+          className="w-[3rem] lg:w-[10rem] md:w-[8rem] aspect-auto cursor-pointer"
         />
         <Image
           alt="JuicerJag"
           src={suit}
-          className="w-[3rem] lg:w-[15rem] md:w-[8rem] aspect-auto cursor-pointer"
+          className="w-[3rem] lg:w-[6rem] md:w-[8rem] aspect-auto cursor-pointer"
         />
         <Image
           alt="JuicerJag"
           src={indo}
-          className="w-[3rem] lg:w-[15rem] md:w-[8rem] aspect-auto cursor-pointer"
+          className="w-[3rem] lg:w-[6rem] md:w-[8rem] aspect-auto cursor-pointer"
         />
         <Image
           alt="JuicerJag"
           src={saree1}
-          className="w-[3rem] lg:w-[16rem] md:w-[8rem] aspect-auto cursor-pointer"
+          className="w-[3rem] lg:w-[8rem] md:w-[8rem] aspect-auto cursor-pointer"
         />
       </div>
 

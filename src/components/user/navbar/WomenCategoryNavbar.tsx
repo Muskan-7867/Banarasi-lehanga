@@ -30,8 +30,8 @@ export const WomenCategoryNavbar = () => {
     <CategoryNavbar
       categories={categories}
       categoryRoutes={categoryRoutes}
-      activeColor="text-red-500" // Optional customization
-      borderColor="border-red-500" // Optional customization
+      activeColor="app-text-color" // Optional customization
+      borderColor="app-text-color" // Optional customization
       maxVisibleItems={6} // Optional customization
     />
   );
