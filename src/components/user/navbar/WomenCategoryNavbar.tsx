@@ -17,11 +17,11 @@ export const WomenCategoryNavbar = () => {
   const categoryRoutes: Record<string, string> = {
     "BRIDAL LEHANGA": "/women/bridal-lehanga",
     "PARTY WEAR": "/women/partywear",
-    GOWNS: "/women/gowns",
+    "GOWNS": "/women/gowns",
     "ARTIFICIAL JEWELLERY": "/women/artificialjewellery",
     "BRIDAL CLUTCHES": "/women/bridalclutches",
-    FULKARIES: "/women/fulkaries",
-    SUITS: "/women/suits",
+    "FULKARIES": "/women/fulkaries",
+    "SUITS": "/women/suits",
   
     "INDO WESTERN": "/women/indowestern",
    
