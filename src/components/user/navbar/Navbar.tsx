@@ -26,12 +26,12 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="absolute top-full left-0 w-full bg-white shadow-lg z-50 lg:hidden">
             <ul className="flex flex-col">
-              <li className="px-4 py-3 border-b border-gray-200 text-black font-medium ">
+              <Link href="/" className="px-4 py-3 border-b border-gray-200 text-black font-medium ">
                 WOMEN
-              </li>
-              <li className="px-4 py-3 border-b border-gray-200 text-black font-medium ">
+              </Link>
+              <Link href="/men" className="px-4 py-3 border-b border-gray-200 text-black font-medium ">
                 MEN
-              </li>
+              </Link>
             </ul>
           </div>
         )}
