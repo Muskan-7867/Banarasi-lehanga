@@ -1,4 +1,4 @@
-// components/VideoCard.tsx
+
 import React from "react";
 
 interface VideoCardProps {
@@ -20,30 +20,31 @@ export default function VideoCard({
   autoPlay = true,
   muted = true,
   loop = true,
-  controls = false,
+  controls = false
 }: VideoCardProps) {
   return (
-    <div className="w-full relative h-[35rem]  overflow-hidden">
+    <div className="w-full relative h-[18rem] lg:h-[36rem] overflow-hidden ">
       <video
-        className="w-full  object-cover"
+        className="w-full h-full object-cover"
         autoPlay={autoPlay}
         muted={muted}
         loop={loop}
         controls={controls}
         poster={posterSrc}
+        playsInline
       >
         <source src={videoSrc} type="video/mp4" />
         Your browser does not support HTML5 video.
       </video>
-      
+
       {imageOverlay && (
-        <div className="absolute inset-0 flex items-end p-4">
+        <div className="absolute inset-0 flex items-end p-4 pointer-events-none">
           {imageOverlay}
         </div>
       )}
-      
+
       {children && (
-        <div className="mt-2">
+        <div className="absolute bottom-4 left-4 text-white z-10">
           {children}
         </div>
       )}
