@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+
   images: {
     domains: [
       "kalki.gumlet.io",
@@ -11,7 +11,9 @@ const nextConfig: NextConfig = {
       "pinkchick.in",
       "clothsvilla.com",
       "www.blogswow.com",
-      "blogproxy.andaazfashion.com"
+      "blogproxy.andaazfashion.com",
+      "example.com",
+      "in.kalkifashion.com"
     ]
   }
 };
