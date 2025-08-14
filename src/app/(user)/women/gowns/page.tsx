@@ -1,15 +1,12 @@
-
-
-
-import Header from "@/components/user/navbar/Header";
 import Categories from "@/components/user/women/bridallehanga/components/Categories";
 import ProductsSection from "@/components/user/women/bridallehanga/components/ProductsSection";
+import GownHeader from "@/components/user/women/gowns/GownHeader";
 import React from "react";
 
 export default function BridalLehanga() {
   return (
     <div className="min-h-screen">
-      <Header/>
+      <GownHeader/>
       <div className="flex flex-col lg:flex-row mt-12 lg:mt-20 md:mt-28 px-4 sm:px-8 md:px-16 lg:px-32">
         <div className="lg:sticky  lg: top-20 lg:h-screen lg:overflow-y-hidden lg:pr-8">
           <Categories/>
