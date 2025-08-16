@@ -1,6 +1,6 @@
 "use client";
 import { BiSearch, BiUserCircle, BiMenu } from "react-icons/bi";
-import { BsWhatsapp } from "react-icons/bs";
+
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { useState } from "react";
 import Link from "next/link";
@@ -125,9 +125,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex gap-3 md:gap-4 text-gray-600">
-          <Link href="https://wa.me/yournumber" target="_blank" rel="noopener noreferrer">
-            <BsWhatsapp className="text-xl hover:text-green-600 transition hidden sm:block" />
-          </Link>
+   
           <button 
             type="button"
             onClick={handleUserClick}
