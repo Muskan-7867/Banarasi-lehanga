@@ -101,7 +101,7 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
     <section className="w-full px-4">
       <style>{css}</style>
       <div className="flex w-full items-center justify-center">
-        <div className="w-full relative">
+        <div className="w-full relative bg-green-200">
           <Swiper
             spaceBetween={10}
             autoplay={{
@@ -167,7 +167,7 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
           >
             {videos.map((video, index) => (
               <SwiperSlide key={index}>
-                <div className="h-[20rem] sm:h-[32rem] md:h-[36rem] lg:h-[38rem] w-full rounded-3xl">
+                <div className="h-[20rem] sm:h-[32rem] md:h-[36rem] lg:h-[38rem] w-full rounded-3xl border border-gray-900">
                   <video
                     src={video.src}
                     muted
