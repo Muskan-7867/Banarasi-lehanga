@@ -1,4 +1,4 @@
-import { VideoCarousel } from "@/components/ui/SwiperCard";
+import { VideoCarousel }  from "@/components/ui/SwiperCard";
 import React from "react";
 
 export default function SwiperCards() {

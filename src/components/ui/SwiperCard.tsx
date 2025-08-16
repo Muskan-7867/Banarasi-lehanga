@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import ReactPlayer from "react-player";
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -37,8 +36,14 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
   .swiper-slide {
     background-position: center;
     background-size: cover;
-    width: 80%;
-    max-width: 30rem;
+    width: 80%; /* Default width for mobile */
+    max-width: 30rem; /* Maximum width */
+  }
+  
+  .swiper-slide video {
+    display: block;
+    width: 100%;
+    height: auto;
   }
   
   .swiper-3d .swiper-slide-shadow-left,
@@ -46,6 +51,7 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
     background: none;
   }
 
+  /* Navigation buttons */
   .swiper-button-next,
   .swiper-button-prev {
     color: white;
@@ -53,7 +59,7 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    display: none;
+    display: none; /* Hidden by default on mobile */
   }
 
   .swiper-button-next::after,
@@ -61,6 +67,7 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
     font-size: 1.2rem;
   }
 
+  /* Pagination */
   .swiper-pagination-bullet {
     background: white;
     opacity: 0.5;
@@ -79,7 +86,7 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
     }
     .swiper-button-next,
     .swiper-button-prev {
-      display: flex;
+      display: flex; /* Show navigation on tablet+ */
     }
   }
 
@@ -160,24 +167,15 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
           >
             {videos.map((video, index) => (
               <SwiperSlide key={index}>
-                <div className="h-[20rem] sm:h-[32rem] md:h-[36rem] lg:h-[38rem] w-full rounded-3xl border border-gray-900 overflow-hidden">
-                  <ReactPlayer
-                    url={video.src}
-                    width="100%"
-                    height="100%"
-                    playing
+                <div className="h-[20rem] sm:h-[32rem] md:h-[36rem] lg:h-[38rem] w-full rounded-3xl border border-gray-900">
+                  <video
+                    src={video.src}
                     muted
+                    autoPlay
                     loop
-                    playsinline
-                    controls={true}
-                    config={{
-                      file: {
-                        attributes: {
-                          poster: video.poster || ""
-                        }
-                      }
-                    }}
-                    style={{ borderRadius: "1rem", objectFit: "cover" }}
+                    // playsInline
+                    poster={video.poster}
+                    className="h-full w-full rounded-xl object-cover"
                   />
                 </div>
               </SwiperSlide>
