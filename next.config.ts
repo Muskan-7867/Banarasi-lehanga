@@ -14,7 +14,8 @@ const nextConfig: NextConfig = {
       "blogproxy.andaazfashion.com",
       "example.com",
       "in.kalkifashion.com",
-      "cdn.shopify.com"
+      "cdn.shopify.com",
+      "res.cloudinary.com"
     ]
   }
 };

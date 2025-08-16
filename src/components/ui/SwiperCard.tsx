@@ -177,6 +177,7 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
                     poster={video.poster}
                     className="h-full w-full rounded-xl object-cover"
                     controls // Add controls for debugging
+                    crossOrigin="anonymous"
                   />
                 </div>
               </SwiperSlide>
