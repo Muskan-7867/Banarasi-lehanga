@@ -38,7 +38,7 @@ export default function ProductsSection() {
       <FilterBar />
       <div className="mt-6 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 px-2 md:px-0">
         {data.map((item, index) => (
-          <ProductCard key={index}>
+          <ProductCard key={index} images={[{src: item.image, alt: item.name}]}>
             <TitleWrapper title={item.name} price={item.price} />
           </ProductCard>
         ))}
