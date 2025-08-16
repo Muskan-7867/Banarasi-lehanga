@@ -4,7 +4,7 @@ import React from "react";
 export default function SwiperCards() {
   const videos = [
     {
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video1_ioikue.mp4",
+      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video1_ioikue.mp4?resource_type=video",
       alt: "Video 1",
       poster: "https://example.com/poster1.jpg"
     },
