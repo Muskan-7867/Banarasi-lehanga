@@ -6,9 +6,12 @@ import StyleProducts from "@/components/user/home/components/StyleProducts";
 import SecondBanner from "@/components/user/banners/SecondBanner";
 import ImageSections from "@/components/user/home/components/ImageSections";
 import GridBanner from "@/components/user/home/components/GridBanner";
-import BridalBaneer from "@/components/user/banners/BridalBaneer";
 import AppointmentBanner from "@/components/user/banners/AppointmentBanner";
 import HomeBanner from "@/components/user/home/components/HomeBanner";
+import SecondProductSection from "@/components/user/home/components/SecondProductSection";
+import WishListProducts from "@/components/user/home/components/WishlistProducts";
+import NewWeekProducts from "@/components/user/home/components/NewWeekProducts";
+import BudgetProducts from "@/components/user/home/components/BudgetProducts";
 
 export default function Homepage() {
   return (
@@ -17,16 +20,16 @@ export default function Homepage() {
       <Features />
       <Products />
       <SwiperCards />
-      <StyleProducts />
-      <Products />
+ 
+      <SecondProductSection />
+           <StyleProducts />
       <SecondBanner />
-      <StyleProducts />
+      <WishListProducts />
       <ImageSections />
-      <StyleProducts />
+      <NewWeekProducts />
       <GridBanner />
-      <Products  />
-      <BridalBaneer />
-      <Products />
+      <BudgetProducts />
+
       <AppointmentBanner />
     </div>
   );

@@ -13,7 +13,8 @@ const nextConfig: NextConfig = {
       "www.blogswow.com",
       "blogproxy.andaazfashion.com",
       "example.com",
-      "in.kalkifashion.com"
+      "in.kalkifashion.com",
+      "cdn.shopify.com"
     ]
   }
 };
