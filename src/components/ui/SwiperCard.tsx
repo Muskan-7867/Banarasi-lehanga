@@ -169,22 +169,19 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
               <SwiperSlide key={index}>
                 <div className="h-[20rem] sm:h-[32rem] md:h-[36rem] lg:h-[38rem] w-full rounded-3xl">
                   <video
-                    controls
+                    src={video.src}
                     muted
                     autoPlay
                     loop
-                    playsInline
+                    // playsInline
                     poster={video.poster}
                     className="h-full w-full rounded-xl object-cover"
-                  >
-                    <source src={video.src} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
+                  />
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
-          
+
           {showNavigation && (
             <>
               <div className="swiper-button-next hidden sm:flex"></div>
