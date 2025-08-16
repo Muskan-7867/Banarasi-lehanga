@@ -167,7 +167,7 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
           >
             {videos.map((video, index) => (
               <SwiperSlide key={index}>
-                <div className="h-[20rem] sm:h-[32rem] md:h-[36rem] lg:h-[38rem] w-full rounded-3xl border border-gray-900">
+                <div className="h-[20rem] sm:h-[32rem] md:h-[36rem] lg:h-[38rem] w-full rounded-3xl ">
                   <video
                     src={video.src}
                     muted
