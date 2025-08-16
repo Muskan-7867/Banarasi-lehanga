@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import ReactPlayer from "react-player";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -36,14 +36,14 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
   .swiper-slide {
     background-position: center;
     background-size: cover;
-    width: 80%; /* Default width for mobile */
-    max-width: 30rem; /* Maximum width */
+    width: 80%;
+    max-width: 30rem;
   }
   
-  .swiper-slide video {
+  .swiper-slide .react-player {
     display: block;
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: 100% !important;
   }
   
   .swiper-3d .swiper-slide-shadow-left,
@@ -59,7 +59,7 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    display: none; /* Hidden by default on mobile */
+    display: none;
   }
 
   .swiper-button-next::after,
@@ -86,7 +86,7 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
     }
     .swiper-button-next,
     .swiper-button-prev {
-      display: flex; /* Show navigation on tablet+ */
+      display: flex;
     }
   }
 
@@ -101,7 +101,7 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
     <section className="w-full px-4">
       <style>{css}</style>
       <div className="flex w-full items-center justify-center">
-        <div className="w-full relative bg-green-200">
+        <div className="w-full relative">
           <Swiper
             spaceBetween={10}
             autoplay={{
@@ -167,17 +167,24 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
           >
             {videos.map((video, index) => (
               <SwiperSlide key={index}>
-                <div className="h-[20rem] sm:h-[32rem] md:h-[36rem] lg:h-[38rem] w-full rounded-3xl border border-gray-900">
-                  <video
-                    src={video.src}
-                    muted
-                    autoPlay
-                    loop
-                    playsInline // Uncomment this
-                    poster={video.poster}
-                    className="h-full w-full rounded-xl object-cover"
-                    controls // Add controls for debugging
-                    crossOrigin="anonymous"
+                <div className="h-[20rem] sm:h-[32rem] md:h-[36rem] lg:h-[38rem] w-full rounded-3xl border border-gray-900 overflow-hidden">
+                  <ReactPlayer
+                    url={video.src}
+                    playing={true} // Autoplay
+                    loop={true}
+                    muted={true} // Required for autoplay
+                    width="100%"
+                    height="100%"
+                    playsinline={true}
+                    controls={false} // Set to true for debugging
+                    light={video.poster || false}
+                    config={{
+                      file: {
+                        attributes: {
+                          crossOrigin: "anonymous"
+                        }
+                      }
+                    }}
                   />
                 </div>
               </SwiperSlide>
