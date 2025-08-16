@@ -173,9 +173,10 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
                     muted
                     autoPlay
                     loop
-                    // playsInline
+                    playsInline // Uncomment this
                     poster={video.poster}
                     className="h-full w-full rounded-xl object-cover"
+                    controls // Add controls for debugging
                   />
                 </div>
               </SwiperSlide>
