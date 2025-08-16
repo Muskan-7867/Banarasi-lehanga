@@ -20,9 +20,9 @@ export default function Homepage() {
       <Features />
       <Products />
       <SwiperCards />
- 
+
       <SecondProductSection />
-           <StyleProducts />
+      <StyleProducts />
       <SecondBanner />
       <WishListProducts />
       <ImageSections />

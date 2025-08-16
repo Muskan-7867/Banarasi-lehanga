@@ -2,7 +2,7 @@ import React from "react";
 import ImageWrapper from "../wrappers/productcard/ImageWrapper";
 
 interface ProductCardProps {
-  images: { src: string; alt: string }[]; // array of images
+  images: { src: string; alt: string }[]; 
   imageOverlay?: React.ReactNode;
   children?: React.ReactNode;
 }
