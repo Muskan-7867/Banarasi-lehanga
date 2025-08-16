@@ -193,9 +193,9 @@ const SingleProductScreen = () => {
 
         {/* Options */}
         <div className="mb-6 space-y-4">
-          {product.options.map((option) => (
+          {product.options.map((option, index) => (
             <ProductOption
-              key={option.id}
+              key={index}
               name={option.name}
               price={option.price}
               description={option.description}
