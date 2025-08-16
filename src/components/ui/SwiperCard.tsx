@@ -3,6 +3,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ReactPlayer from "react-player";
+
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -40,18 +41,11 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
     max-width: 30rem;
   }
   
-  .swiper-slide .react-player {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
-  }
-  
   .swiper-3d .swiper-slide-shadow-left,
   .swiper-3d .swiper-slide-shadow-right {
     background: none;
   }
 
-  /* Navigation buttons */
   .swiper-button-next,
   .swiper-button-prev {
     color: white;
@@ -67,7 +61,6 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
     font-size: 1.2rem;
   }
 
-  /* Pagination */
   .swiper-pagination-bullet {
     background: white;
     opacity: 0.5;
@@ -101,7 +94,7 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
     <section className="w-full px-4">
       <style>{css}</style>
       <div className="flex w-full items-center justify-center">
-        <div className="w-full relative">
+        <div className="w-full relative bg-green-200">
           <Swiper
             spaceBetween={10}
             autoplay={{
@@ -170,21 +163,21 @@ export const VideoCarousel: React.FC<CarouselProps> = ({
                 <div className="h-[20rem] sm:h-[32rem] md:h-[36rem] lg:h-[38rem] w-full rounded-3xl border border-gray-900 overflow-hidden">
                   <ReactPlayer
                     url={video.src}
-                    playing={true} // Autoplay
-                    loop={true}
-                    muted={true} // Required for autoplay
                     width="100%"
                     height="100%"
-                    playsinline={true}
-                    controls={false} // Set to true for debugging
-                    light={video.poster || false}
+                    playing
+                    muted
+                    loop
+                    playsinline
+                    controls={true}
                     config={{
                       file: {
                         attributes: {
-                          crossOrigin: "anonymous"
+                          poster: video.poster || ""
                         }
                       }
                     }}
+                    style={{ borderRadius: "1rem", objectFit: "cover" }}
                   />
                 </div>
               </SwiperSlide>
