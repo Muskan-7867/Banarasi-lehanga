@@ -8,9 +8,9 @@ interface BannerProps {
     src: string;
     alt: string;
   }[];
-  aspectRatio?: string; // e.g. "16/6"
+  aspectRatio?: string;
   autoPlay?: boolean;
-  interval?: number; // in milliseconds
+  interval?: number; 
   showNavigation?: boolean;
   priority?: boolean;
 }
@@ -18,8 +18,8 @@ interface BannerProps {
 export default function Banner({
   image,
   aspectRatio = "16/6",
-  autoPlay = false,
-  interval = 5000,
+  autoPlay = true,
+  interval = 2000,
   showNavigation = true,
   priority = false,
 }: BannerProps) {
@@ -37,7 +37,6 @@ export default function Banner({
     setCurrentIndex(newIndex);
   };
 
-  // Auto-play functionality
   React.useEffect(() => {
     if (!autoPlay) return;
 

@@ -6,7 +6,7 @@ export default function SecondBanner() {
     <div className="flex justify-center px-2 sm:px-6">
       <div className="w-full max-w-[1600px] aspect-[16/8] lg:aspect-[16/4] md:aspect-[16/4] relative mt-4 ">
         <Image
-          src="https://www.samyakk.com/blog/wp-content/uploads/2023/10/Lehenga-Banner.gif"
+          src="https://kalki.gumlet.io/cdn/shop/files/video-shopping-banner.jpg?w=1438&"
           alt="banner"
           fill
           className="object-cover rounded-lg"
