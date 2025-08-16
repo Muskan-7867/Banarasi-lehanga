@@ -10,7 +10,7 @@ export default function ImageSections() {
       <div className="w-full max-w-screen-2xl aspect-[16/6] grid grid-cols-2 gap-4 md:gap-6">
         <div className="w-full h-48 md:h-auto relative grid grid-cols-2">
           <Image
-            src="https://www.samyakk.com/blog/wp-content/uploads/2024/04/Wedding-Lehenga-Collection-by-Samyakk.jpg"
+            src="https://kalki.gumlet.io/cdn/shop/files/1-editors-picks-blouse-all-country-420x568-desk-21-07-25.jpg?w=710&"
             alt="banner"
             fill
             className="object-cover rounded-lg"
@@ -21,7 +21,7 @@ export default function ImageSections() {
 
         <div className="w-full h-48 md:h-auto relative">
           <Image
-            src="https://clothsvilla.com/cdn/shop/articles/SeductiveMaroonThreadAndSequinsEmbroideredGeorgettePartyWearLehenga_4_885x610.jpg?v=1746706589"
+            src="https://kalki.gumlet.io/cdn/shop/files/2-editors-picks-indowestern-all-country-420x568-desk-23-07-25.jpg?w=710&"
             alt="banner"
             fill
             className="object-cover rounded-lg"

@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
@@ -16,14 +15,14 @@ import {
 } from "swiper/modules";
 
 interface CarouselProps {
-  images: { src: string; alt: string }[];
+  videos: { src: string; alt: string; poster?: string }[];
   autoplayDelay?: number;
   showPagination?: boolean;
   showNavigation?: boolean;
 }
 
-export const CardCarousel: React.FC<CarouselProps> = ({
-  images,
+export const VideoCarousel: React.FC<CarouselProps> = ({
+  videos,
   autoplayDelay = 1500,
   showPagination = true,
   showNavigation = true
@@ -41,7 +40,7 @@ export const CardCarousel: React.FC<CarouselProps> = ({
     max-width: 30rem; /* Maximum width */
   }
   
-  .swiper-slide img {
+  .swiper-slide video {
     display: block;
     width: 100%;
     height: auto;
@@ -104,7 +103,7 @@ export const CardCarousel: React.FC<CarouselProps> = ({
       <div className="flex w-full items-center justify-center">
         <div className="w-full relative">
           <Swiper
-            spaceBetween={10} // Default space between slides for all devices
+            spaceBetween={10}
             autoplay={{
               delay: autoplayDelay,
               disableOnInteraction: false,
@@ -118,9 +117,8 @@ export const CardCarousel: React.FC<CarouselProps> = ({
             loopAdditionalSlides={2}
             slidesPerView={"auto"}
             breakpoints={{
-              // when window width is >= 320px
               320: {
-                spaceBetween: 8, // Reduced from 10 to 8 for very small devices
+                spaceBetween: 8,
                 coverflowEffect: {
                   rotate: 0,
                   stretch: 0,
@@ -128,9 +126,8 @@ export const CardCarousel: React.FC<CarouselProps> = ({
                   modifier: 1
                 }
               },
-              // when window width is >= 640px
               640: {
-                spaceBetween: 12, // Reduced from 20 to 12 for sm devices
+                spaceBetween: 12,
                 coverflowEffect: {
                   rotate: 0,
                   stretch: 0,
@@ -138,9 +135,8 @@ export const CardCarousel: React.FC<CarouselProps> = ({
                   modifier: 1.5
                 }
               },
-              // when window width is >= 768px
               768: {
-                spaceBetween: 16, // Added intermediate step
+                spaceBetween: 16,
                 coverflowEffect: {
                   rotate: 0,
                   stretch: 0,
@@ -148,9 +144,8 @@ export const CardCarousel: React.FC<CarouselProps> = ({
                   modifier: 2
                 }
               },
-              // when window width is >= 1024px
               1024: {
-                spaceBetween: 20, // Keep original for larger devices
+                spaceBetween: 20,
                 coverflowEffect: {
                   rotate: 0,
                   stretch: 0,
@@ -170,23 +165,26 @@ export const CardCarousel: React.FC<CarouselProps> = ({
             }
             modules={[EffectCoverflow, Autoplay, Pagination, Navigation]}
           >
-            {images.map((image, index) => (
+            {videos.map((video, index) => (
               <SwiperSlide key={index}>
                 <div className="h-[20rem] sm:h-[32rem] md:h-[36rem] lg:h-[38rem] w-full rounded-3xl">
-                  <Image
-                    src={image.src}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 60vw"
-                    className="h-full w-full rounded-xl object-contain"
-                    alt={image.alt}
-                    priority={index < 3}
-                  />
+                  <video
+                    controls
+                    muted
+                    autoPlay
+                    loop
+                    playsInline
+                    poster={video.poster}
+                    className="h-full w-full rounded-xl object-cover"
+                  >
+                    <source src={video.src} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
           
-          {/* Custom navigation buttons */}
           {showNavigation && (
             <>
               <div className="swiper-button-next hidden sm:flex"></div>
