@@ -15,7 +15,8 @@ const nextConfig: NextConfig = {
       "example.com",
       "in.kalkifashion.com",
       "cdn.shopify.com",
-      "res.cloudinary.com"
+      "res.cloudinary.com",
+      "scontent.cdninstagram.com"
     ]
   }
 

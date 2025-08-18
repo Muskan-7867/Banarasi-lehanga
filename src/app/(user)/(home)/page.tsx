@@ -12,6 +12,7 @@ import SecondProductSection from "@/components/user/home/components/SecondProduc
 import WishListProducts from "@/components/user/home/components/WishlistProducts";
 import NewWeekProducts from "@/components/user/home/components/NewWeekProducts";
 import BudgetProducts from "@/components/user/home/components/BudgetProducts";
+import InstaSection from "@/components/user/home/components/InstaSection";
 
 export default function Homepage() {
   return (
@@ -29,7 +30,7 @@ export default function Homepage() {
       <NewWeekProducts />
       <GridBanner />
       <BudgetProducts />
-
+      <InstaSection />
       <AppointmentBanner />
     </div>
   );
