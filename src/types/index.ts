@@ -152,3 +152,18 @@ export interface SizeT {
   updatedAt: string;
   Product: ProductT[];
 }
+
+// types.ts (or inline)
+export type ProductQueryParamsT = {
+  maxPrice?: number;
+  minPrice?: number;
+  limit?: number;
+  page?: number;
+  categoryId?: string;
+  search?: string;
+};
+
+export type ProductsResponse = {
+  products: ProductT[] | undefined;
+  count: number;
+};
