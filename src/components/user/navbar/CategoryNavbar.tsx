@@ -38,6 +38,7 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
     left: 0,
     width: 0
   });
+  console.log(dropdownPosition)
 
   const handleCategoryClick = (category: string) => {
     const path = categoryRoutes[category];

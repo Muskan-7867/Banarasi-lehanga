@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 export default function LoginPage() {
   const [showSignup, setShowSignup] = useState(true);
+  console.log(showSignup)
 
   return (
     <Login

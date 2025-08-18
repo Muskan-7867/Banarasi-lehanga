@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { FaPlay, FaInstagram } from "react-icons/fa";
 import {
   emptypost,
@@ -15,36 +15,49 @@ import {
   post4
 } from "@/app/constants/imagePath";
 
+type VideoPost = {
+  type: "video";
+  videoSrc: string;
+  thumbnail: string | StaticImageData;
+};
+
+type ImagePost = {
+  type: "image";
+  src: string | StaticImageData;
+};
+
+type Post = VideoPost | ImagePost;
+
 const InstaSection = () => {
-  const posts = [
+  const posts: Post[] = [
     {
       type: "video",
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video1_hmfuqg.mp4",
+      videoSrc: "https://res.cloudinary.com/debzdd4wk/video/upload/video1_hmfuqg.mp4",
       thumbnail: post1
     },
     {
       type: "video",
-      thumbnail: emptypost,
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video2_leyclq.mp4"
+      videoSrc: "https://res.cloudinary.com/debzdd4wk/video/upload/video2_leyclq.mp4",
+      thumbnail: emptypost
     },
     {
       type: "video",
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video4_cenrlo.mp4",
+      videoSrc: "https://res.cloudinary.com/debzdd4wk/video/upload/video4_cenrlo.mp4",
       thumbnail: post2
     },
     {
       type: "video",
-      thumbnail: post3,
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video5_mmopix.mp4"
+      videoSrc: "https://res.cloudinary.com/debzdd4wk/video/upload/video5_mmopix.mp4",
+      thumbnail: post3
     },
     {
       type: "video",
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video6_kkiphh.mp4",
+      videoSrc: "https://res.cloudinary.com/debzdd4wk/video/upload/video6_kkiphh.mp4",
       thumbnail: post4
     },
     {
       type: "video",
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video3_buz0y9.mp4",
+      videoSrc: "https://res.cloudinary.com/debzdd4wk/video/upload/video3_buz0y9.mp4",
       thumbnail: emptypost
     },
     { type: "image", src: instapost1 },
@@ -65,7 +78,7 @@ const InstaSection = () => {
         </h2>
         <p className="text-lg md:text-xl text-black">
           Follow To Know More{" "}
-          <span className="text-pink-500">@banaraslehangahouse</span>
+          <span className="text-pink-500">@kalkifashion</span>
         </p>
       </div>
 
@@ -80,7 +93,7 @@ const InstaSection = () => {
               className="relative aspect-square overflow-hidden group"
             >
               {post.type === "image" ? (
-                // For images
+                // Image Posts
                 <div className="w-full h-full relative cursor-pointer">
                   <Image
                     src={post.src}
@@ -88,7 +101,7 @@ const InstaSection = () => {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  {/* Show Insta icon on hover for last 5 */}
+                  {/* Insta icon on hover for last 5 */}
                   {isLastFive && (
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                       <FaInstagram className="text-white text-3xl drop-shadow-lg" />
@@ -96,15 +109,15 @@ const InstaSection = () => {
                   )}
                 </div>
               ) : playingIndex === idx ? (
-                // Video when clicked
+            
                 <video
-                  src={post.src}
+                  src={post.videoSrc}
                   controls
                   autoPlay
                   className="w-full h-full object-cover"
                 />
               ) : (
-                // Video thumbnail with play icon
+                // Thumbnail with play button
                 <div
                   className="w-full h-full cursor-pointer relative"
                   onClick={() => setPlayingIndex(idx)}
@@ -116,7 +129,7 @@ const InstaSection = () => {
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <FaPlay className="text-white text-lg drop-shadow-lg" />
+                    <FaPlay className="text-white text-3xl drop-shadow-lg" />
                   </div>
                 </div>
               )}

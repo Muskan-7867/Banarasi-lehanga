@@ -45,7 +45,7 @@ export default function Banner({
     }, interval);
 
     return () => clearInterval(timer);
-  }, [currentIndex, autoPlay, interval]);
+  }, );
 
   if (image.length === 0) return null;
 
