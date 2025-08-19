@@ -38,7 +38,7 @@ interface ProductFormData {
   category: string;
   subcategory: string;
   size: string;
-  colors: string;
+  colors: string[];
   images: File[];
   existingImages?: ProductImageT[];
 }
@@ -69,7 +69,7 @@ export default function EditProductPage() {
     category: "",
     subcategory: "",
     size: "",
-    colors: "",
+    colors: [],
     images: [],
     existingImages: []
   });
@@ -98,7 +98,7 @@ export default function EditProductPage() {
         category: product.category?.id || "",
         subcategory: product.subcategory?.id || "",
         size: product.size?.id || "",
-        colors: product.colors?.id || "",
+       colors: product.colors?.map((color: ColorT) => color.id) || [],
         images: [],
         existingImages: product.images || []
       });

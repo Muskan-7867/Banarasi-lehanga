@@ -1,5 +1,5 @@
 import { ProductsResponse } from "@/app/admin/products/page";
-import { products } from "@/data/products";
+
 import {   ProductT } from "@/types";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -275,7 +275,7 @@ const deleteProduct = async (id: string) => {
 
 const fetchProductById = async (id: string): Promise<ProductT> => {
   try {
-    const resp = await axios.get(`${base_url}/product/single/${id}`, {
+    const resp = await axios.get(`${base_url}/product/${id}`, {
       headers: {
         authorization: getToken()
       }
@@ -284,28 +284,29 @@ const fetchProductById = async (id: string): Promise<ProductT> => {
       toast.error("failed to fetch product");
       throw new Error(resp.data.message || "Failed to fetch products");
     }
+    console.log("from fetchprodbyid", resp.data.data);
     return resp.data.data;
   } catch (error) {
     throw error;
   }
 };
 
-const updateProduct = async (id: string, product: ProductT) => {
-  console.log(id, products);
-
+// Update the updateProduct function signature
+const updateProduct = async (id: string, formData: FormData) => {
   try {
     const resp = await axios.put(
-      `${base_url}/product/update/${id}`,
-      { product },
+      `${base_url}/product/${id}`,
+      formData,
       {
         headers: {
-          authorization: getToken()
+          authorization: getToken(),
+          'Content-Type': 'multipart/form-data'
         }
       }
     );
-    return resp;
+    return resp.data;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -333,13 +334,26 @@ const updateProduct = async (id: string, product: ProductT) => {
     }
      console.log("from fetchprods", resp.data)
     return {
-      products: resp.data.data.products,
+      products: resp.data.data.products || resp.data.data,
       count: resp.data.data.count
     };
   } catch  {
     throw new Error("Failed to fetch products");
   }
 };
+
+
+const fetchProductsByTag = async (tag: string) => {
+  try {
+    const res = await axios.get(`${base_url}/product/tag/${encodeURIComponent(tag)}`);
+    return res.data; // ✅ axios already gives parsed JSON
+  } catch (error) {
+    console.error("Error fetching products by tag:", error);
+    throw error; // rethrow so React Query handles isError
+  }
+};
+
+export default fetchProductsByTag;
 
 export {
   createCategory,
@@ -362,5 +376,6 @@ export {
   deleteProduct,
   fetchProductById,
   updateProduct,
-  fetchAllProducts
+  fetchAllProducts,
+  fetchProductsByTag
 };

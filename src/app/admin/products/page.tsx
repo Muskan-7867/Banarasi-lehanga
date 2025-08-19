@@ -29,9 +29,10 @@ export default function AdminProductsPage() {
   // Fetch categories
   const { data: categories } = useQuery(getCategoriesQuery());
 
+
   // Fetch products with filters
   const {
-    data: productsData,
+    data: products,
     isLoading,
     error
   } = useQuery(
@@ -43,7 +44,13 @@ export default function AdminProductsPage() {
     })
   );
 
-  const totalProducts = productsData?.count || 0;
+  useEffect(() => {
+    if (products) {
+      console.log("from products page file", products.products);
+    }
+  });
+
+  const totalProducts = products?.count || 0;
   const totalPages = Math.ceil(totalProducts / pageSize);
 
   const handleDeleteProduct = async (productId: string) => {
@@ -99,8 +106,8 @@ export default function AdminProductsPage() {
         />
 
         {/* Products Table */}
-         <ProdTable
-          products={productsData?.products}
+        <ProdTable
+          products={products?.products}
           selectedCategory={selectedCategory}
           searchTerm={searchTerm}
           handleDeleteProduct={handleDeleteProduct}
@@ -117,7 +124,7 @@ export default function AdminProductsPage() {
         {/* Stats */}
         <ProductStats
           categories={categories}
-          products={productsData || { products: [], count: 0 }}
+          products={products || { products: [], count: 0 }}
         />
       </div>
     </AdminLayout>
