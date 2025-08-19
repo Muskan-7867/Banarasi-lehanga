@@ -5,7 +5,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
 
-export const base_url = "https://banarasi-server.onrender.com/api/v1";
+export const base_url = "http://localhost:8001/api/v1";
+
 
 const getToken = () => {
   return Cookies.get("token");
