@@ -1,22 +1,20 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
+
 
 interface FestiveBannerProps {
   title: string;
   subtitle: string;
   offerText: string;
-  code: string;
-  tncLink: string;
+ 
 }
 
 const CategoryHeader: React.FC<FestiveBannerProps> = ({
   title,
   subtitle,
   offerText,
-  code,
-  tncLink,
+
 }) => {
   return (
     <div className="w-full flex justify-center mt-4">
@@ -33,15 +31,7 @@ const CategoryHeader: React.FC<FestiveBannerProps> = ({
         <div className="flex flex-wrap items-center justify-center gap-2 md:pl-6 text-sm w-full md:w-auto">
           <span>{offerText}</span>
           <span className="hidden md:inline">|</span>
-          <span>
-            Use Code: <strong>{code}</strong>
-          </span>
-          <Link
-            href={tncLink}
-            className="underline ml-2 whitespace-nowrap text-xs"
-          >
-            *T&C
-          </Link>
+      
         </div>
       </div>
     </div>

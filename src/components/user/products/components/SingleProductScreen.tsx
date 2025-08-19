@@ -4,11 +4,48 @@ import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import ProductImage from "./ProductImage";
 import PriceDisplay from "./PriceDisplay";
-import { getProductByIdQuery, getProductsByTagQuery } from "@/lib/query";
-import ProductCard from "@/components/ui/ProductCard";
-import TitleWrapper from "@/components/wrappers/productcard/TitleWrapper";
-import Link from "next/link";
-import { ProductT } from "@/types";
+import { getProductByIdQuery } from "@/lib/query";
+import RelatedProducts from "./RelatedProducts";
+import CategoryHeader from "@/components/ui/Category/CategoryHeader";
+
+// Define header configurations based on tags
+const tagHeaders: Record<string, { 
+  title: string; 
+  subtitle: string; 
+  offerText: string; 
+  code: string; 
+  tncLink: string;
+}> = {
+  festive: {
+    title: "Festive Collection",
+    subtitle: "Special celebrations offers",
+    offerText: "Upto 50% OFF",
+    code: "FESTIVE50",
+    tncLink: "/terms/festive"
+  },
+  summer: {
+    title: "Summer Essentials",
+    subtitle: "Beat the heat with our collection",
+    offerText: "Upto 30% OFF",
+    code: "SUMMER30",
+    tncLink: "/terms/summer"
+  },
+  winter: {
+    title: "Winter Collection",
+    subtitle: "Stay warm and stylish",
+    offerText: "Upto 40% OFF",
+    code: "WINTER40",
+    tncLink: "/terms/winter"
+  },
+  // Add more tag configurations as needed
+  default: {
+    title: "Special Offers",
+    subtitle: "Check out our latest deals",
+    offerText: "Upto 20% OFF",
+    code: "GENERIC20",
+    tncLink: "/terms"
+  }
+};
 
 const SingleProductScreen = () => {
   const { id } = useParams();
@@ -19,32 +56,35 @@ const SingleProductScreen = () => {
     isError
   } = useQuery(getProductByIdQuery(id as string));
 
-  // Fetch related products by first tag (adjust if multiple tags)
- const {
-  data: relatedProducts,
-  isLoading: relatedLoading,
-  isError: relatedError,
-} = useQuery({
-  ...getProductsByTagQuery(product?.tag || ""), // always supply a tag
-  enabled: !!product?.tag, // only run if product has a tag
-});
-
   if (isLoading) return <p>Loading product...</p>;
   if (isError || !product) return <p>Product not found</p>;
 
+  // Get header configuration based on product tag or use default
+  const headerConfig = product.tag && tagHeaders[product.tag.toLowerCase()]
+    ? {
+        ...tagHeaders[product.tag.toLowerCase()],
+        title: `${product.tag.charAt(0).toUpperCase() + product.tag.slice(1)} Collection`
+      }
+    : tagHeaders.default;
+
   return (
     <div className="flex flex-col gap-12">
-      {/* Product Section */}
+      {/* Category Header with tag-specific content */}
+      <CategoryHeader {...headerConfig} />
+      
+      {/* Rest of your product display code remains the same */}
       <div className="flex flex-col md:flex-row gap-8">
         {/* Product Image */}
         <div className="md:w-2/4">
           <ProductImage
-            images={[
-              {
-                src: product.images?.[0]?.url || "/placeholder.png",
-                alt: product.name
-              }
-            ]}
+            images={
+              product.images && product.images.length > 0
+                ? product.images.map((img: { url: string }) => ({
+                    src: img.url,
+                    alt: product.name
+                  }))
+                : [{ src: "/placeholder.png", alt: product.name }]
+            }
           />
         </div>
 
@@ -113,37 +153,8 @@ const SingleProductScreen = () => {
       </div>
 
       {/* Related Products Section */}
-      {product?.tag && (
-        <div>
-          <h2 className="text-xl font-bold mb-4 text-center">
-            Related Products
-          </h2>
-          {relatedLoading && <p className="text-center">Loading...</p>}
-          {relatedError && (
-            <p className="text-center text-red-500">
-              Failed to load related products
-            </p>
-          )}
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            {relatedProducts
-              ?.filter((p: ProductT) => p.id !== product.id) // exclude current product
-              .slice(0, 4) // show max 4
-              .map((p: ProductT) => (
-                <Link key={p.id} href={`/products/${p.id}`}>
-                  <ProductCard
-                    images={[
-                      {
-                        src: p.images?.[0]?.url || "/placeholder.png",
-                        alt: p.name
-                      }
-                    ]}
-                  >
-                    <TitleWrapper title={p.name} price={p.price} />
-                  </ProductCard>
-                </Link>
-              ))}
-          </div>
-        </div>
+      {product.tag && (
+        <RelatedProducts productId={product.id} tag={product.tag} />
       )}
     </div>
   );
