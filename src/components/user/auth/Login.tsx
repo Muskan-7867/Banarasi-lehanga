@@ -1,7 +1,10 @@
+"use client";
 import { login } from "@/app/constants/imagePath";
+import { base_url } from "@/lib/services";
+import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { BiX } from "react-icons/bi";
 
 interface LoginProps {
@@ -10,11 +13,41 @@ interface LoginProps {
 
 function Login({ setShowSignup }: LoginProps) {
   const router = useRouter();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  // ✅ Input Change Handler
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // ✅ Submit Handler
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await axios.post(`${base_url}/auth/login`, formData);
+      console.log("✅ login Success:", res.data);
+
+      // Optionally store token
+      localStorage.setItem("token", res.data.token);
+
+      router.push("/");
+    } catch {
+      console.error("❌ login Error:");
+      alert("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="fixed inset-0  flex items-center justify-center z-[1000] p-4 overflow-y-auto">
-   
-
       <div className="bg-white rounded-lg w-full max-w-4xl relative overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-lg min-h-[500px]">
         {/* Left Image Panel - Hidden on small screens */}
         <div className="relative h-80 md:h-auto hidden md:block">
@@ -62,7 +95,7 @@ function Login({ setShowSignup }: LoginProps) {
           </div>
 
           {/* Form */}
-          <form className="w-full space-y-4">
+          <form onSubmit={handleSubmit} className="w-full space-y-4">
             {/* Email */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -70,7 +103,10 @@ function Login({ setShowSignup }: LoginProps) {
               </label>
               <input
                 type="email"
+                name="email"
+                value={formData.email}
                 placeholder="Enter email"
+                onChange={handleChange}
                 className="w-full px-4 py-2 border-b border-pink-300 rounded-md focus:outline-none text-black text-sm"
                 required
               />
@@ -83,7 +119,10 @@ function Login({ setShowSignup }: LoginProps) {
               </label>
               <input
                 type="password"
+                name="password"
+                value={formData.password}
                 placeholder="Enter password"
+                onChange={handleChange}
                 className="w-full px-4 py-2 border-b border-pink-300 rounded-md focus:outline-none text-black text-sm"
                 required
               />
@@ -99,9 +138,10 @@ function Login({ setShowSignup }: LoginProps) {
             {/* Submit */}
             <button
               type="submit"
+              disabled={loading}
               className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition-colors text-sm font-medium mt-4"
             >
-              Login
+              {loading ? "Logging in..." : "Login"}
             </button>
 
             {/* Terms */}
