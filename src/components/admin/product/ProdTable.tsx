@@ -17,6 +17,9 @@ export default function ProdTable({
   selectedCategory,
   handleDeleteProduct,
 }: ProdTableProps) {
+
+
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -80,10 +83,10 @@ export default function ProdTable({
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  <div className="font-medium">${product.price}</div>
+                  <div className="font-medium">₹{product.price}</div>
                   {product.originalPrice && (
                     <div className="text-gray-500 line-through text-xs">
-                      ${product.originalPrice}
+                      ₹{product.originalPrice}
                     </div>
                   )}
                 </td>

@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import {
   getCategoriesQuery,
   getSizesQuery,
@@ -23,13 +23,14 @@ interface ProductFormData {
   originalPrice: number;
   discount: number;
   tax: number;
-  quality: string;
-  category: string;
-  subcategory: string;
-  size: string;
-  colors: string;
+  qualityId: string;
+  categoryId: string;
+  subcategoryId: string;
+  sizeId: string;
+  colors: string[];
   inStock: boolean;
   images: File[];
+  tag: string;
 }
 
 export default function AddProductPage() {
@@ -47,50 +48,45 @@ export default function AddProductPage() {
     originalPrice: 0,
     discount: 0,
     tax: 0,
-    quality: "",
-    category: "",
-    subcategory: "",
-    size: "",
-    colors: "",
+    qualityId: "",
+    categoryId: "",
+    subcategoryId: "",
+    sizeId: "",
+    colors: [],
     inStock: true,
-    images: []
+    images: [],
+    tag: ""
   });
 
-  const [filteredSubcategories, setFilteredSubcategories] = useState<
-    SubCategoryT[]
-  >([]);
+  const [filteredSubcategories, setFilteredSubcategories] = useState<SubCategoryT[]>([]);
   const [filteredSizes, setFilteredSizes] = useState<SizeT[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
-
-
   // Filter subcategories based on selected category
   useEffect(() => {
-    if (formData.category && categories) {
+    if (formData.categoryId && categories) {
       const selectedCategory = categories.find(
-        (cat: CategoryT) => cat.id === formData.category
+        (cat: CategoryT) => cat.id === formData.categoryId
       );
       setFilteredSubcategories(selectedCategory?.subcategories || []);
-      setFormData((prev) => ({ ...prev, subcategory: "" }));
+      setFormData((prev) => ({ ...prev, subcategoryId: "" }));
     }
-  }, [formData.category, categories]);
+  }, [formData.categoryId, categories]);
 
   // Filter sizes based on selected category
   useEffect(() => {
-    if (formData.category && sizes) {
+    if (formData.categoryId && sizes) {
       const categorySizes = sizes.filter(
-        (size: SizeT) => size?.category?.id === formData.category
+        (size: SizeT) => size?.category?.id === formData.categoryId
       );
       setFilteredSizes(categorySizes);
-      setFormData((prev) => ({ ...prev, size: "" }));
+      setFormData((prev) => ({ ...prev, sizeId: "" }));
     }
-  }, [formData.category, sizes]);
+  }, [formData.categoryId, sizes]);
 
   const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value, type } = e.target;
     const checked =
@@ -107,149 +103,13 @@ export default function AddProductPage() {
     }));
   };
 
-  // const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (!e.target.files || e.target.files.length === 0) {
-  //     toast.error("No files selected");
-  //     return;
-  //   }
-
-  //   const files = Array.from(e.target.files);
-
-  //   // Check total image count
-  //   if (files.length + formData.images.length > 5) {
-  //     toast.error("Maximum 5 images allowed");
-  //     return;
-  //   }
-
-  //   // Validate each file
-  //   const validFiles: File[] = [];
-  //   const invalidFiles: string[] = [];
-
-  //   files.forEach((file) => {
-  //     if (!file.type.match("image.*")) {
-  //       invalidFiles.push(`${file.name} - not an image`);
-  //     } else if (file.size > 5 * 1024 * 1024) {
-  //       invalidFiles.push(`${file.name} - too large (max 5MB)`);
-  //     } else {
-  //       validFiles.push(file);
-  //     }
-  //   });
-
-  //   // Show errors for invalid files
-  //   if (invalidFiles.length > 0) {
-  //     toast.error(`Invalid files:\n${invalidFiles.join("\n")}`);
-  //   }
-
-  //   // If no valid files, return early
-  //   if (validFiles.length === 0) return;
-
-  //   // Update form data with valid files only
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     images: [...prev.images, ...validFiles]
-  //   }));
-
-  //   // Create previews for valid files
-  //   validFiles.forEach((file) => {
-  //     const reader = new FileReader();
-  //     reader.onload = (e) => {
-  //       if (e.target?.result) {
-  //         setImagePreviews((prev) => [...prev, e.target.result as string]);
-  //       }
-  //     };
-  //     reader.onerror = () => {
-  //       console.error(`Failed to read file: ${file.name}`);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   });
-
-  //   // Clear the input to allow selecting the same files again if needed
-  //   e.target.value = "";
-  // };
-
-  const removeImage = (index: number) => {
-    setFormData((prev) => ({
+  const handleColorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
+    setFormData(prev => ({
       ...prev,
-      images: prev.images.filter((_, i) => i !== index)
+      colors: selectedOptions
     }));
-    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
   };
-
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-
-  //   // Validation
-  //   if (
-  //     !formData.name ||
-  //     !formData.shortDescription ||
-  //     !formData.detailedDescription ||
-  //     !formData.price ||
-  //     !formData.originalPrice ||
-  //     !formData.quality ||
-  //     !formData.category ||
-  //     !formData.subcategory ||
-  //     !formData.size ||
-  //     !formData.colors
-  //   ) {
-  //     toast.error("Please fill all required fields");
-  //     return;
-  //   }
-
-  //   setIsSubmitting(true);
-  //   try {
-  //     const formDataToSend = new FormData();
-
-  //     // Append all form data
-  //     Object.entries(formData).forEach(([key, value]) => {
-  //       if (key === "images") {
-  //         formData.images.forEach((file) => {
-  //           formDataToSend.append("images", file);
-  //         });
-  //       } else {
-  //         formDataToSend.append(key, value.toString());
-  //       }
-  //     });
-
-  //     const response = await fetch(`${base_url}/product`, {
-  //       method: "POST",
-  //       body: formDataToSend
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to create product");
-  //     }
-
-  //     const result = await response.json();
-  //     toast.success("Product created successfully!");
-
-  //     // Reset form
-  //     setFormData({
-  //       name: "",
-  //       shortDescription: "",
-  //       detailedDescription: "",
-  //       price: 0,
-  //       originalPrice: 0,
-  //       discount: 0,
-  //       tax: 0,
-  //       quality: "",
-  //       category: "",
-  //       subcategory: "",
-  //       size: "",
-  //       colors: "",
-  //       inStock: true,
-  //       images: []
-  //     });
-  //     setImagePreviews([]);
-
-  //     // Redirect to products list or edit page
-  //     router.push(`/admin/products`);
-  //   } catch (error) {
-  //     console.error("Error creating product:", error);
-  //     toast.error("Failed to create product");
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) {
@@ -316,36 +176,59 @@ export default function AddProductPage() {
     e.target.value = "";
   };
 
+  const removeImage = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index)
+    }));
+    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("from form", formData)
 
     // Validation
-    if (
-      !formData.name ||
-      !formData.shortDescription ||
-      !formData.detailedDescription ||
-      !formData.price ||
-      !formData.originalPrice ||
-      !formData.quality ||
-      !formData.category ||
-      !formData.subcategory ||
-      !formData.size ||
-      !formData.colors
-    ) {
-      toast.error("Please fill all required fields");
-      return;
-    }
+   if (
+    !formData.name ||
+    !formData.shortDescription ||
+    !formData.detailedDescription ||
+    !formData.price ||
+    !formData.originalPrice ||
+    !formData.qualityId ||
+    !formData.categoryId ||
+    !formData.subcategoryId ||
+    !formData.sizeId ||
+    !formData.colors ||
+    (Array.isArray(formData.colors) && formData.colors.length === 0)
+  ) {
+    toast.error("Please fill all required fields");
+    return;
+  }
+
 
     setIsSubmitting(true);
     try {
       const formDataToSend = new FormData();
 
-      // Append all form data except images
+      // Append all form data except images and colors
       Object.entries(formData).forEach(([key, value]) => {
-        if (key !== "images") {
+        if (key !== "images" && key !== "colors") {
           formDataToSend.append(key, value.toString());
         }
       });
+
+      // Append colors as array
+     const colorsArray = Array.isArray(formData.colors)
+      ? formData.colors
+      : formData.colors
+      ? [formData.colors]
+      : [];
+
+    colorsArray.forEach((color) => {
+      formDataToSend.append("colors", color);
+    });
+
 
       // Append each image file separately
       formData.images.forEach((file) => {
@@ -374,13 +257,14 @@ export default function AddProductPage() {
         originalPrice: 0,
         discount: 0,
         tax: 0,
-        quality: "",
-        category: "",
-        subcategory: "",
-        size: "",
-        colors: "",
+        qualityId: "",
+        categoryId: "",
+        subcategoryId: "",
+        sizeId: "",
+        colors: [],
         inStock: true,
-        images: []
+        images: [],
+        tag: ""
       });
       setImagePreviews([]);
 
@@ -393,6 +277,7 @@ export default function AddProductPage() {
       setIsSubmitting(false);
     }
   };
+
   return (
     <AdminLayout>
       <div className="p-6 max-w-4xl mx-auto">
@@ -415,6 +300,21 @@ export default function AddProductPage() {
             />
           </div>
 
+          {/* Tag */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Product Tag
+            </label>
+            <input
+              type="text"
+              name="tag"
+              value={formData.tag}
+              onChange={handleInputChange}
+              className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-0 focus: ring-none"
+              placeholder="Enter product tag (optional)"
+            />
+          </div>
+
           {/* Category and Subcategory */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -422,8 +322,8 @@ export default function AddProductPage() {
                 Category *
               </label>
               <select
-                name="category"
-                value={formData.category}
+                name="categoryId"
+                value={formData.categoryId}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border text-black  border-gray-300 rounded-lg focus:ring-0 focus:ring-none"
                 required
@@ -445,12 +345,12 @@ export default function AddProductPage() {
                 Subcategory *
               </label>
               <select
-                name="subcategory"
-                value={formData.subcategory}
+                name="subcategoryId"
+                value={formData.subcategoryId}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-none"
                 required
-                disabled={!formData.category}
+                disabled={!formData.categoryId}
               >
                 <option value="" className="text-black">
                   Select Subcategory
@@ -471,12 +371,12 @@ export default function AddProductPage() {
                 Size *
               </label>
               <select
-                name="size"
-                value={formData.size}
+                name="sizeId"
+                value={formData.sizeId}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-0 focus:ring-none"
                 required
-                disabled={!formData.category}
+                disabled={!formData.categoryId}
               >
                 <option value="">Select Size</option>
                 {filteredSizes.map((size: SizeT) => (
@@ -492,8 +392,8 @@ export default function AddProductPage() {
                 Quality *
               </label>
               <select
-                name="quality"
-                value={formData.quality}
+                name="qualityId"
+                value={formData.qualityId}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-0 focus:ring-none"
                 required
@@ -508,33 +408,55 @@ export default function AddProductPage() {
               </select>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Color *
-              </label>
-              <select
-                name="colors"
-                value={formData.colors}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-0 focus:ring-none"
-                required
-              >
-                <option value="">Select Color</option>
-                {Array.isArray(colors) &&
-                  colors.map((color: ColorT) => (
-                    <option key={color.id} value={color.id}>
-                      {color.name}
-                    </option>
-                  ))}
-              </select>
-            </div>
+         <div>
+  <label className="block text-sm font-medium text-gray-700 mb-2">
+    Colors *
+  </label>
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2 p-3 border border-gray-300 rounded-lg">
+    {Array.isArray(colors) &&
+      colors.map((color: ColorT) => (
+        <div key={color.id} className="flex items-center">
+          <input
+            type="checkbox"
+            id={`color-${color.id}`}
+            value={color.id}
+            checked={formData.colors.includes(color.id)}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setFormData(prev => ({
+                  ...prev,
+                  colors: [...prev.colors, color.id]
+                }));
+              } else {
+                setFormData(prev => ({
+                  ...prev,
+                  colors: prev.colors.filter(id => id !== color.id)
+                }));
+              }
+            }}
+            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+          />
+          <label
+            htmlFor={`color-${color.id}`}
+            className="ml-2 block text-sm text-gray-900"
+          >
+            {color.name}
+          </label>
+        </div>
+      ))}
+  </div>
+  {formData.colors.length === 0 && (
+    <p className="mt-1 text-sm text-red-600">Please select at least one color</p>
+  )}
+</div>
           </div>
+
 
           {/* Pricing */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Price * ($)
+                Price * (₹)
               </label>
               <input
                 type="number"
@@ -551,7 +473,7 @@ export default function AddProductPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Original Price * ($)
+                Original Price * (₹)
               </label>
               <input
                 type="number"
@@ -664,8 +586,8 @@ export default function AddProductPage() {
                       src={preview}
                       alt={`Preview ${index + 1}`}
                       className="w-full h-24 object-cover rounded-lg"
-                      width={96} // Add width
-                      height={96} // Add height
+                      width={96}
+                      height={96}
                       unoptimized
                     />
                     <button

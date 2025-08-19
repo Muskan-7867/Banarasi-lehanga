@@ -69,6 +69,7 @@ export interface ProductT {
   originalPrice: number;
   discount: number;
   tax: number;
+  tag: string;
   categoryId?: string;
   category?: CategoryT;
   subcategoryId?: string;

@@ -13,8 +13,8 @@ export default function ImageOverlay({
   onButtonClick 
 }: ImageOverlayProps ) {
   return (
-    <div className="absolute inset-0 flex flex-col justify-end  p-4">
-      <div className="text-center space-y-2">
+    <div className="absolute inset-0 flex flex-col justify-end  p-4 bg-black/20">
+      <div className="text-center space-y-2 ">
         {title && <h3 className="text-white font-semibold  text-lg lg:text-2xl font-serif">{title}</h3>}
         {subtitle && <p className="text-white/90 text-xl">{subtitle}</p>}
         {buttonText && (

@@ -13,7 +13,7 @@ export default function ProductCard({
   imageOverlay
 }: ProductCardProps) {
   return (
-    <div className="w-full relative p-1 sm:p-3">
+    <div className="w-full relative p-1 sm:p-3 ">
      
         {images?.map((img, index) => (
           <ImageWrapper
