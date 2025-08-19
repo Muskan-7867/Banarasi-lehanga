@@ -64,7 +64,9 @@ export default function CategoryManagement() {
   const [categoryName, setCategoryName] = useState("");
   const [subcategoryName, setSubcategoryName] = useState("");
   const [selectedParentCategory, setSelectedParentCategory] = useState("");
-  const [editingCategory, setEditingCategory] = useState<CategoryT | null>(null);
+  const [editingCategory, setEditingCategory] = useState<CategoryT | null>(
+    null
+  );
   const [editingSubcategory, setEditingSubcategory] =
     useState<SubCategoryT | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
