@@ -1,8 +1,12 @@
+"use client"
 import ImageNamingOverlay from "@/components/ui/ImageNamingOverlay";
 import ProductCard from "@/components/ui/ProductCard";
+import { useRouter } from "next/navigation";
+
 import React from "react";
 
 export default function Products() {
+  const router = useRouter();
   return (
     <div className="flex justify-around px-1 py-2">
       <div className="w-full max-w-[94rem]">
@@ -19,6 +23,7 @@ export default function Products() {
               <ImageNamingOverlay
                 title="24 Hr dispatch"
                 buttonText="Shop Now"
+                onButtonClick={() => router.push("/women/partywear")}
               />
             }
           />
@@ -30,6 +35,8 @@ export default function Products() {
               <ImageNamingOverlay
                 title="Wedding Wardrobe '25"
                 buttonText="Shop Now"
+                onButtonClick={() => router.push("/women/gowns")}
+
               />
             }
           />
@@ -41,6 +48,8 @@ export default function Products() {
               <ImageNamingOverlay
                 title="Independence Specials"
                 buttonText="Shop Now"
+                onButtonClick={() => router.push("/women/suits")}
+
               />
             }
           />
@@ -52,6 +61,8 @@ export default function Products() {
               <ImageNamingOverlay
                 title="Bestsellers"
                 buttonText="Shop Now"
+                onButtonClick={() => router.push("/women/indowestern")}
+
               />
             }
           />
