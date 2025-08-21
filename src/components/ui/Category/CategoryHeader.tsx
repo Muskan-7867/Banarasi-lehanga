@@ -18,7 +18,7 @@ const CategoryHeader: React.FC<FestiveBannerProps> = ({
 }) => {
   return (
     <div className="w-full flex justify-center mt-4">
-      <div className="w-full md:w-[85%] bg-gradient-to-r from-[#f6f0f5] to-[#f6f0f5] text-black text-sm flex flex-col md:flex-row items-center justify-between p-4 font-light tracking-wide">
+      <div className="w-full md:w-[95%] bg-gradient-to-r from-[#f6f0f5] to-[#f6f0f5] text-black text-sm flex flex-col md:flex-row items-center justify-between p-4 font-light tracking-wide">
         {/* Left Section */}
         <div className="flex items-center md:border-r border-black pb-2 md:pb-0 md:pr-6 w-full md:w-auto">
           <div className="text-center w-full md:w-auto">

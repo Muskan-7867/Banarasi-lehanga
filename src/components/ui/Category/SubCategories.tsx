@@ -5,35 +5,19 @@ interface SubcategoriesType {
 
 export const subcategories: SubcategoriesType = {
     "BRIDAL LEHANGA": [
-      "Red Lehenga",
-      "White Lehenga",
-      "Designer Lehenga",
-      "Custom Lehenga"
+      "Upto 15k",
+      " Upto 15k & above",
+    
     ],
     "PARTY WEAR": [
-      "Cocktail Dresses",
-      "Evening Gowns",
-      "Party Sarees",
-      "Sequinned Outfits"
+     "Upto 15k",
+   " Upto 15 k & above",
     ],
-    "GOWNS": ["Bridal Gowns", "Evening Gowns", "Prom Gowns", "Designer Gowns"],
-    "ARTIFICIAL JEWELLERY": ["Necklaces", "Earrings", "Bangles", "Rings"],
-    "BRIDAL CLUTCHES": [
-      "Sequinned Clutches",
-      "Embroidered Clutches",
-      "Designer Clutches"
-    ],
-    "FULKARIES": [
-      "Traditional Fulkaries",
-      "Modern Fulkaries",
-      "Bridal Fulkaries"
-    ],
-    "SUITS": ["Designer Suits", "Anarkali Suits", "Pant Suits"],
-    "WEDDING SHERVANIES": [
-      "Traditional Shervanies",
-      "Modern Shervanies",
-      "Designer Shervanies"
-    ],
-    "INDO WESTERN": ["Fusion Wear", "Contemporary Styles", "Mix & Match"],
-    "DESIGNER COAT PENTS": ["Formal Coats", "Casual Coats", "Designer Coats"]
+   
+    "ARTIFICIAL JEWELLERY": ["Bridal Jewellery", "Party Wear Set", "Chudas", "Kalire", "American Diamond Jewellery", "Maiyan Stuff"],
+ 
+    
+    "SUITS": ["Unstiched Suits", "Readymate Suits", "Unstiched Partwear Anarkali Suits", "Unstiched Wedding Anarkali suits", "3 Pieces Articles"],
+
+     
   };
