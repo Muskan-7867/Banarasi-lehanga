@@ -1,5 +1,6 @@
 import React from "react";
-import ImageWrapper from "../wrappers/productcard/ImageWrapper";
+import  ImageWrapper  from "../wrappers/productcard/ImageWrapper";
+
 
 interface ProductCardProps {
   images: { src: string; alt: string }[]; 
