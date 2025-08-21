@@ -1,8 +1,8 @@
 
 
 import Categories from "@/components/user/women/bridallehanga/components/Categories";
-import ProductsSection from "@/components/user/women/bridallehanga/components/ProductsSection";
 import IndoHeader from "@/components/user/women/indowestern/components/IndoHeader";
+import IndoProducts from "@/components/user/women/indowestern/components/IndoProducts";
 import React from "react";
 
 export default function Indowestern() {
@@ -16,7 +16,7 @@ export default function Indowestern() {
 
         {/* Scrollable ProductsSection */}
         <div className="flex-1 lg:overflow-y-auto">
-          <ProductsSection />
+          <IndoProducts />
         </div>
       </div>
     </div>

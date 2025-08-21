@@ -1,7 +1,7 @@
 
 import Categories from "@/components/user/women/bridallehanga/components/Categories";
-import ProductsSection from "@/components/user/women/bridallehanga/components/ProductsSection";
 import FulkariHeader from "@/components/user/women/fulkaries/FulkariHeader";
+import FulkariProducts from "@/components/user/women/fulkaries/FulkariProducts";
 import React from "react";
 
 export default function BridalLehanga() {
@@ -15,7 +15,7 @@ export default function BridalLehanga() {
 
         {/* Scrollable ProductsSection */}
         <div className="flex-1 lg:overflow-y-auto">
-          <ProductsSection />
+          <FulkariProducts />
         </div>
       </div>
     </div>
