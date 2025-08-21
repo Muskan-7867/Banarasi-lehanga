@@ -1,4 +1,4 @@
-// components/user/products/components/RelatedProducts.tsx
+
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import ProductCard from "@/components/ui/ProductCard";

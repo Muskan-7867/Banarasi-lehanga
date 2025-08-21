@@ -9,35 +9,94 @@ import RelatedProducts from "./RelatedProducts";
 import CategoryHeader from "@/components/ui/Category/CategoryHeader";
 
 // Define header configurations based on tags
-const tagHeaders: Record<string, { 
-  title: string; 
-  subtitle: string; 
-  offerText: string; 
-  code: string; 
-  tncLink: string;
-}> = {
-  festive: {
-    title: "Festive Collection",
+const tagHeaders: Record<
+  string,
+  {
+    title: string;
+    subtitle: string;
+    offerText: string;
+    code: string;
+    tncLink: string;
+  }
+> = {
+  readytoshipstyles: {
+    title: "",
     subtitle: "Special celebrations offers",
     offerText: "Upto 50% OFF",
     code: "FESTIVE50",
     tncLink: "/terms/festive"
   },
-  summer: {
-    title: "Summer Essentials",
+ mostwishliststyles: {
+    title: "",
     subtitle: "Beat the heat with our collection",
     offerText: "Upto 30% OFF",
     code: "SUMMER30",
     tncLink: "/terms/summer"
   },
-  winter: {
+ bridallehanga: {
     title: "Winter Collection",
     subtitle: "Stay warm and stylish",
     offerText: "Upto 40% OFF",
     code: "WINTER40",
     tncLink: "/terms/winter"
   },
-  // Add more tag configurations as needed
+   partywear: {
+    title: "Winter Collection",
+    subtitle: "Stay warm and stylish",
+    offerText: "Upto 40% OFF",
+    code: "WINTER40",
+    tncLink: "/terms/winter"
+  },
+     gowns: {
+    title: "Winter Collection",
+    subtitle: "Stay warm and stylish",
+    offerText: "Upto 40% OFF",
+    code: "WINTER40",
+    tncLink: "/terms/winter"
+  },
+     artificialjewellery: {
+    title: "Winter Collection",
+    subtitle: "Stay warm and stylish",
+    offerText: "Upto 40% OFF",
+    code: "WINTER40",
+    tncLink: "/terms/winter"
+  },
+    bridalclutches: {
+    title: "Winter Collection",
+    subtitle: "Stay warm and stylish",
+    offerText: "Upto 40% OFF",
+    code: "WINTER40",
+    tncLink: "/terms/winter"
+  },  
+   fulkaries: {
+    title: "Winter Collection",
+    subtitle: "Stay warm and stylish",
+    offerText: "Upto 40% OFF",
+    code: "WINTER40",
+    tncLink: "/terms/winter"
+  },
+     suits: {
+    title: "Winter Collection",
+    subtitle: "Stay warm and stylish",
+    offerText: "Upto 40% OFF",
+    code: "WINTER40",
+    tncLink: "/terms/winter"
+  },
+     indowestern: {
+    title: "Winter Collection",
+    subtitle: "Stay warm and stylish",
+    offerText: "Upto 40% OFF",
+    code: "WINTER40",
+    tncLink: "/terms/winter"
+  },
+    newthisweek: {
+    title: "Winter Collection",
+    subtitle: "Stay warm and stylish",
+    offerText: "Upto 40% OFF",
+    code: "WINTER40",
+    tncLink: "/terms/winter"
+  },
+
   default: {
     title: "Special Offers",
     subtitle: "Check out our latest deals",
@@ -58,12 +117,16 @@ const SingleProductScreen = () => {
 
   if (isLoading) return <p>Loading product...</p>;
   if (isError || !product) return <p>Product not found</p>;
+  // Utility function to normalize tag names
+  const normalizeTag = (tag: string) => tag.toLowerCase().replace(/\s+/g, "");
 
   // Get header configuration based on product tag or use default
-  const headerConfig = product.tag && tagHeaders[product.tag.toLowerCase()]
+  const normalizedTag = normalizeTag(product.tag);
+
+  const headerConfig = tagHeaders[normalizedTag]
     ? {
-        ...tagHeaders[product.tag.toLowerCase()],
-        title: `${product.tag.charAt(0).toUpperCase() + product.tag.slice(1)} Collection`
+        ...tagHeaders[normalizedTag],
+        title: `${product.tag} Collection`
       }
     : tagHeaders.default;
 
@@ -71,7 +134,7 @@ const SingleProductScreen = () => {
     <div className="flex flex-col gap-12">
       {/* Category Header with tag-specific content */}
       <CategoryHeader {...headerConfig} />
-      
+
       {/* Rest of your product display code remains the same */}
       <div className="flex flex-col md:flex-row gap-8">
         {/* Product Image */}

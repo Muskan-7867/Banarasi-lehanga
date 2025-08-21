@@ -1,53 +1,50 @@
+"use client";
 import ProductCard from "@/components/ui/ProductCard";
 import TitleWrapper from "@/components/wrappers/productcard/TitleWrapper";
 import React from "react";
+import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import { getProductsByTagQuery } from "@/lib/query"; // make sure you added this
+import { ProductT } from "@/types";
 
 export default function NewWeekProducts() {
+  const tag ="New this Week"; // 👈 matches the tag in your DB
+
+  const { data, isLoading, isError } = useQuery(getProductsByTagQuery(tag));
+
+  if (isLoading) {
+    return <p className="text-center">Loading...</p>;
+  }
+
+  if (isError) {
+    return (
+      <p className="text-center text-red-500">
+        Failed to load wishlist products
+      </p>
+    );
+  }
+
   return (
     <div className="flex justify-around px-1 py-8">
       <div className="w-full max-w-[94rem]">
         <h1 className="text-2xl font-bold text-center text-black mb-4">
-          New This Week
+          {tag}
         </h1>
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4  gap-1">
-          <ProductCard   images={[
-              { src: "https://cdn.shopify.com/s/files/1/0636/0134/4666/files/purple-printed-sharara-set-sg339515-1.jpg?v=1754302229", alt: "Image 1" },
-             
-            ]}>
-            <TitleWrapper
-              title="Black Floral Printed Anarkali Set"
-              price={5000}
-            /> 
-          </ProductCard>
-               <ProductCard   images={[
-              { src: "https://cdn.shopify.com/s/files/1/0636/0134/4666/files/pastel-blue-kurta-set-with-mirror-embroidery-sg335692-1.jpg?v=1754139319", alt: "Image 1" },
-             
-            ]}>
-            <TitleWrapper
-              title="Pastel Blue Kurta Set With Mirror Embroidery
-
-"
-              price={5000}
-            />
-          </ProductCard>
-               <ProductCard   images={[
-              { src: "https://cdn.shopify.com/s/files/1/0636/0134/4666/files/bottle-green-tissue-lehenga-choli-with-floral-print-sg336658-1.jpg?v=1754907281", alt: "Image 1" },
-             
-            ]}>
-            <TitleWrapper
-              title="Bottle Green Tissue Lehenga Choli With Floral Print"
-              price={5000}
-            />
-          </ProductCard>
-               <ProductCard   images={[
-              { src: "https://cdn.shopify.com/s/files/1/0636/0134/4666/files/yellow-chinon-indo-western-set-with-embroidered-jacket-sg329648-1.jpg?v=1754907281", alt: "Image 1" },
-             
-            ]}>
-            <TitleWrapper
-              title="Yellow Chinon Indo Western Set With Embroidered Jacket"
-              price={5000}
-            />
-          </ProductCard>
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-1">
+          {data?.map((product: ProductT) => (
+            <Link key={product.id} href={`/products/${product.id}`}>
+              <ProductCard
+                images={[
+                  {
+                    src: product.images?.[0]?.url || "/placeholder.png",
+                    alt: product.name,
+                  },
+                ]}
+              >
+                <TitleWrapper title={product.name} price={product.price} />
+              </ProductCard>
+            </Link>
+          ))}
         </div>
       </div>
     </div>
