@@ -26,7 +26,7 @@ const Navbar = () => {
   return (
     <div className="h-16 md:h-20 lg:h-24 bg-white flex justify-around items-center px-4 md:px-6 lg:px-8 border-b border-gray-300 relative z-[500]">
       <div className="lg:hidden">
-        <button 
+        <button
           type="button"
           onClick={handleMenuToggle}
           className="p-1"
@@ -41,8 +41,8 @@ const Navbar = () => {
         <div className="absolute top-full left-0 w-full bg-white shadow-lg z-50 lg:hidden">
           <ul className="flex flex-col">
             <li>
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className="px-4 py-3 border-b border-gray-200 text-black font-medium block"
                 onClick={handleMobileLinkClick}
               >
@@ -50,8 +50,16 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link 
-                href="/men" 
+              <Link
+                href="/bridal"
+                className=" px-4 py-3 text-gray-700 font-medium hover:bg-black hover:text-white p-2 cursor-pointer transition"
+              >
+                BRIDAL
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/men"
                 className="px-4 py-3 border-b border-gray-200 text-black font-medium block"
                 onClick={handleMobileLinkClick}
               >
@@ -81,6 +89,14 @@ const Navbar = () => {
               className="text-gray-700 font-medium hover:bg-black hover:text-white p-2 cursor-pointer transition"
             >
               WOMEN
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/bridal"
+              className="text-gray-700 font-medium hover:bg-black hover:text-white p-2 cursor-pointer transition"
+            >
+              BRIDAL
             </Link>
           </li>
           <li>
@@ -125,8 +141,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex gap-3 md:gap-4 text-gray-600">
-   
-          <button 
+          <button
             type="button"
             onClick={handleUserClick}
             className="p-1"
@@ -134,11 +149,7 @@ const Navbar = () => {
           >
             <BiUserCircle className="text-xl md:text-2xl hover:text-black transition" />
           </button>
-          <button 
-            type="button"
-            className="p-1"
-            aria-label="Shopping cart"
-          >
+          <button type="button" className="p-1" aria-label="Shopping cart">
             <HiOutlineShoppingBag className="text-xl md:text-2xl hover:text-black transition" />
           </button>
         </div>

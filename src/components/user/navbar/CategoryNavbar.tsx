@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import CategoryDropdown from "@/components/ui/Category/CategoryDropdown";
+import { subcategories } from "@/components/ui/Category/SubCategories";
 
 interface CategoryNavbarProps {
   categories: string[];
@@ -15,7 +16,7 @@ interface CategoryNavbarProps {
     setShowDropdown: (show: boolean) => void;
     hoveredCategory: string;
   }>;
-   dropdownOnlyFor?: string;
+  dropdownOnlyFor?: string;
 }
 
 const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
@@ -38,7 +39,7 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
     left: 0,
     width: 0
   });
-  console.log(dropdownPosition)
+  console.log(dropdownPosition);
 
   const handleCategoryClick = (category: string) => {
     const path = categoryRoutes[category];
@@ -50,11 +51,20 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
     }
   };
 
+  // Check if a category has subcategories
+  const hasSubcategories = (category: string): boolean => {
+    return !!subcategories[category] && subcategories[category].length > 0;
+  };
+
   const handleCategoryHover = (
     category: string,
     event: React.MouseEvent<HTMLLIElement>
   ) => {
-    if (!dropdownOnlyFor || category === dropdownOnlyFor) {
+    // Only show dropdown if category has subcategories
+    if (
+      hasSubcategories(category) &&
+      (!dropdownOnlyFor || category === dropdownOnlyFor)
+    ) {
       const target = event.currentTarget;
       const rect = target.getBoundingClientRect();
       setHoveredCategory(category);
@@ -63,7 +73,13 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
         left: rect.left,
         width: rect.width
       });
+    } else {
+      setShowDropdown(false);
     }
+  };
+
+  const handleMouseLeave = () => {
+    setShowDropdown(false);
   };
 
   const uniqueCategories = [...new Set(categories)];
@@ -85,12 +101,20 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
                     activeCategory === category
                       ? `${activeColor} border-b-2 ${borderColor}`
                       : `${textColor} ${hoverColor}`
+                  }
+                  ${
+                    hasSubcategories(category)
+                      ? "cursor-pointer"
+                      : "cursor-default"
                   }`}
                 onClick={() => handleCategoryClick(category)}
                 onMouseEnter={(e) => handleCategoryHover(category, e)}
-                onMouseLeave={() => setShowDropdown(false)}
+                onMouseLeave={handleMouseLeave}
               >
                 {category}
+                {hasSubcategories(category) && (
+                  <span className="ml-1 text-xs">▼</span>
+                )}
               </li>
             ))}
           </ul>
@@ -120,6 +144,9 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
                 onClick={() => handleCategoryClick(category)}
               >
                 {category}
+                {hasSubcategories(category) && (
+                  <span className="ml-1 text-xs">▼</span>
+                )}
               </div>
             ))}
           </div>
@@ -157,6 +184,9 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
                 }}
               >
                 {category}
+                {hasSubcategories(category) && (
+                  <span className="ml-1 text-xs">▼</span>
+                )}
               </div>
             ))}
           </div>

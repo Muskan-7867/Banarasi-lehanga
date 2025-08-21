@@ -3,32 +3,26 @@ import CategoryNavbar from "./CategoryNavbar";
 export const MenCategoryNavbar = () => {
   const categories = [
     "SEE ALL CATEGORIES",
-    "KURTA JACKET SETS",
-    "KURTA SETS",
-    "INDOWESTERN",
-    "NEW ARRIVAL",
-    "SALE",
-    "KIDS",
-    "JODHPURIS"
+    "WEDDING SHERVANIES",
+    "DESIGNER COAT PENTS",
+    "PARTY WEAR INDOWESTERN",
+  
   ];
 
   const categoryRoutes: Record<string, string> = {
     "SEE ALL CATEGORIES": "/men/seeall",
-    "KURTA JACKET SETS": "/men/kurtajacketsets",
-    "KURTA SETS": "/men/kurtasets",
-    "INDOWESTERN": "/men/indowestern",
-    "NEW ARRIVAL": "/men/newarrival",
-    "SALE": "/men/sale",
-    "KIDS": "/men/kids",
-    "JODHPURIS": "/men/jodhpuries"
+    "WEDDING SHERVANIES": "/men/weddingshervanies",
+    "DESIGNER COAT PENTS": "/men/designercoatpents",
+    "PARTY WEAR INDOWESTERN": "/men/partywearindowestern",
+ 
   };
   
   return (
     <CategoryNavbar
       categories={categories}
       categoryRoutes={categoryRoutes}
-      activeColor="text-red-500"
-      borderColor="border-red-500"
+      activeColor="app-text-color"
+      borderColor="border-app-color"
       maxVisibleItems={6}
       dropdownOnlyFor="SEE ALL CATEGORIES" 
     />

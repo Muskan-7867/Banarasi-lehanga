@@ -5,6 +5,7 @@ import Header from "./Header";
 import { usePathname } from "next/navigation";
 import { WomenCategoryNavbar } from "./WomenCategoryNavbar";
 import { MenCategoryNavbar } from "./MenCategoryNavbar";
+import { BridalNavbar } from "./BridalNavbar";
 
 export default function MainNavbar() {
   const pathname = usePathname();
@@ -12,6 +13,7 @@ export default function MainNavbar() {
   // Determine which category navbar to show
   const showWomenNavbar = pathname === "/" || pathname.startsWith("/women");
   const showMenNavbar = pathname.startsWith("/men");
+  const commonNavbar = pathname.startsWith("/bridal");
 
   return (
     <div>
@@ -19,6 +21,7 @@ export default function MainNavbar() {
       <Navbar />
       {showWomenNavbar && <WomenCategoryNavbar />}
       {showMenNavbar && <MenCategoryNavbar />}
+      {commonNavbar && <BridalNavbar />}
     </div>
   );
 }
