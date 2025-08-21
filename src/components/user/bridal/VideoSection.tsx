@@ -1,7 +1,10 @@
+"use client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function VideoSection() {
+  const router = useRouter();
   return (
     <div className="w-screen overflow-hidden">
       {/* Fullscreen Video */}
@@ -15,8 +18,11 @@ export default function VideoSection() {
           className="w-full h-full object-cover"
         />
 
-              <div className="absolute bottom-10 inset-x-0 flex justify-center">
-          <button className="px-6 py-2 bg-white text-black rounded-full shadow-lg hover:bg-gray-200 transition">
+        <div className="absolute bottom-10 inset-x-0 flex justify-center">
+          <button
+            onClick={() => router.push("/bridal/bridal-lehanga")}
+            className="px-6 py-2 bg-white text-black rounded-full shadow-lg hover:bg-gray-200 transition cursor-pointer"
+          >
             See All
           </button>
         </div>
@@ -34,13 +40,16 @@ export default function VideoSection() {
 
         {/* Button at Bottom */}
         <div className="absolute bottom-10 inset-x-0 flex justify-center">
-          <button className="px-6 py-2 bg-white text-black rounded-full shadow-lg hover:bg-gray-200 transition">
+          <button
+            onClick={() => router.push("/bridal/bridal-unstiched-suits")}
+            className="px-6 py-2 bg-white text-black rounded-full shadow-lg hover:bg-gray-200 transition cursor-pointer"
+          >
             See All
           </button>
         </div>
       </div>
 
-         <div className="w-screen h-screen relative">
+      <div className="w-screen h-screen relative">
         <video
           src="https://kalki.gumlet.io/cdn/shop/videos/c/vp/acb9a72d676c446bb3823aaaebf78c89/acb9a72d676c446bb3823aaaebf78c89.HD-1080p-3.3Mbps-54959162.mp4?"
           autoPlay
@@ -50,8 +59,11 @@ export default function VideoSection() {
           className="w-full h-full object-cover"
         />
 
-              <div className="absolute bottom-10 inset-x-0 flex justify-center">
-          <button className="px-6 py-2 bg-white text-black rounded-full shadow-lg hover:bg-gray-200 transition">
+        <div className="absolute bottom-10 inset-x-0 flex justify-center">
+          <button
+            onClick={() => router.push("/bridal/bridal-lehanga")}
+            className="px-6 py-2 bg-white text-black rounded-full shadow-lg hover:bg-gray-200 transition cursor-pointer"
+          >
             Discover Bridal World
           </button>
         </div>

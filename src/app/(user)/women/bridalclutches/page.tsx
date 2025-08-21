@@ -1,10 +1,11 @@
 
+import Categories from "@/components/user/bridal/bridallehanga/components/Categories";
 import ClutchesHeader from "@/components/user/women/bridalclutches/ClutchesHeader";
 import ClutchesProducts from "@/components/user/women/bridalclutches/ClutchesProducts";
-import Categories from "@/components/user/women/bridallehanga/components/Categories";
+
 import React from "react";
 
-export default function BridalLehanga() {
+export default function ClutchesPage() {
   return (
     <div className="min-h-screen">
       <ClutchesHeader />

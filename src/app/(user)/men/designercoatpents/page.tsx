@@ -1,6 +1,7 @@
+import Categories from '@/components/user/bridal/bridallehanga/components/Categories';
 import CoatHeader from '@/components/user/men/coatpents/CoatHeader';
 import CoatPentProducts from '@/components/user/men/coatpents/CoatPentProducts';
-import Categories from '@/components/user/women/bridallehanga/components/Categories';
+
 import React from 'react'
 
 function CoatPentPage() {

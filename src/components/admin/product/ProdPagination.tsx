@@ -16,54 +16,51 @@ export default function ProdPagination({
 
   // Function to generate visible page numbers
   const getVisiblePages = () => {
-    const maxVisiblePages = 4;
-    const pages = [];
+    const maxVisiblePages = 5; // Show up to 5 pages including ellipsis
+    const pages: (number | string)[] = [];
 
     if (totalPages <= maxVisiblePages) {
-      // If total pages is less than or equal to max visible, show all
+      // Show all pages if total is less than max visible
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
     } else {
-      // Smart pagination logic
-      if (currentPage <= 2) {
-        // Show first 4 pages
-        for (let i = 1; i <= maxVisiblePages; i++) {
-          pages.push(i);
-        }
-        if (totalPages > maxVisiblePages) {
-          pages.push("...");
-          pages.push(totalPages);
-        }
-      } else if (currentPage >= totalPages - 1) {
-        // Show last 4 pages
-        pages.push(1);
-        if (totalPages > maxVisiblePages) {
-          pages.push("...");
-        }
-        for (let i = totalPages - maxVisiblePages + 1; i <= totalPages; i++) {
-          if (i > 1) pages.push(i);
-        }
-      } else {
-        // Show pages around current page
-        pages.push(1);
-        if (currentPage > 3) {
-          pages.push("...");
-        }
+      // Always show first page
+      pages.push(1);
 
-        // Show current page and neighbors
-        const start = Math.max(2, currentPage - 1);
-        const end = Math.min(totalPages - 1, currentPage + 1);
+      // Calculate start and end of visible page range
+      let startPage = Math.max(2, currentPage - 1);
+      let endPage = Math.min(totalPages - 1, currentPage + 1);
 
-        for (let i = start; i <= end; i++) {
-          pages.push(i);
-        }
-
-        if (currentPage < totalPages - 2) {
-          pages.push("...");
-        }
-        pages.push(totalPages);
+      // Adjust if we're near the beginning
+      if (currentPage <= 3) {
+        endPage = 4;
       }
+      
+      // Adjust if we're near the end
+      if (currentPage >= totalPages - 2) {
+        startPage = totalPages - 3;
+      }
+
+      // Add ellipsis after first page if needed
+      if (startPage > 2) {
+        pages.push("...");
+      }
+
+      // Add middle pages
+      for (let i = startPage; i <= endPage; i++) {
+        if (i > 1 && i < totalPages) {
+          pages.push(i);
+        }
+      }
+
+      // Add ellipsis before last page if needed
+      if (endPage < totalPages - 1) {
+        pages.push("...");
+      }
+
+      // Always show last page
+      pages.push(totalPages);
     }
 
     return pages;

@@ -1,10 +1,10 @@
 
-import Categories from "@/components/user/women/bridallehanga/components/Categories";
+import Categories from "@/components/user/bridal/bridallehanga/components/Categories";
 import FulkariHeader from "@/components/user/women/fulkaries/FulkariHeader";
 import FulkariProducts from "@/components/user/women/fulkaries/FulkariProducts";
 import React from "react";
 
-export default function BridalLehanga() {
+export default function FulkariesPage() {
   return (
     <div className="min-h-screen">
       <FulkariHeader/>

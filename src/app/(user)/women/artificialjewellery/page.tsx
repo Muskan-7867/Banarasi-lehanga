@@ -1,9 +1,11 @@
+import Categories from "@/components/user/bridal/bridallehanga/components/Categories";
 import JewelleryHeader from "@/components/user/women/artificialjewellery/JewelleryHeader";
 import JewelleryProducts from "@/components/user/women/artificialjewellery/JewelleryProducts";
-import Categories from "@/components/user/women/bridallehanga/components/Categories";
+
+
 import React from "react";
 
-export default function BridalLehanga() {
+export default function JewelleryPage() {
   return (
     <div className="min-h-screen">
       <JewelleryHeader/>

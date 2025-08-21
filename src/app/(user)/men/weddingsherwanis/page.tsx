@@ -1,6 +1,7 @@
+import Categories from '@/components/user/bridal/bridallehanga/components/Categories';
 import SherwaniHeader from '@/components/user/men/sherwanis/SherwaniHeader';
 import SherwanisProducts from '@/components/user/men/sherwanis/SherwanisProducts';
-import Categories from '@/components/user/women/bridallehanga/components/Categories';
+
 import React from 'react'
 
 function SherwaniesPage() {

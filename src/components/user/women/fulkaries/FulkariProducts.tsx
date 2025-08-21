@@ -8,7 +8,7 @@ import SectionHeading from "@/components/ui/Category/CategorySectionHeading";
 import { getProductsByTagQuery } from "@/lib/query";
 import { ProductT } from "@/types";
 import Link from "next/link";
-import FilterBar from "../bridallehanga/components/FilterBar";
+import FilterBar from "../../bridal/bridallehanga/components/FilterBar";
 
 export default function FulkariProducts() {
   const tag = "Fulkaries";

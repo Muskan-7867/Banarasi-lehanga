@@ -2,16 +2,16 @@ import CategoryNavbar from "./CategoryNavbar";
 
 export const MenCategoryNavbar = () => {
   const categories = [
-    "SEE ALL CATEGORIES",
-    "WEDDING SHERVANIES",
+
+    "WEDDING SHERWANIS",
     "DESIGNER COAT PENTS",
     "PARTY WEAR INDOWESTERN",
   
   ];
 
   const categoryRoutes: Record<string, string> = {
-    "SEE ALL CATEGORIES": "/men/seeall",
-    "WEDDING SHERVANIES": "/men/weddingshervanies",
+
+    "WEDDING SHERWANIS": "/men/weddingsherwanis",
     "DESIGNER COAT PENTS": "/men/designercoatpents",
     "PARTY WEAR INDOWESTERN": "/men/partywearindowestern",
  

@@ -1,11 +1,12 @@
 
 
-import Categories from "@/components/user/women/bridallehanga/components/Categories";
+import Categories from "@/components/user/bridal/bridallehanga/components/Categories";
+
 import IndoHeader from "@/components/user/women/indowestern/components/IndoHeader";
 import IndoProducts from "@/components/user/women/indowestern/components/IndoProducts";
 import React from "react";
 
-export default function Indowestern() {
+export default function IndowesternPage() {
   return (
     <div className="min-h-screen">
       <IndoHeader />

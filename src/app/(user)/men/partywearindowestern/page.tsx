@@ -1,8 +1,9 @@
-import Categories from "@/components/user/women/bridallehanga/components/Categories";
+
 
 import React from "react";
 import IndoWesternHeader from "@/components/user/men/partywearindowestern/IndoWesternHeader";
 import MenPartyProducts from "@/components/user/men/partywearindowestern/MenPartyProducts";
+import Categories from "@/components/user/bridal/bridallehanga/components/Categories";
 
 export default function PartyWearIndoWesternpage() {
   return (

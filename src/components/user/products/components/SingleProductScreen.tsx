@@ -15,94 +15,99 @@ const tagHeaders: Record<
     title: string;
     subtitle: string;
     offerText: string;
-    code: string;
-    tncLink: string;
+
   }
 > = {
   readytoshipstyles: {
     title: "",
     subtitle: "Special celebrations offers",
     offerText: "Upto 50% OFF",
-    code: "FESTIVE50",
-    tncLink: "/terms/festive"
+
   },
  mostwishliststyles: {
     title: "",
     subtitle: "Beat the heat with our collection",
     offerText: "Upto 30% OFF",
-    code: "SUMMER30",
-    tncLink: "/terms/summer"
+  
   },
  bridallehanga: {
     title: "Winter Collection",
     subtitle: "Stay warm and stylish",
     offerText: "Upto 40% OFF",
-    code: "WINTER40",
-    tncLink: "/terms/winter"
+
   },
    partywear: {
     title: "Winter Collection",
     subtitle: "Stay warm and stylish",
     offerText: "Upto 40% OFF",
-    code: "WINTER40",
-    tncLink: "/terms/winter"
+
   },
      gowns: {
     title: "Winter Collection",
     subtitle: "Stay warm and stylish",
     offerText: "Upto 40% OFF",
-    code: "WINTER40",
-    tncLink: "/terms/winter"
+
   },
      artificialjewellery: {
     title: "Winter Collection",
     subtitle: "Stay warm and stylish",
     offerText: "Upto 40% OFF",
-    code: "WINTER40",
-    tncLink: "/terms/winter"
+ 
   },
     bridalclutches: {
     title: "Winter Collection",
     subtitle: "Stay warm and stylish",
     offerText: "Upto 40% OFF",
-    code: "WINTER40",
-    tncLink: "/terms/winter"
+ 
   },  
    fulkaries: {
     title: "Winter Collection",
     subtitle: "Stay warm and stylish",
     offerText: "Upto 40% OFF",
-    code: "WINTER40",
-    tncLink: "/terms/winter"
+
   },
      suits: {
     title: "Winter Collection",
     subtitle: "Stay warm and stylish",
     offerText: "Upto 40% OFF",
-    code: "WINTER40",
-    tncLink: "/terms/winter"
+ 
   },
      indowestern: {
     title: "Winter Collection",
     subtitle: "Stay warm and stylish",
     offerText: "Upto 40% OFF",
-    code: "WINTER40",
-    tncLink: "/terms/winter"
+
   },
     newthisweek: {
     title: "Winter Collection",
     subtitle: "Stay warm and stylish",
     offerText: "Upto 40% OFF",
-    code: "WINTER40",
-    tncLink: "/terms/winter"
+ 
+  },
+    weddingsherwanis: {
+    title: "Winter Collection",
+    subtitle: "Stay warm and stylish",
+    offerText: "Upto 40% OFF",
+ 
+  },
+    designercoatpents: {
+    title: "Winter Collection",
+    subtitle: "Stay warm and stylish",
+    offerText: "Upto 40% OFF",
+ 
+  },
+    partywearindowestern: {
+    title: "Winter Collection",
+    subtitle: "Stay warm and stylish",
+    offerText: "Upto 40% OFF",
+ 
   },
 
   default: {
     title: "Special Offers",
     subtitle: "Check out our latest deals",
     offerText: "Upto 20% OFF",
-    code: "GENERIC20",
-    tncLink: "/terms"
+
   }
 };
 

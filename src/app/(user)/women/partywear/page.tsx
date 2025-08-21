@@ -1,9 +1,10 @@
-import Categories from "@/components/user/women/bridallehanga/components/Categories";
+import Categories from "@/components/user/bridal/bridallehanga/components/Categories";
+
 import React from "react";
 import PartyHeader from "../../../../components/user/women/partywear/PartyHeader";
 import PartyWearProducts from "@/components/user/women/partywear/PartyWearProducts";
 
-export default function BridalLehanga() {
+export default function PartyWearPage() {
   return (
     <div className="min-h-screen">
       <PartyHeader/>

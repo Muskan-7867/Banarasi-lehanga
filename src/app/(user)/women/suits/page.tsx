@@ -1,10 +1,11 @@
 
-import Categories from "@/components/user/women/bridallehanga/components/Categories";
+import Categories from "@/components/user/bridal/bridallehanga/components/Categories";
+
 import SuitHeader from "@/components/user/women/suits/SuitHeader";
 import SuitProducts from "@/components/user/women/suits/SuitProducts";
 import React from "react";
 
-export default function BridalLehanga() {
+export default function SuitsPage() {
   return (
     <div className="min-h-screen">
       <SuitHeader/>

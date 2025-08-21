@@ -20,6 +20,10 @@ import instapost2 from "../../../public/images/instapost2.jpg"
 import instapost3 from "../../../public/images/instapost3.jpg"
 import instapost4 from "../../../public/images/instapost4.jpg"
 import instapost5 from "../../../public/images/instapost5.jpg"
+import menbanner1 from "../../../public/images/banner1.jpg"
+import menbanner2 from "../../../public/images/banner2.avif"
+
+
 export {
     EasyReturn,
     delivery,
@@ -41,7 +45,9 @@ export {
     instapost2,
     instapost3,
     instapost4,
-    instapost5
+    instapost5,
+    menbanner1,
+    menbanner2
 
 
 }
