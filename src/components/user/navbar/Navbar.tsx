@@ -1,15 +1,21 @@
 "use client";
 import { BiSearch, BiUserCircle, BiMenu } from "react-icons/bi";
-
 import { HiOutlineShoppingBag } from "react-icons/hi";
-import { useState } from "react";
+import { useState, useEffect } from "react"; // Add useEffect import
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import useCart from "@/lib/hooks/useCart";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
+  const { cartCount, syncCartFromStorage } = useCart(); // Add syncCartFromStorage
+
+  // Add useEffect to sync cart on component mount
+  useEffect(() => {
+    syncCartFromStorage();
+  }, [syncCartFromStorage]);
 
   const handleUserClick = () => {
     router.push("/auth/register");
@@ -21,6 +27,10 @@ const Navbar = () => {
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleCartClick = () => {
+    router.push("/cart"); 
   };
 
   return (
@@ -149,8 +159,19 @@ const Navbar = () => {
           >
             <BiUserCircle className="text-xl md:text-2xl hover:text-black transition" />
           </button>
-          <button type="button" className="p-1" aria-label="Shopping cart">
+          <button 
+            type="button" 
+            className="p-1 relative" 
+            aria-label="Shopping cart"
+            onClick={handleCartClick}
+          >
             <HiOutlineShoppingBag className="text-xl md:text-2xl hover:text-black transition" />
+            {/* Cart Count Badge */}
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {cartCount > 9 ? '9+' : cartCount}
+              </span>
+            )}
           </button>
         </div>
       </div>

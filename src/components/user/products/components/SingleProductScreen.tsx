@@ -7,112 +7,13 @@ import PriceDisplay from "./PriceDisplay";
 import { getProductByIdQuery } from "@/lib/query";
 import RelatedProducts from "./RelatedProducts";
 import CategoryHeader from "@/components/ui/Category/CategoryHeader";
+import useCart from "@/lib/hooks/useCart";
+import { tagHeaders } from "./TageHeaders";
 
-// Define header configurations based on tags
-const tagHeaders: Record<
-  string,
-  {
-    title: string;
-    subtitle: string;
-    offerText: string;
-
-  }
-> = {
-  readytoshipstyles: {
-    title: "",
-    subtitle: "Special celebrations offers",
-    offerText: "Upto 50% OFF",
-
-  },
- mostwishliststyles: {
-    title: "",
-    subtitle: "Beat the heat with our collection",
-    offerText: "Upto 30% OFF",
-  
-  },
- bridallehanga: {
-    title: "Winter Collection",
-    subtitle: "Stay warm and stylish",
-    offerText: "Upto 40% OFF",
-
-  },
-   partywear: {
-    title: "Winter Collection",
-    subtitle: "Stay warm and stylish",
-    offerText: "Upto 40% OFF",
-
-  },
-     gowns: {
-    title: "Winter Collection",
-    subtitle: "Stay warm and stylish",
-    offerText: "Upto 40% OFF",
-
-  },
-     artificialjewellery: {
-    title: "Winter Collection",
-    subtitle: "Stay warm and stylish",
-    offerText: "Upto 40% OFF",
- 
-  },
-    bridalclutches: {
-    title: "Winter Collection",
-    subtitle: "Stay warm and stylish",
-    offerText: "Upto 40% OFF",
- 
-  },  
-   fulkaries: {
-    title: "Winter Collection",
-    subtitle: "Stay warm and stylish",
-    offerText: "Upto 40% OFF",
-
-  },
-     suits: {
-    title: "Winter Collection",
-    subtitle: "Stay warm and stylish",
-    offerText: "Upto 40% OFF",
- 
-  },
-     indowestern: {
-    title: "Winter Collection",
-    subtitle: "Stay warm and stylish",
-    offerText: "Upto 40% OFF",
-
-  },
-    newthisweek: {
-    title: "Winter Collection",
-    subtitle: "Stay warm and stylish",
-    offerText: "Upto 40% OFF",
- 
-  },
-    weddingsherwanis: {
-    title: "Winter Collection",
-    subtitle: "Stay warm and stylish",
-    offerText: "Upto 40% OFF",
- 
-  },
-    designercoatpents: {
-    title: "Winter Collection",
-    subtitle: "Stay warm and stylish",
-    offerText: "Upto 40% OFF",
- 
-  },
-    partywearindowestern: {
-    title: "Winter Collection",
-    subtitle: "Stay warm and stylish",
-    offerText: "Upto 40% OFF",
- 
-  },
-
-  default: {
-    title: "Special Offers",
-    subtitle: "Check out our latest deals",
-    offerText: "Upto 20% OFF",
-
-  }
-};
 
 const SingleProductScreen = () => {
   const { id } = useParams();
+  const { addProductToCart, RemoveProductFromCart , getCartProductIds } = useCart();
 
   const {
     data: product,
@@ -120,14 +21,33 @@ const SingleProductScreen = () => {
     isError
   } = useQuery(getProductByIdQuery(id as string));
 
+  // Check if product is already in cart
+  const isInCart = () => {
+    const cartProductIds = getCartProductIds();
+    return cartProductIds.includes(id as string);
+  };
+
+  const handleAddToCart = () => {
+    if (product) {
+      addProductToCart(product.id);
+     
+    }
+  };
+
+    const handleRemoveFromCart = () => {
+    if (product) {
+      RemoveProductFromCart(product.id);
+    }
+  };
+
   if (isLoading) return <p>Loading product...</p>;
   if (isError || !product) return <p>Product not found</p>;
+
   // Utility function to normalize tag names
   const normalizeTag = (tag: string) => tag.toLowerCase().replace(/\s+/g, "");
 
   // Get header configuration based on product tag or use default
   const normalizedTag = normalizeTag(product.tag);
-
   const headerConfig = tagHeaders[normalizedTag]
     ? {
         ...tagHeaders[normalizedTag],
@@ -209,13 +129,25 @@ const SingleProductScreen = () => {
           </div>
 
           {/* Buttons */}
-          <div className="flex justify-between gap-4 mb-2">
-            <button className="w-full py-3 bg-black text-white font-bold rounded-lg hover:bg-gray-800 transition">
-              ADD TO CART + ₹{product.price.toLocaleString()}
-            </button>
-            <button className="w-full py-3 border-2 border-black font-bold rounded-lg hover:bg-gray-50 transition">
-              BUY IT NOW
-            </button>
+          <div className="flex flex-col gap-4 mt-18">
+           {isInCart() ? (
+          <button
+            onClick={handleRemoveFromCart}
+            className="w-full py-3 bg-gray-200 text-white font-bold rounded-lg transition hover:bg-gray-300"
+          >
+            REMOVE FROM CART
+          </button>
+        ) : (
+          <button
+            onClick={handleAddToCart}
+            className="w-full py-3 bg-black text-white font-bold rounded-lg transition hover:bg-gray-800"
+          >
+            ADD TO CART + ₹${product.price.toLocaleString()}
+          </button>
+        )}
+        <button className="w-full py-3 border-2 border-black font-bold rounded-lg hover:bg-gray-50 transition">
+          BUY IT NOW
+        </button>
           </div>
         </div>
       </div>
