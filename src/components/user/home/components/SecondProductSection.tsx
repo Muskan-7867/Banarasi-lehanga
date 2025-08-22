@@ -18,6 +18,9 @@ export default function SecondProductSection() {
       Failed to load products
     </p>;
 
+  // Ensure data is an array before using slice
+  const products = Array.isArray(data) ? data : [];
+
   return (
     <div className="flex justify-around px-1 py-2">
       <div className="w-full max-w-[94rem]">
@@ -25,7 +28,7 @@ export default function SecondProductSection() {
           {tag}
         </h1>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-1">
-          {data?.slice(0, 4)?.map((product: ProductT) => (
+          {products.slice(0, 4).map((product: ProductT) => (
             <Link key={product.id} href={`/products/${product.id}`}>
               <ProductCard
                 images={[

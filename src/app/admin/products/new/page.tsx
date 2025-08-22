@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   getCategoriesQuery,
   getSizesQuery,
@@ -58,7 +58,9 @@ export default function AddProductPage() {
     tag: ""
   });
 
-  const [filteredSubcategories, setFilteredSubcategories] = useState<SubCategoryT[]>([]);
+  const [filteredSubcategories, setFilteredSubcategories] = useState<
+    SubCategoryT[]
+  >([]);
   const [filteredSizes, setFilteredSizes] = useState<SizeT[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
@@ -74,9 +76,10 @@ export default function AddProductPage() {
     }
   }, [formData.categoryId, categories]);
 
-  // Filter sizes based on selected category
+ 
   useEffect(() => {
-    if (formData.categoryId && sizes) {
+    if (formData.categoryId && Array.isArray(sizes)) {
+      // Add Array.isArray check
       const categorySizes = sizes.filter(
         (size: SizeT) => size?.category?.id === formData.categoryId
       );
@@ -86,7 +89,9 @@ export default function AddProductPage() {
   }, [formData.categoryId, sizes]);
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value, type } = e.target;
     const checked =
@@ -100,14 +105,6 @@ export default function AddProductPage() {
           : ["price", "originalPrice", "discount", "tax"].includes(name)
           ? parseFloat(value) || 0
           : value
-    }));
-  };
-
-  const handleColorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
-    setFormData(prev => ({
-      ...prev,
-      colors: selectedOptions
     }));
   };
 
@@ -172,7 +169,7 @@ export default function AddProductPage() {
       reader.readAsDataURL(file);
     });
 
-    // Clear the input to allow selecting the same files again if needed
+   
     e.target.value = "";
   };
 
@@ -186,26 +183,25 @@ export default function AddProductPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("from form", formData)
+    console.log("from form", formData);
 
     // Validation
-   if (
-    !formData.name ||
-    !formData.shortDescription ||
-    !formData.detailedDescription ||
-    !formData.price ||
-    !formData.originalPrice ||
-    !formData.qualityId ||
-    !formData.categoryId ||
-    !formData.subcategoryId ||
-    !formData.sizeId ||
-    !formData.colors ||
-    (Array.isArray(formData.colors) && formData.colors.length === 0)
-  ) {
-    toast.error("Please fill all required fields");
-    return;
-  }
-
+    if (
+      !formData.name ||
+      !formData.shortDescription ||
+      !formData.detailedDescription ||
+      !formData.price ||
+      !formData.originalPrice ||
+      !formData.qualityId ||
+      !formData.categoryId ||
+      !formData.subcategoryId ||
+      !formData.sizeId ||
+      !formData.colors ||
+      (Array.isArray(formData.colors) && formData.colors.length === 0)
+    ) {
+      toast.error("Please fill all required fields");
+      return;
+    }
 
     setIsSubmitting(true);
     try {
@@ -219,16 +215,15 @@ export default function AddProductPage() {
       });
 
       // Append colors as array
-     const colorsArray = Array.isArray(formData.colors)
-      ? formData.colors
-      : formData.colors
-      ? [formData.colors]
-      : [];
+      const colorsArray = Array.isArray(formData.colors)
+        ? formData.colors
+        : formData.colors
+        ? [formData.colors]
+        : [];
 
-    colorsArray.forEach((color) => {
-      formDataToSend.append("colors", color);
-    });
-
+      colorsArray.forEach((color) => {
+        formDataToSend.append("colors", color);
+      });
 
       // Append each image file separately
       formData.images.forEach((file) => {
@@ -245,7 +240,7 @@ export default function AddProductPage() {
       }
 
       const result = await response.json();
-      console.log(result)
+      console.log(result);
       toast.success("Product created successfully!");
 
       // Reset form
@@ -408,49 +403,52 @@ export default function AddProductPage() {
               </select>
             </div>
 
-         <div>
-  <label className="block text-sm font-medium text-gray-700 mb-2">
-    Colors *
-  </label>
-  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2 p-3 border border-gray-300 rounded-lg">
-    {Array.isArray(colors) &&
-      colors.map((color: ColorT) => (
-        <div key={color.id} className="flex items-center">
-          <input
-            type="checkbox"
-            id={`color-${color.id}`}
-            value={color.id}
-            checked={formData.colors.includes(color.id)}
-            onChange={(e) => {
-              if (e.target.checked) {
-                setFormData(prev => ({
-                  ...prev,
-                  colors: [...prev.colors, color.id]
-                }));
-              } else {
-                setFormData(prev => ({
-                  ...prev,
-                  colors: prev.colors.filter(id => id !== color.id)
-                }));
-              }
-            }}
-            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-          />
-          <label
-            htmlFor={`color-${color.id}`}
-            className="ml-2 block text-sm text-gray-900"
-          >
-            {color.name}
-          </label>
-        </div>
-      ))}
-  </div>
-  {formData.colors.length === 0 && (
-    <p className="mt-1 text-sm text-red-600">Please select at least one color</p>
-  )}
-</div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Colors *
+              </label>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2 p-3 border border-gray-300 rounded-lg">
+                {Array.isArray(colors) &&
+                  colors.map((color: ColorT) => (
+                    <div key={color.id} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        id={`color-${color.id}`}
+                        value={color.id}
+                        checked={formData.colors.includes(color.id)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setFormData((prev) => ({
+                              ...prev,
+                              colors: [...prev.colors, color.id]
+                            }));
+                          } else {
+                            setFormData((prev) => ({
+                              ...prev,
+                              colors: prev.colors.filter(
+                                (id) => id !== color.id
+                              )
+                            }));
+                          }
+                        }}
+                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      />
+                      <label
+                        htmlFor={`color-${color.id}`}
+                        className="ml-2 block text-sm text-gray-900"
+                      >
+                        {color.name}
+                      </label>
+                    </div>
+                  ))}
+              </div>
+              {formData.colors.length === 0 && (
+                <p className="mt-1 text-sm text-red-600">
+                  Please select at least one color
+                </p>
+              )}
+            </div>
           </div>
-
 
           {/* Pricing */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -24,6 +24,9 @@ export default function NewWeekProducts() {
     );
   }
 
+  const products = Array.isArray(data) ? data : [];
+
+
   return (
     <div className="flex justify-around px-1 py-8">
       <div className="w-full max-w-[94rem]">
@@ -31,7 +34,7 @@ export default function NewWeekProducts() {
           {tag}
         </h1>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-1">
-          {data?.map((product: ProductT) => (
+          {products?.map((product: ProductT) => (
             <Link key={product.id} href={`/products/${product.id}`}>
               <ProductCard
                 images={[

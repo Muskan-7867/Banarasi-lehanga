@@ -12,7 +12,7 @@ import {
   Menu,
   X,
   Bell,
-  Search,
+
   User,
   ShoppingCart,
 } from "lucide-react";
@@ -109,7 +109,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
               >
                 <Menu size={20} />
               </button>
-
+{/* 
               <div className="relative">
                 <Search
                   className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
@@ -120,7 +120,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
                   placeholder="Search..."
                   className="pl-10 pr-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent"
                 />
-              </div>
+              </div> */}
             </div>
 
             <div className="flex items-center space-x-4">

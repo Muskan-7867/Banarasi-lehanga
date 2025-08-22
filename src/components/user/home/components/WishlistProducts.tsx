@@ -4,11 +4,11 @@ import TitleWrapper from "@/components/wrappers/productcard/TitleWrapper";
 import React from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { getProductsByTagQuery } from "@/lib/query"; // make sure you added this
+import { getProductsByTagQuery } from "@/lib/query";
 import { ProductT } from "@/types";
 
 export default function WishListProducts() {
-  const tag = "Most WishList Styles"; // 👈 matches the tag in your DB
+  const tag = "Most WishList Styles";
 
   const { data, isLoading, isError } = useQuery(getProductsByTagQuery(tag));
 
@@ -24,6 +24,9 @@ export default function WishListProducts() {
     );
   }
 
+  // Ensure data is an array before using map
+  const products = Array.isArray(data) ? data : [];
+
   return (
     <div className="flex justify-around px-1 py-8">
       <div className="w-full max-w-[94rem]">
@@ -31,7 +34,7 @@ export default function WishListProducts() {
           {tag}
         </h1>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-1">
-          {data?.map((product: ProductT) => (
+          {products.map((product: ProductT) => (
             <Link key={product.id} href={`/products/${product.id}`}>
               <ProductCard
                 images={[

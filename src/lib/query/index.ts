@@ -46,21 +46,19 @@ const getProductByIdQuery = (id:string) => {
   pageSize: number;
   searchTerm?: string;
   category?: string;
+  search?: string
 }) => ({
-  queryKey: ["products", params.page, params.pageSize, params.searchTerm, params.category],
+  queryKey: ["products", params.page, params.pageSize, params.searchTerm, params.category, params.search],
   queryFn: () => fetchAllProducts(params),
 });
 
-
- const getProductsByTagQuery = (tag: string,) => {
+ const getProductsByTagQuery = (tag: string) => {
   return {
     queryKey: ["products", "tag", tag],
     queryFn: () => fetchProductsByTag(tag),
     staleTime: 1000 * 60 * 5,
-    
   };
 };
-
 
 
 

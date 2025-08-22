@@ -352,14 +352,13 @@ const fetchAllProducts = async (params?: {
 const fetchProductsByTag = async (tag: string) => {
   try {
     const res = await axios.get(`${base_url}/product/tag/${encodeURIComponent(tag)}`);
+    console.log("from frontend" , res.data);
     return res.data; // ✅ axios already gives parsed JSON
   } catch (error) {
     console.error("Error fetching products by tag:", error);
     throw error; // rethrow so React Query handles isError
   }
 };
-
-
 
 
 export {
