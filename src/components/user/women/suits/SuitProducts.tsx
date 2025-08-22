@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-
 import ProductCard from "@/components/ui/ProductCard";
 import TitleWrapper from "@/components/wrappers/productcard/TitleWrapper";
 import SectionHeading from "@/components/ui/Category/CategorySectionHeading";

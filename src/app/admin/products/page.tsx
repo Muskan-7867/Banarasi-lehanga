@@ -16,6 +16,8 @@ import { ProductT } from "@/types";
 export type ProductsResponse = {
   products: ProductT[];
   count: number;
+  totalPages?: number;
+  currentPage?: number;
 };
 
 export default function AdminProductsPage() {
@@ -29,10 +31,9 @@ export default function AdminProductsPage() {
   // Fetch categories
   const { data: categories } = useQuery(getCategoriesQuery());
 
-
   // Fetch products with filters
   const {
-    data: products,
+    data: productsResponse,
     isLoading,
     error
   } = useQuery(
@@ -44,14 +45,9 @@ export default function AdminProductsPage() {
     })
   );
 
-  useEffect(() => {
-    if (products) {
-      console.log("from products page file", products.products);
-    }
-  });
-
-  const totalProducts = products?.count || 0;
-  const totalPages = Math.ceil(totalProducts / pageSize);
+  const products = productsResponse?.products || [];
+  const totalProducts = productsResponse?.count || 0;
+  const totalPages = productsResponse?.totalPages || Math.ceil(totalProducts / pageSize);
 
   const handleDeleteProduct = async (productId: string) => {
     if (confirm("Are you sure you want to delete this product?")) {
@@ -107,11 +103,12 @@ export default function AdminProductsPage() {
 
         {/* Products Table */}
         <ProdTable
-          products={products?.products}
+          products={products} // Pass just the products array, not the entire response object
           selectedCategory={selectedCategory}
           searchTerm={searchTerm}
           handleDeleteProduct={handleDeleteProduct}
         />
+        
         {/* Pagination */}
         {totalPages > 1 && (
           <ProdPagination
@@ -124,7 +121,7 @@ export default function AdminProductsPage() {
         {/* Stats */}
         <ProductStats
           categories={categories}
-          products={products || { products: [], count: 0 }}
+          products={productsResponse || { products: [], count: 0 }}
         />
       </div>
     </AdminLayout>

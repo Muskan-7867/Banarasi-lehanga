@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import fetchProductsByTag, { fetchAllProducts, fetchProductById,  getCategories, getColor, getQuality, getSizes } from "../services";
+import { fetchAllProducts,  fetchProductById,  fetchProductsByTag,  getCategories, getColor, getQuality, getSizes } from "../services";
 
 
 const getCategoriesQuery = () => {
@@ -41,18 +41,16 @@ const getProductByIdQuery = (id:string) => {
 };
 
 
-const getProductsQuery = (params?: {
-  page?: number;
-  pageSize?: number;
+ const getProductsQuery = (params: {
+  page: number;
+  pageSize: number;
   searchTerm?: string;
   category?: string;
-}) => {
-  return {
-    queryKey: ["products", params],
-    queryFn: () => fetchAllProducts(params),
-    staleTime: 1000 * 60 * 5,
-  };
-};
+}) => ({
+  queryKey: ["products", params.page, params.pageSize, params.searchTerm, params.category],
+  queryFn: () => fetchAllProducts(params),
+});
+
 
  const getProductsByTagQuery = (tag: string,) => {
   return {
@@ -62,5 +60,8 @@ const getProductsQuery = (params?: {
     
   };
 };
+
+
+
 
 export { getCategoriesQuery, getSizesQuery, getQuanlityQuery, getColorQuery,getProductsQuery, getProductByIdQuery, getProductsByTagQuery };

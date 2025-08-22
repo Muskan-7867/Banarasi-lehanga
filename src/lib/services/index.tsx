@@ -311,7 +311,7 @@ const updateProduct = async (id: string, formData: FormData) => {
   }
 };
 
- const fetchAllProducts = async (params?: {
+const fetchAllProducts = async (params?: {
   page?: number;
   pageSize?: number;
   searchTerm?: string;
@@ -323,8 +323,8 @@ const updateProduct = async (id: string, formData: FormData) => {
         authorization: getToken()
       },
       params: {
-        page: params?.page,
-        limit: params?.pageSize,
+        page: params?.page || 1,
+        limit: params?.pageSize || 10,
         search: params?.searchTerm,
         category: params?.category
       }
@@ -333,13 +333,18 @@ const updateProduct = async (id: string, formData: FormData) => {
     if (!resp.data.success) {
       throw new Error(resp.data.message || "Failed to fetch products");
     }
-     console.log("from fetchprods", resp.data)
+    
+    // The response structure from ApiResponseUtil
+    const responseData = resp.data.data;
+    
     return {
-      products: resp.data.data.products || resp.data.data,
-      count: resp.data.data.count
+      products: responseData.products || [],
+      count: responseData.count || 0,
+      totalPages: responseData.totalPages || 1,
+      currentPage: responseData.currentPage || 1
     };
   } catch  {
-    throw new Error("Failed to fetch products");
+    throw new Error( "Failed to fetch products");
   }
 };
 
@@ -354,7 +359,8 @@ const fetchProductsByTag = async (tag: string) => {
   }
 };
 
-export default fetchProductsByTag;
+
+
 
 export {
   createCategory,
@@ -378,5 +384,6 @@ export {
   fetchProductById,
   updateProduct,
   fetchAllProducts,
-  fetchProductsByTag
+  fetchProductsByTag,
+
 };
