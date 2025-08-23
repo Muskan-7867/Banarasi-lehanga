@@ -1,12 +1,11 @@
 import { ProductsResponse } from "@/app/admin/products/page";
 
-import {   ProductT } from "@/types";
+import { ProductT } from "@/types";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
 
 export const base_url = "http://localhost:8001/api/v1";
-
 
 const getToken = () => {
   return Cookies.get("token");
@@ -259,8 +258,6 @@ const deleteColor = async (id: string) => {
   }
 };
 
-
-
 const deleteProduct = async (id: string) => {
   try {
     const resp = await axios.delete(`${base_url}/product/${id}`, {
@@ -295,16 +292,12 @@ const fetchProductById = async (id: string): Promise<ProductT> => {
 // Update the updateProduct function signature
 const updateProduct = async (id: string, formData: FormData) => {
   try {
-    const resp = await axios.put(
-      `${base_url}/product/${id}`,
-      formData,
-      {
-        headers: {
-          authorization: getToken(),
-          'Content-Type': 'multipart/form-data'
-        }
+    const resp = await axios.put(`${base_url}/product/${id}`, formData, {
+      headers: {
+        authorization: getToken(),
+        "Content-Type": "multipart/form-data"
       }
-    );
+    });
     return resp.data;
   } catch (error) {
     throw error;
@@ -329,30 +322,31 @@ const fetchAllProducts = async (params?: {
         category: params?.category
       }
     });
-    
+
     if (!resp.data.success) {
       throw new Error(resp.data.message || "Failed to fetch products");
     }
-    
+
     // The response structure from ApiResponseUtil
     const responseData = resp.data.data;
-    
+
     return {
       products: responseData.products || [],
       count: responseData.count || 0,
       totalPages: responseData.totalPages || 1,
       currentPage: responseData.currentPage || 1
     };
-  } catch  {
-    throw new Error( "Failed to fetch products");
+  } catch {
+    throw new Error("Failed to fetch products");
   }
 };
 
-
 const fetchProductsByTag = async (tag: string) => {
   try {
-    const res = await axios.get(`${base_url}/product/tag/${encodeURIComponent(tag)}`);
-    console.log("from frontend" , res.data);
+    const res = await axios.get(
+      `${base_url}/product/tag/${encodeURIComponent(tag)}`
+    );
+    console.log("from frontend", res.data);
     return res.data; // ✅ axios already gives parsed JSON
   } catch (error) {
     console.error("Error fetching products by tag:", error);
@@ -378,11 +372,10 @@ export {
   getColor,
   updateColor,
   deleteColor,
-
   deleteProduct,
   fetchProductById,
   updateProduct,
   fetchAllProducts,
   fetchProductsByTag,
-
+ 
 };

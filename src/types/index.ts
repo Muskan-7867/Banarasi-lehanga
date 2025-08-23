@@ -75,7 +75,7 @@ export interface ProductT {
   subcategoryId?: string;
   subcategory?: SubCategoryT;
   sizeId?: string;
-  size?: SizeT;
+  size?: SizeT | undefined;
   qualityId?: string;
   quality?: QualityT;
   colors: ColorT[];

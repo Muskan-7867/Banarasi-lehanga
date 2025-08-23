@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { fetchAllProducts,  fetchProductById,  fetchProductsByTag,  getCategories, getColor, getQuality, getSizes } from "../services";
+import { fetchAllProducts,  fetchProductById,   fetchProductsByTag,  getCategories, getColor, getQuality, getSizes } from "../services";
 
 
 const getCategoriesQuery = () => {
@@ -59,6 +59,8 @@ const getProductByIdQuery = (id:string) => {
     staleTime: 1000 * 60 * 5,
   };
 };
+
+
 
 
 
