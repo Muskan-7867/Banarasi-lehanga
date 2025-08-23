@@ -14,12 +14,11 @@ interface RegisterProps {
 function Register({ setShowSignup }: RegisterProps) {
   const router = useRouter();
 
-  // ✅ Form State
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     phone: "",
-    password: "",
+    password: ""
   });
 
   const [loading, setLoading] = useState(false);
@@ -40,11 +39,12 @@ function Register({ setShowSignup }: RegisterProps) {
 
       // Optionally store token
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userEmail", formData.email);
 
       router.push("/auth/login");
-    } catch  {
+    } catch {
       console.error("❌ Register Error:");
-      alert( "Something went wrong!");
+      alert("Something went wrong!");
     } finally {
       setLoading(false);
     }
@@ -82,16 +82,19 @@ function Register({ setShowSignup }: RegisterProps) {
             <BiX className="text-2xl" />
           </button>
 
-          {/* Branding */}
-          <div className="text-center mb-6 hidden md:block">
-            <h1 className="text-3xl font-bold tracking-widest app-text-color">
+          {/* Branding - Show on mobile too */}
+          <div className="text-center mb-6">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-widest app-text-color">
               BANARASI LEHANGA
             </h1>
             <p className="text-xs tracking-[0.3em] text-black">HOUSE</p>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="w-full space-y-3 md:space-y-4">
+          <form
+            onSubmit={handleSubmit}
+            className="w-full space-y-3 md:space-y-4"
+          >
             {/* Username */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">

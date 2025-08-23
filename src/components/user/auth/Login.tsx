@@ -36,6 +36,7 @@ function Login({ setShowSignup }: LoginProps) {
 
       // Optionally store token
       localStorage.setItem("token", res.data.token);
+        localStorage.setItem("userEmail", formData.email);
 
       router.push("/");
     } catch {
