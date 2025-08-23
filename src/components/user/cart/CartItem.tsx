@@ -8,7 +8,7 @@ interface CartItemProps {
 }
 
 export default function CartItem({ item, onRemove }: CartItemProps) {
-  const firstImage = item.images?.[0]?.url || "/placeholder-saree.jpg";
+  const firstImage = item.images?.[0]?.url
   const sizeName =
     Array.isArray(item.size) && item.size.length > 0
       ? item.size[0]?.name

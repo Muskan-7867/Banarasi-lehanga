@@ -3,11 +3,11 @@
 
 interface CartSummaryProps {
   subtotal: string;
-  onClose: () => void;
+ 
   onViewCart: () => void;
 }
 
-export default function CartSummary({ subtotal, onClose, onViewCart }: CartSummaryProps) {
+export default function CartSummary({ subtotal,  onViewCart }: CartSummaryProps) {
   return (
     <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
       <div className="flex justify-between text-base font-medium text-gray-900 mb-4">
@@ -21,12 +21,7 @@ export default function CartSummary({ subtotal, onClose, onViewCart }: CartSumma
         >
           View Cart
         </button>
-        <button
-          onClick={onClose}
-          className="flex items-center justify-center rounded-md border border-gray-300 bg-white px-6 py-3 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-100"
-        >
-          Continue Shopping
-        </button>
+      
       </div>
     </div>
   );

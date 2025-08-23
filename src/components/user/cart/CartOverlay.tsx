@@ -109,7 +109,6 @@ export default function CartOverlay({ onClose, onViewCart }: CartProps) {
 
             <CartSummary
               subtotal={formattedSubtotal}
-              onClose={handleClose}
               onViewCart={onViewCart || (() => {})} // fallback
             />
           </div>

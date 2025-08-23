@@ -1,7 +1,7 @@
 "use client";
-import { BiSearch, BiUserCircle, BiMenu } from "react-icons/bi";
+import {  BiUserCircle, BiMenu, BiLogOut } from "react-icons/bi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import useCart from "@/lib/hooks/useCart";
@@ -9,17 +9,63 @@ import Cartpage from "../cart/CartOverlay";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { cartCount, syncCartFromStorage } = useCart();
 
   useEffect(() => {
     syncCartFromStorage();
+    // Check if user is logged in
+    const token = localStorage.getItem("token");
+    const email = localStorage.getItem("userEmail");
+    if (token && email) {
+      setUserEmail(email);
+    }
   }, [syncCartFromStorage]);
 
+  // Close user menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node)
+      ) {
+        setShowUserMenu(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleUserClick = () => {
-    router.push("/auth/register");
+    if (userEmail) {
+      // Toggle user menu for logged-in users
+      setShowUserMenu(!showUserMenu);
+    } else {
+      // User is not logged in, go to registration
+      router.push("/auth/register");
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userEmail");
+    setUserEmail(null);
+    setShowUserMenu(false);
+    setIsMenuOpen(false);
+    router.push("/");
+  };
+
+  const handleProfileClick = () => {
+    setShowUserMenu(false);
+    router.push("/profile");
   };
 
   const handleMobileLinkClick = () => {
@@ -87,26 +133,6 @@ const Navbar = () => {
                   MEN
                 </Link>
               </li>
-              <li className="flex items-center px-4 py-3 border-b border-gray-200">
-                <BiSearch className="text-xl mr-2" />
-                <input
-                  type="text"
-                  placeholder="Search"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 bg-gray-50 rounded-md py-1 px-2 focus:outline-none text-black"
-                />
-              </li>
-              {/* Added mobile cart link */}
-              <li>
-                <button
-                  onClick={handleCartClick}
-                  className="px-4 py-3 border-b border-gray-200 text-black font-medium flex items-center w-full text-left"
-                >
-                  <HiOutlineShoppingBag className="text-xl mr-2" />
-                  CART {cartCount > 0 && `(${cartCount})`}
-                </button>
-              </li>
             </ul>
           </div>
         )}
@@ -159,27 +185,54 @@ const Navbar = () => {
 
         {/* Right Icons */}
         <div className="flex items-center gap-4 md:gap-6">
-          {/* Search Input (Desktop) */}
-          <div className="relative hidden lg:block">
-            <input
-              type="text"
-              placeholder="Search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="border bg-gray-50 rounded-md py-1 px-2 w-40 focus:w-48 focus:outline-none transition-all duration-300 text-black"
-            />
-            <BiSearch className="absolute right-2 top-2 text-black" />
-          </div>
-
           <div className="flex gap-3 md:gap-4 text-gray-600">
-            <button
-              type="button"
-              onClick={handleUserClick}
-              className="p-1"
-              aria-label="User account"
-            >
-              <BiUserCircle className="text-xl md:text-2xl hover:text-black transition" />
-            </button>
+            {userEmail ? (
+              <div className="relative" ref={userMenuRef}>
+                <button
+                  type="button"
+                  onClick={handleUserClick}
+                  className="p-1 flex items-center"
+                  aria-label="User profile"
+                >
+                  <div className="w-7 h-7 rounded-full bg-pink-500 flex items-center justify-center text-white text-sm font-bold">
+                    {userEmail.charAt(0).toUpperCase()}
+                  </div>
+                </button>
+
+                {/* User Dropdown Menu */}
+                {showUserMenu && (
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
+                    <div className="px-4 py-2 border-b border-gray-100">
+                      <p className="text-sm font-medium text-gray-900">
+                        {userEmail}
+                      </p>
+                    </div>
+                    <button
+                      onClick={handleProfileClick}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Profile
+                    </button>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                    >
+                      <BiLogOut className="mr-2" />
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={handleUserClick}
+                className="p-1"
+                aria-label="User account"
+              >
+                <BiUserCircle className="text-xl md:text-2xl hover:text-black transition" />
+              </button>
+            )}
             <button
               type="button"
               className="p-1 relative"
