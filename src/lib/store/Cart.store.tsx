@@ -1,3 +1,4 @@
+// store/Cart.store.ts
 import { create } from "zustand";
 
 type CartType = {
@@ -42,7 +43,7 @@ const useCartStore = create<CartType>()((set) => ({
     set({ cartItems: newIds, cartCount: newIds.length });
   },
   
-syncCartFromStorage: () => {
+  syncCartFromStorage: () => {
     if (typeof window !== 'undefined') {
       const prodIds = localStorage.getItem("productIds");
       if (!prodIds) {

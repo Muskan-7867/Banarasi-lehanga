@@ -1,3 +1,4 @@
+// lib/hooks/useCart.ts
 import useCartStore from "../store/Cart.store";
 
 const useCart = () => {
@@ -26,7 +27,7 @@ const useCart = () => {
     RemoveProductFromCart,
     cartCount,
     getCartProductIds,
-    syncCartFromStorage // Make sure this is returned
+    syncCartFromStorage
   };
 };
 
