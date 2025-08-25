@@ -33,7 +33,7 @@ export default function CartItem({ item, onRemove }: CartItemProps) {
           <p className="mt-1 text-sm text-gray-500">Size: {sizeName}</p>
         </div>
         <div className="flex flex-1 items-end justify-between text-sm">
-          <p className="text-gray-500">Qty 1</p>
+         
           <button
             type="button"
             className="font-medium text-indigo-600 hover:text-indigo-500"

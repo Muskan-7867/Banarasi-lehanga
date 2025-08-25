@@ -19,7 +19,7 @@ export default function CartSummary({ subtotal,  onViewCart }: CartSummaryProps)
           onClick={onViewCart}
           className="flex items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-gray-800"
         >
-          View Cart
+          Go to WishList
         </button>
       
       </div>

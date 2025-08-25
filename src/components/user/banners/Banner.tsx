@@ -1,11 +1,11 @@
 "use client"
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import React, { useState } from "react";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 
 interface BannerProps {
   image: {
-    src: string;
+    src: string | StaticImageData;
     alt: string;
   }[];
   aspectRatio?: string;

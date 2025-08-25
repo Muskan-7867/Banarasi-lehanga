@@ -22,6 +22,11 @@ import instapost4 from "../../../public/images/instapost4.jpg"
 import instapost5 from "../../../public/images/instapost5.jpg"
 import menbanner1 from "../../../public/images/banner1.jpg"
 import menbanner2 from "../../../public/images/banner2.avif"
+import homebanner1 from "../../../public/images/homebanner3.jpg"
+
+import homebanner2 from "../../../public/images/lehngabanner2.jpg"
+import homebanner3 from "../../../public/images/banner5.jpg"
+
 
 
 export {
@@ -47,7 +52,10 @@ export {
     instapost4,
     instapost5,
     menbanner1,
-    menbanner2
+    menbanner2,
+    homebanner1,
+    homebanner2,
+    homebanner3,
 
 
 }
