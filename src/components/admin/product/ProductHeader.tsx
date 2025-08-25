@@ -12,13 +12,13 @@ export default function ProductHeader() {
       </p>
     </div>
     <div className="flex gap-2">
-      <Link
+      {/* <Link
         href="/admin/products/category"
         className="inline-flex items-center px-4 py-2 app-color text-white rounded-lg hover:bg-main transition-colors"
       >
         <Plus className="mr-2" size={16} />
         Add Category
-      </Link>
+      </Link> */}
       <Link
         href="/admin/products/size-quality-color"
         className="inline-flex items-center px-4 py-2 app-color text-white rounded-lg hover:bg-main transition-colors"

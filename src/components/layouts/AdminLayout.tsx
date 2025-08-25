@@ -14,7 +14,7 @@ import {
   Bell,
 
   User,
-  ShoppingCart,
+
 } from "lucide-react";
 
 interface AdminLayoutProps {
@@ -28,7 +28,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   const sidebarItems = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Products", href: "/admin/products", icon: Package },
-    { name: "Orders", href: "/admin/orders", icon: ShoppingCart },
+
     { name: "Customers", href: "/admin/customers", icon: Users },
   ];
 
