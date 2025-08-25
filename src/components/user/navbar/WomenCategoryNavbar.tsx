@@ -30,7 +30,7 @@ export const WomenCategoryNavbar = () => {
       categoryRoutes={categoryRoutes}
       activeColor="app-text-color" // Optional customization
       borderColor="app-text-color" // Optional customization
-      maxVisibleItems={6} // Optional customization
+      
     />
   );
 };

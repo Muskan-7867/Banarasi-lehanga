@@ -1,5 +1,5 @@
 "use client";
-import {  BiUserCircle, BiMenu, BiLogOut } from "react-icons/bi";
+import { BiUserCircle, BiMenu, BiLogOut } from "react-icons/bi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
@@ -9,7 +9,6 @@ import Cartpage from "../cart/CartOverlay";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -19,15 +18,11 @@ const Navbar = () => {
 
   useEffect(() => {
     syncCartFromStorage();
-    // Check if user is logged in
     const token = localStorage.getItem("token");
     const email = localStorage.getItem("userEmail");
-    if (token && email) {
-      setUserEmail(email);
-    }
+    if (token && email) setUserEmail(email);
   }, [syncCartFromStorage]);
 
-  // Close user menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -37,21 +32,13 @@ const Navbar = () => {
         setShowUserMenu(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleUserClick = () => {
-    if (userEmail) {
-      // Toggle user menu for logged-in users
-      setShowUserMenu(!showUserMenu);
-    } else {
-      // User is not logged in, go to registration
-      router.push("/auth/register");
-    }
+    if (userEmail) setShowUserMenu(!showUserMenu);
+    else router.push("/auth/register");
   };
 
   const handleLogout = () => {
@@ -68,30 +55,19 @@ const Navbar = () => {
     router.push("/profile");
   };
 
-  const handleMobileLinkClick = () => {
-    setIsMenuOpen(false);
-  };
-
-  const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const handleCartClick = () => {
-    setIsCartOpen(true);
-  };
-
-  const handleCloseCart = () => {
-    setIsCartOpen(false);
-  };
-
+  const handleMobileLinkClick = () => setIsMenuOpen(false);
+  const handleMenuToggle = () => setIsMenuOpen(!isMenuOpen);
+  const handleCartClick = () => setIsCartOpen(true);
+  const handleCloseCart = () => setIsCartOpen(false);
   const handleViewCart = () => {
-    setIsCartOpen(false); // Close the overlay
-    router.push("/cart"); // Navigate to the cart route
+    setIsCartOpen(false);
+    router.push("/cart");
   };
 
   return (
     <>
-      <div className="h-16 md:h-20 lg:h-24 bg-white flex justify-around items-center px-4 md:px-6 lg:px-8 border-b border-gray-300 relative z-40">
+      <div className="h-16 md:h-20 lg:h-24 bg-white flex justify-between items-center px-4 md:px-6 lg:px-8 border-b border-gray-300 relative z-40">
+        {/* Mobile menu button */}
         <div className="lg:hidden">
           <button
             type="button"
@@ -119,7 +95,8 @@ const Navbar = () => {
               <li>
                 <Link
                   href="/bridal"
-                  className=" px-4 py-3 text-gray-700 font-medium hover:bg-black hover:text-white p-2 cursor-pointer transition"
+                  className="px-4 py-3 border-b border-gray-200 text-black font-medium block"
+                  onClick={handleMobileLinkClick}
                 >
                   BRIDAL
                 </Link>
@@ -168,7 +145,7 @@ const Navbar = () => {
         </div>
 
         {/* Center Logo */}
-        <div className="text-center mx-auto lg:mx-0">
+        <div className="absolute left-1/2 transform -translate-x-1/2 text-center">
           <Link
             href="/"
             className="text-lg md:text-2xl lg:text-4xl text-black font-bold font-serif tracking-tight"
@@ -184,8 +161,8 @@ const Navbar = () => {
         </div>
 
         {/* Right Icons */}
-        <div className="flex items-center gap-4 md:gap-6">
-          <div className="flex gap-3 md:gap-4 text-gray-600">
+        <div className="flex items-center gap-2 lg:gap-4 md:gap-6">
+          <div className="flex  gap-1 lg:gap-3 md:gap-4 text-gray-600">
             {userEmail ? (
               <div className="relative" ref={userMenuRef}>
                 <button
@@ -198,8 +175,6 @@ const Navbar = () => {
                     {userEmail.charAt(0).toUpperCase()}
                   </div>
                 </button>
-
-                {/* User Dropdown Menu */}
                 {showUserMenu && (
                   <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
                     <div className="px-4 py-2 border-b border-gray-100">
@@ -240,9 +215,8 @@ const Navbar = () => {
               onClick={handleCartClick}
             >
               <HiOutlineShoppingBag className="text-xl md:text-2xl hover:text-black transition" />
-              {/* Cart Count Badge */}
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-0 right-0 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
                   {cartCount}
                 </span>
               )}

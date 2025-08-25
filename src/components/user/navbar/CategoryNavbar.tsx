@@ -11,7 +11,6 @@ interface CategoryNavbarProps {
   borderColor?: string;
   textColor?: string;
   hoverColor?: string;
-  maxVisibleItems?: number;
   dropdownComponent?: React.ComponentType<{
     setShowDropdown: (show: boolean) => void;
     hoveredCategory: string;
@@ -26,12 +25,10 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
   borderColor = "border-app-color",
   textColor = "text-black",
   hoverColor = "hover:text-app-color",
-  maxVisibleItems = 5,
   dropdownComponent: DropdownComponent = CategoryDropdown,
   dropdownOnlyFor = ""
 }) => {
   const [activeCategory, setActiveCategory] = useState("");
-  const [showMore, setShowMore] = useState(false);
   const router = useRouter();
   const [showDropdown, setShowDropdown] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState("");
@@ -83,20 +80,17 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
   };
 
   const uniqueCategories = [...new Set(categories)];
-  const visibleCategories = showMore
-    ? uniqueCategories
-    : uniqueCategories.slice(0, maxVisibleItems);
 
   return (
     <div className="border-b border-gray-300 bg-white relative">
       {/* Desktop View */}
-      <div className="hidden md:block">
-        <div className="flex overflow-x-auto hide-scrollbar">
-          <ul className="flex w-full justify-around cursor-pointer">
+      <div className="hidden md:block relative">
+        <div className="flex items-center justify-center px-6 py-3">
+          <ul className="flex items-center lg:space-x-18 space-x-6 cursor-pointer">
             {uniqueCategories.map((category) => (
               <li
                 key={category}
-                className={`px-3 py-3 text-sm font-medium transition-colors duration-200 
+                className={`py-2 text-sm font-medium transition-colors duration-200 
                   ${
                     activeCategory === category
                       ? `${activeColor} border-b-2 ${borderColor}`
@@ -129,13 +123,13 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
       )}
 
       {/* Mobile View */}
-      <div className="md:hidden">
-        <div className="flex items-center justify-between px-4 py-3">
+      <div className="md:hidden relative">
+        <div className="flex items-center justify-center px-4 py-3">
           <div className="flex overflow-x-auto hide-scrollbar space-x-4">
-            {visibleCategories.map((category) => (
+            {uniqueCategories.map((category) => (
               <div
                 key={category}
-                className={`px-2 py-1 text-sm font-medium whitespace-nowrap
+                className={`px-2 py-1 text-xs font-medium whitespace-nowrap
                   ${
                     activeCategory === category
                       ? `${activeColor} border-b-2 ${borderColor}`
@@ -150,47 +144,7 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
               </div>
             ))}
           </div>
-
-          {!showMore && uniqueCategories.length > maxVisibleItems && (
-            <button
-              onClick={() => setShowMore(true)}
-              className={`ml-2 text-sm font-medium ${activeColor} whitespace-nowrap`}
-            >
-              More ▼
-            </button>
-          )}
-
-          {showMore && (
-            <button
-              onClick={() => setShowMore(false)}
-              className={`ml-2 text-sm font-medium ${activeColor} whitespace-nowrap`}
-            >
-              Less ▲
-            </button>
-          )}
         </div>
-
-        {/* Dropdown for mobile when "More" is clicked */}
-        {showMore && (
-          <div className="px-4 py-2 bg-white border-t border-gray-200">
-            {uniqueCategories.slice(maxVisibleItems).map((category) => (
-              <div
-                key={category}
-                className={`px-2 py-2 text-sm font-medium cursor-pointer
-                  ${activeCategory === category ? activeColor : textColor}`}
-                onClick={() => {
-                  setShowMore(false);
-                  handleCategoryClick(category);
-                }}
-              >
-                {category}
-                {hasSubcategories(category) && (
-                  <span className="ml-1 text-xs">▼</span>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );
