@@ -15,7 +15,7 @@ export default function Features() {
         <Image
           src={delivery}
           alt="Easy Return"
-          className="lg:w-14 lg:h-14 w-10 h-10 object-contain"
+          className="lg:w-14 lg:h-14 w-6 h-6 object-contain"
         />
       ),
       title: "Fast Delivery"
@@ -25,7 +25,7 @@ export default function Features() {
         <Image
           src={EasyReturn}
           alt="Easy Return"
-          className="lg:w-14 lg:h-14 w-10 h-10 object-contain"
+          className="lg:w-14 lg:h-14 w-6 h-6 object-contain"
         />
       ),
       title: "Easy Return"
@@ -35,7 +35,7 @@ export default function Features() {
         <Image
           src={quality}
           alt="Easy Return"
-          className="lg:w-14 lg:h-14 w-10 h-10 object-contain"
+          className="lg:w-14 lg:h-14 w-6 h-6 object-contain"
         />
       ),
       title: "Quality Assurance"
@@ -45,7 +45,7 @@ export default function Features() {
         <Image
           src={support}
           alt="Easy Return"
-          className="lg:w-14 lg:h-14 w-10 h-10 object-contain"
+          className="lg:w-14 lg:h-14 w-6 h-6 object-contain"
         />
       ),
       title: "Customer Support"
@@ -54,14 +54,14 @@ export default function Features() {
 
   return (
     <div className="w-full bg-white py-10 px-4 flex justify-center">
-      <div className="max-w-[70rem] w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="max-w-[70rem] w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:gap-6 gap-2">
         {features.map((feature, index) => (
           <div
             key={index}
-            className="flex flex-col items-center text-center space-y-3"
+            className="flex flex-col items-center text-center space-y-2  lg:space-y-3"
           >
             <div>{feature.icon}</div>
-            <h2 className="text-lg font-medium text-gray-800">
+            <h2 className=" text-xs lg:text-lg font-medium text-gray-800">
               {feature.title}
             </h2>
           </div>
