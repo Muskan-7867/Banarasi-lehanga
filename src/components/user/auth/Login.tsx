@@ -26,26 +26,29 @@ function Login({ setShowSignup }: LoginProps) {
   };
 
   // ✅ Submit Handler
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
 
-    try {
-      const res = await axios.post(`${base_url}/auth/login`, formData);
-      console.log("✅ login Success:", res.data);
+  try {
+    const res = await axios.post(`${base_url}/auth/login`, formData);
+    console.log("✅ login Success:", res.data);
 
-      // Optionally store token
-      localStorage.setItem("token", res.data.token);
-        localStorage.setItem("userEmail", formData.email);
+    // Check actual token path
+    const token = res.data.data?.token; // <-- notice .data?.token
+    if (!token) throw new Error("Token not received");
 
-      router.push("/");
-    } catch {
-      console.error("❌ login Error:");
-      alert("Something went wrong!");
-    } finally {
-      setLoading(false);
-    }
-  };
+    localStorage.setItem("token", token);
+    localStorage.setItem("userEmail", formData.email);
+
+    router.push("/");
+  } catch (err) {
+    console.error("❌ login Error:", err);
+    alert("Something went wrong!");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="fixed inset-0  flex items-center justify-center z-[1000] p-4 overflow-y-auto">

@@ -13,7 +13,6 @@ interface RegisterProps {
 
 function Register({ setShowSignup }: RegisterProps) {
   const router = useRouter();
-
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -36,11 +35,8 @@ function Register({ setShowSignup }: RegisterProps) {
     try {
       const res = await axios.post(`${base_url}/auth/register`, formData);
       console.log("✅ Register Success:", res.data);
-
-      // Optionally store token
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userEmail", formData.email);
-
       router.push("/auth/login");
     } catch {
       console.error("❌ Register Error:");
