@@ -142,12 +142,10 @@ const SingleProductScreen = () => {
             onClick={handleAddToCart}
             className="w-full py-3 bg-black text-white font-bold rounded-lg transition hover:bg-gray-800"
           >
-            ADD TO CART + ₹${product.price.toLocaleString()}
+            ADD TO WISHLIST 
           </button>
         )}
-        <button className="w-full py-3 border-2 border-black font-bold rounded-lg hover:bg-gray-50 transition">
-          BUY IT NOW
-        </button>
+    
           </div>
         </div>
       </div>

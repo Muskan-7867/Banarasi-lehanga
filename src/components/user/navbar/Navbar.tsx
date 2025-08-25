@@ -61,7 +61,7 @@ const Navbar = () => {
   const handleCloseCart = () => setIsCartOpen(false);
   const handleViewCart = () => {
     setIsCartOpen(false);
-    router.push("/cart");
+    router.push("/wishlist");
   };
 
   return (

@@ -4,32 +4,33 @@ import React from "react";
 export default function SwiperCards() {
   const videos = [
     {
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video1_ioikue.mp4?resource_type=video",
+      src: "https://res.cloudinary.com/debzdd4wk/video/upload/lehngavideo_qtjd0z.mp4",
       alt: "Video 1",
       poster: "https://example.com/poster1.jpg"
     },
-    {
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video2_wvh2ki.mp4",
-      alt: "Video 2",
-      poster: "https://example.com/poster2.jpg"
-    },
+   
      {
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video3_jl9e4l.mp4",
-      alt: "Video 3",
+      src: "https://res.cloudinary.com/debzdd4wk/video/upload/lehangavideo3_i6wlhv.mp4",
+      alt: "Video 2",
       poster: "https://example.com/poster1.jpg"
     },
+     {
+      src: "https://res.cloudinary.com/debzdd4wk/video/upload/lehngavideo2_ai4xa5.mp4",
+      alt: "Video 3",
+      poster: "https://example.com/poster2.jpg"
+    },
     {
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video4_aeauon.mp4",
+      src: "https://res.cloudinary.com/debzdd4wk/video/upload/lehngavid4_bvzbad.mp4",
       alt: "Video 4",
       poster: "https://example.com/poster2.jpg"
     },
       {
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video6_gj7ikg.mp4",
+      src: "https://res.cloudinary.com/dwgxfctju/video/upload/v1756108416/VID_20250825_003749_807_nbzwqk.mp4?_s=public-apps",
       alt: "Video 5",
       poster: "https://example.com/poster1.jpg"
     },
     {
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video5_ktqs7b.mp4",
+      src: "https://res.cloudinary.com/dwgxfctju/video/upload/v1756108770/VID_20250825_003909_447_jofwcq.mp4?_s=public-apps",
       alt: "Video 6",
       poster: "https://example.com/poster2.jpg"
     },
