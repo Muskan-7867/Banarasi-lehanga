@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import ProductImage from "./ProductImage";
@@ -10,16 +10,22 @@ import CategoryHeader from "@/components/ui/Category/CategoryHeader";
 import useCart from "@/lib/hooks/useCart";
 import { tagHeaders } from "./TageHeaders";
 
-
 const SingleProductScreen = () => {
   const { id } = useParams();
-  const { addProductToCart, RemoveProductFromCart , getCartProductIds } = useCart();
+  const { addProductToCart, RemoveProductFromCart, getCartProductIds } =
+    useCart();
 
   const {
     data: product,
     isLoading,
     isError
   } = useQuery(getProductByIdQuery(id as string));
+
+  useEffect(() => {
+    if (product) {
+      console.log("from single prod", product.categoryName);
+    }
+  });
 
   // Check if product is already in cart
   const isInCart = () => {
@@ -30,11 +36,10 @@ const SingleProductScreen = () => {
   const handleAddToCart = () => {
     if (product) {
       addProductToCart(product.id);
-     
     }
   };
 
-    const handleRemoveFromCart = () => {
+  const handleRemoveFromCart = () => {
     if (product) {
       RemoveProductFromCart(product.id);
     }
@@ -95,57 +100,59 @@ const SingleProductScreen = () => {
             originalPrice={product.originalPrice}
           />
 
-          {/* Category, Subcategory, Quality */}
+          {/* Category, Subcategory, Quality, Colors, Size */}
           <div className="my-4 space-y-2">
-            {product.category && (
+            {product.categoryName && (
               <p>
                 <span className="font-medium">Category: </span>
-                {product.category.name}
+                {product.categoryName}
               </p>
             )}
-            {product.subcategory && (
+            {product.subcategoryName && (
               <p>
                 <span className="font-medium">Subcategory: </span>
-                {product.subcategory.name}
+                {product.subcategoryName}
               </p>
             )}
-            {product.quality && (
+            {product.qualityName && (
               <p>
                 <span className="font-medium">Quality: </span>
-                {product.quality.name}
+                {product.qualityName}
               </p>
             )}
             {product.colors && product.colors.length > 0 && (
               <p>
-                <span className="font-medium">Color: </span>
+                <span className="font-medium">Colors: </span>
                 {product.colors.map((color) => color.name).join(", ")}
+              </p>
+            )}
+            {product.sizeName && (
+              <p>
+                <span className="font-medium">Size: </span>
+                {product.sizeName}
               </p>
             )}
           </div>
 
-          {/* Delivery */}
-          <div className="mb-6">
-            <p className="font-medium">Delivery by {"Coming soon"}</p>
-          </div>
+       
 
           {/* Buttons */}
           <div className="flex flex-col gap-4 mt-18">
-           {isInCart() ? (
-          <button
-            onClick={handleRemoveFromCart}
-            className="w-full py-3 bg-gray-200 text-white font-bold rounded-lg transition hover:bg-gray-300"
-          >
-            REMOVE FROM CART
-          </button>
-        ) : (
-          <button
-            onClick={handleAddToCart}
-            className="w-full py-3 bg-black text-white font-bold rounded-lg transition hover:bg-gray-800"
-          >
-            ADD TO WISHLIST 
-          </button>
-        )}
-    
+            {isInCart() ? (
+              <button
+                onClick={handleRemoveFromCart}
+                className="w-full py-3 bg-gray-200 text-white font-bold rounded-lg transition hover:bg-gray-300"
+              >
+                REMOVE FROM CART
+              </button>
+            ) : (
+              <button
+                onClick={handleAddToCart}
+                className="w-full py-3 bg-black text-white font-bold rounded-lg transition hover:bg-gray-800"
+              >
+                ADD TO WISHLIST
+              </button>
+            )}
           </div>
         </div>
       </div>

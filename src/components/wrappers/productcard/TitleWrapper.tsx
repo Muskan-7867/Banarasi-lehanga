@@ -8,7 +8,7 @@ interface TitleProps {
 export default function TitleWrapper({ title, price }: TitleProps) {
   return (
     <div className="flex flex-col ">
-      <h2 className="lg:text-xl text-md font-medium text-black truncate ">{title}</h2>
+      <h2 className="lg:text-lg text-md font-serif font-medium text-black truncate">{title}</h2>
       <p className="text-md font-light text-black ">₹{price} /-</p>
     </div>
   );

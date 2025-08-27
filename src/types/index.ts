@@ -70,13 +70,13 @@ export interface ProductT {
   discount: number;
   tax: number;
   tag: string;
-  categoryId?: string;
+  categoryName?: string;
   category?: CategoryT;
-  subcategoryId?: string;
+  subcategoryName?: string;
   subcategory?: SubCategoryT;
-  sizeId?: string;
+  sizeName?: string;
   size?: SizeT | undefined;
-  qualityId?: string;
+  qualityName?: string;
   quality?: QualityT;
   colors: ColorT[];
   images: ProductImageT[];
@@ -132,14 +132,14 @@ export interface ColorT {
   id: string;
   name: string;
   products: ProductT[];
-  createdAt: string;
+  createdAt: string | Date;
   updatedAt: string;
 }
 
 export interface QualityT {
   id: string;
   name: string;
-  createdAt: string;
+  createdAt: string | Date;
   updatedAt: string;
   Product: ProductT[];
 }
