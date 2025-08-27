@@ -6,7 +6,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategoriesQuery, getProductsQuery } from "@/lib/query";
 import ProdTable from "@/components/admin/product/ProdTable";
 import ProductHeader from "@/components/admin/product/ProductHeader";
-import ProductStats from "@/components/admin/product/ProductStats";
+// import ProductStats from "@/components/admin/product/ProductStats";
 import { useDebounce } from "@/lib/hooks/useDebounce";
 import ProdPagination from "@/components/admin/product/ProdPagination";
 import { deleteProduct } from "@/lib/services";
@@ -119,10 +119,10 @@ export default function AdminProductsPage() {
         )}
 
         {/* Stats */}
-        <ProductStats
+        {/* <ProductStats
           categories={categories}
           products={productsResponse || { products: [], count: 0 }}
-        />
+        /> */}
       </div>
     </AdminLayout>
   );

@@ -26,6 +26,10 @@ import homebanner1 from "../../../public/images/homebanner3.jpg"
 
 import homebanner2 from "../../../public/images/lehngabanner2.jpg"
 import homebanner3 from "../../../public/images/banner5.jpg"
+import poster from "../../../public/images/poster.jpeg"
+import poster1 from "../../../public/images/poster1.jpeg"
+import poster2 from "../../../public/images/poster2.jpeg"
+import poster3 from "../../../public/images/poster3.jpeg"
 
 
 
@@ -56,6 +60,10 @@ export {
     homebanner1,
     homebanner2,
     homebanner3,
+    poster,
+    poster1,
+    poster2,
+    poster3,
 
 
 }

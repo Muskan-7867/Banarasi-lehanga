@@ -5,26 +5,19 @@ import { useRouter, useParams } from "next/navigation";
 import { Save, Upload, X } from "lucide-react";
 import Link from "next/link";
 
-import { useQuery } from "@tanstack/react-query";
-import {
-  getCategoriesQuery,
-  getSizesQuery,
-  getQuanlityQuery,
-  getColorQuery,
-  getProductByIdQuery
-} from "@/lib/query";
-import {
-  CategoryT,
-  SubCategoryT,
-  SizeT,
-  QualityT,
-  ColorT,
-  ProductImageT
-} from "@/types";
+import { SizeT, QualityT, ColorT, ProductImageT } from "@/types";
 import { toast } from "sonner";
 import { updateProduct } from "@/lib/services";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import Image from "next/image";
+import {
+  staticCategories,
+  staticColors,
+  staticQualities,
+  staticSizes
+} from "@/components/data/categories";
+import { useQuery } from "@tanstack/react-query";
+import { getProductByIdQuery } from "@/lib/query";
 
 interface ProductFormData {
   name: string;
@@ -34,26 +27,41 @@ interface ProductFormData {
   originalPrice: number;
   discount: number;
   tax: number;
-  quality: string;
-  category: string;
-  subcategory: string;
+  qualityName: string;
+  categoryName: string;
+  subcategoryName: string;
   tag: string;
-  size: string;
+  sizeName: string;
   colors: string[];
   images: File[];
   existingImages?: ProductImageT[];
 }
+const compatibleSizes: SizeT[] = staticSizes.map((size) => ({
+  ...size,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  Product: []
+}));
+
+const compatibleQualities: QualityT[] = staticQualities.map((quality) => ({
+  ...quality,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  Product: []
+}));
+
+const compatibleColors: ColorT[] = staticColors.map((color) => ({
+  ...color,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  products: []
+}));
 
 export default function EditProductPage() {
   const router = useRouter();
   const params = useParams();
   const productId = params.id as string;
 
-  // Fetch data
-  const { data: categories } = useQuery(getCategoriesQuery());
-  const { data: sizes } = useQuery(getSizesQuery());
-  const { data: qualities } = useQuery(getQuanlityQuery());
-  const { data: colors } = useQuery(getColorQuery());
   const { data: product, isLoading: productLoading } = useQuery(
     getProductByIdQuery(productId)
   );
@@ -66,19 +74,19 @@ export default function EditProductPage() {
     originalPrice: 0,
     discount: 0,
     tax: 0,
-    quality: "",
-    category: "",
-    subcategory: "",
+    qualityName: "",
+    categoryName: "",
+    subcategoryName: "",
     tag: "",
-    size: "",
+    sizeName: "",
     colors: [],
     images: [],
     existingImages: []
   });
 
-  const [filteredSubcategories, setFilteredSubcategories] = useState<
-    SubCategoryT[]
-  >([]);
+  const [filteredSubcategories, setFilteredSubcategories] = useState<string[]>(
+    []
+  );
   const [filteredSizes, setFilteredSizes] = useState<SizeT[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [imagePreviews, setImagePreviews] = useState<
@@ -96,12 +104,12 @@ export default function EditProductPage() {
         originalPrice: product.originalPrice,
         discount: product.discount || 0,
         tax: product.tax || 0,
-        quality: product.quality?.id || "",
-        category: product.category?.id || "",
-        subcategory: product.subcategory?.id || "",
+        qualityName: product.qualityName || "",
+        categoryName: product.categoryName || "",
+        subcategoryName: product.subcategoryName || "",
         tag: product.tag || "",
-        size: product.size?.id || "",
-       colors: product.colors?.map((color: ColorT) => color.id) || [],
+        sizeName: product.sizeName || "",
+        colors: product.colors?.map((color: ColorT) => color.id) || [],
         images: [],
         existingImages: product.images || []
       });
@@ -110,25 +118,49 @@ export default function EditProductPage() {
     }
   }, [product]);
 
-  // Filter subcategories based on selected category
+  // Update subcategories on category change
   useEffect(() => {
-    if (formData.category && categories) {
-      const selectedCategory = categories.find(
-        (cat: CategoryT) => cat.id === formData.category
+    if (formData.categoryName) {
+      const selectedCategory = staticCategories.find(
+        (cat) => cat.name === formData.categoryName
       );
-      setFilteredSubcategories(selectedCategory?.subcategories || []);
-    }
-  }, [formData.category, categories]);
+      let subs: string[] = [];
 
-  // Filter sizes based on selected category
+      if (Array.isArray(selectedCategory?.subcategories)) {
+        selectedCategory.subcategories.forEach(
+          (sub: string | { name: string; subcategories?: string[] }) => {
+            if (typeof sub === "string") {
+              subs.push(sub);
+            } else if (sub?.name) {
+              subs.push(sub.name);
+              if (Array.isArray(sub.subcategories)) {
+                subs = [...subs, ...sub.subcategories]; // Flatten nested subcategories
+              }
+            }
+          }
+        );
+      }
+
+      setFilteredSubcategories(subs);
+      setFormData((prev) => ({ ...prev, subcategoryName: "" }));
+    } else {
+      setFilteredSubcategories([]);
+      setFormData((prev) => ({ ...prev, subcategoryName: "" }));
+    }
+  }, [formData.categoryName]);
+
   useEffect(() => {
-    if (formData.category && sizes) {
-      const categorySizes = sizes.filter(
-        (size: SizeT) => size?.category?.id === formData.category
+    if (formData.categoryName) {
+      const categorySizes = compatibleSizes.filter(
+        (size) => size?.category?.id === formData.categoryName
       );
       setFilteredSizes(categorySizes);
+      setFormData((prev) => ({ ...prev, sizeName: "" }));
+    } else {
+      setFilteredSizes([]);
+      setFormData((prev) => ({ ...prev, sizeName: "" }));
     }
-  }, [formData.category, sizes]);
+  }, [formData.categoryName]);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -200,10 +232,10 @@ export default function EditProductPage() {
       !formData.detailedDescription ||
       !formData.price ||
       !formData.originalPrice ||
-      !formData.quality ||
-      !formData.category ||
-      !formData.subcategory ||
-      !formData.size ||
+      !formData.qualityName ||
+      !formData.categoryName ||
+      !formData.subcategoryName ||
+      !formData.sizeName ||
       !formData.colors
     ) {
       toast.error("Please fill all required fields");
@@ -307,20 +339,19 @@ export default function EditProductPage() {
           </div>
 
           {/* Tag Field */}
-<div>
-  <label className="block text-sm font-medium text-gray-700 mb-2">
-    Tag
-  </label>
-  <input
-    type="text"
-    name="tag"
-    value={formData.tag}
-    onChange={handleInputChange}
-    className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-    placeholder="Enter product tag (e.g. Most Wishlist Styles)"
-  />
-</div>
-
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Tag
+            </label>
+            <input
+              type="text"
+              name="tag"
+              value={formData.tag}
+              onChange={handleInputChange}
+              className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter product tag (e.g. Most Wishlist Styles)"
+            />
+          </div>
 
           {/* Category and Subcategory */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -329,16 +360,16 @@ export default function EditProductPage() {
                 Category *
               </label>
               <select
-                name="category"
-                value={formData.category}
+                name="categoryName"
+                value={formData.categoryName}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
               >
                 <option value="">Select Category</option>
-                {categories?.map((category: CategoryT) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
+                {staticCategories.map((cat) => (
+                  <option key={cat.name} value={cat.name}>
+                    {cat.name}
                   </option>
                 ))}
               </select>
@@ -349,17 +380,17 @@ export default function EditProductPage() {
                 Subcategory *
               </label>
               <select
-                name="subcategory"
-                value={formData.subcategory}
+                name="subcategoryName"
+                value={formData.subcategoryName}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
-                disabled={!formData.category}
+                disabled={!formData.categoryName}
               >
                 <option value="">Select Subcategory</option>
-                {filteredSubcategories.map((subcategory: SubCategoryT) => (
-                  <option key={subcategory.id} value={subcategory.id}>
-                    {subcategory.name}
+                {filteredSubcategories.map((sub, index) => (
+                  <option key={index} value={sub}>
+                    {sub}
                   </option>
                 ))}
               </select>
@@ -373,12 +404,12 @@ export default function EditProductPage() {
                 Size *
               </label>
               <select
-                name="size"
-                value={formData.size}
+                name="sizeName"
+                value={formData.sizeName}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
-                disabled={!formData.category}
+                disabled={!formData.categoryName}
               >
                 <option value="">Select Size</option>
                 {filteredSizes.map((size: SizeT) => (
@@ -394,14 +425,14 @@ export default function EditProductPage() {
                 Quality *
               </label>
               <select
-                name="quality"
-                value={formData.quality}
+                name="qualityName"
+                value={formData.qualityName}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
               >
                 <option value="">Select Quality</option>
-                {qualities?.map((quality: QualityT) => (
+                {compatibleQualities?.map((quality: QualityT) => (
                   <option key={quality.id} value={quality.id}>
                     {quality.name}
                   </option>
@@ -411,22 +442,43 @@ export default function EditProductPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Color *
+                Colors *
               </label>
-              <select
-                name="colors"
-                value={formData.colors}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                required
-              >
-                <option value="">Select Color</option>
-                {colors?.map((color: ColorT) => (
-                  <option key={color.id} value={color.id}>
-                    {color.name}
-                  </option>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2 p-3 border border-gray-300 rounded-lg">
+                {compatibleColors.map((color: ColorT) => (
+                  <div key={color.id} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      value={color.name}
+                      checked={formData.colors.includes(color.name)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setFormData((prev) => ({
+                            ...prev,
+                            colors: [...prev.colors, color.name]
+                          }));
+                        } else {
+                          setFormData((prev) => ({
+                            ...prev,
+                            colors: prev.colors.filter(
+                              (name) => name !== color.name
+                            )
+                          }));
+                        }
+                      }}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label className="ml-2 block text-sm text-gray-900">
+                      {color.name}
+                    </label>
+                  </div>
                 ))}
-              </select>
+              </div>
+              {formData.colors.length === 0 && (
+                <p className="mt-1 text-sm text-red-600">
+                  Please select at least one color
+                </p>
+              )}
             </div>
           </div>
 

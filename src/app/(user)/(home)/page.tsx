@@ -11,7 +11,7 @@ import HomeBanner from "@/components/user/home/components/HomeBanner";
 import SecondProductSection from "@/components/user/home/components/SecondProductSection";
 import WishListProducts from "@/components/user/home/components/WishlistProducts";
 import NewWeekProducts from "@/components/user/home/components/NewWeekProducts";
-import BudgetProducts from "@/components/user/home/components/BudgetProducts";
+
 import InstaSection from "@/components/user/home/components/InstaSection";
 
 export default function Homepage() {
@@ -29,7 +29,7 @@ export default function Homepage() {
       <ImageSections />
       <NewWeekProducts />
       <GridBanner />
-      <BudgetProducts />
+
       <InstaSection />
       <AppointmentBanner />
     </div>

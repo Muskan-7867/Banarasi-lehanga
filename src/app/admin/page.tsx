@@ -1,15 +1,16 @@
 "use client";
 
+import Graph from "@/components/admin/Graph";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import { motion } from "framer-motion";
 import {
   Package,
-  ShoppingCart,
+
   Users,
-  DollarSign,
+  
   TrendingUp,
   TrendingDown,
-  Eye,
+
   Plus,
 } from "lucide-react";
 import Link from "next/link";
@@ -25,14 +26,7 @@ export default function AdminDashboard() {
       icon: Package,
       color: "bg-blue-500",
     },
-    {
-      name: "Total Orders",
-      value: "2,847",
-      change: "+8%",
-      changeType: "increase",
-      icon: ShoppingCart,
-      color: "bg-main",
-    },
+ 
     {
       name: "Total Customers",
       value: "1,234",
@@ -41,61 +35,10 @@ export default function AdminDashboard() {
       icon: Users,
       color: "bg-purple-500",
     },
-    {
-      name: "Revenue",
-      value: "$45,678",
-      change: "-2%",
-      changeType: "decrease",
-      icon: DollarSign,
-      color: "bg-yellow-500",
-    },
+   
   ];
 
-  const recentOrders = [
-    {
-      id: "ORD-001",
-      customer: "John Smith",
-      product: "Cricket Bat Pro",
-      amount: "$299.99",
-      status: "completed",
-    },
-    {
-      id: "ORD-002",
-      customer: "Sarah Johnson",
-      product: "Helmet Guard",
-      amount: "$89.99",
-      status: "processing",
-    },
-    {
-      id: "ORD-003",
-      customer: "Mike Wilson",
-      product: "Cricket Pads",
-      amount: "$149.99",
-      status: "shipped",
-    },
-    {
-      id: "ORD-004",
-      customer: "Emma Davis",
-      product: "Cricket Ball",
-      amount: "$24.99",
-      status: "pending",
-    },
-  ];
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "completed":
-        return "bg-green-100 text-green-800";
-      case "processing":
-        return "bg-yellow-100 text-yellow-800";
-      case "shipped":
-        return "bg-blue-100 text-blue-800";
-      case "pending":
-        return "bg-gray-100 text-gray-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
-  };
+  
 
   return (
     <AdminLayout>
@@ -164,9 +107,11 @@ export default function AdminDashboard() {
             </motion.div>
           ))}
         </div>
-
+        <div>
+         <Graph />
+        </div>
         {/* Recent Orders */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -245,11 +190,11 @@ export default function AdminDashboard() {
               </tbody>
             </table>
           </div>
-        </motion.div>
+        </motion.div> */}
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
@@ -265,12 +210,7 @@ export default function AdminDashboard() {
               >
                 Add New Product
               </Link>
-              <Link
-                href="/admin/orders"
-                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
-              >
-                View All Orders
-              </Link>
+            
               <Link
                 href="/admin/customers"
                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
@@ -278,8 +218,8 @@ export default function AdminDashboard() {
                 Manage Customers
               </Link>
             </div>
-          </motion.div>
-
+          </motion.div> */}
+{/* 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -303,8 +243,8 @@ export default function AdminDashboard() {
                 <span className="text-sm text-red-600 font-medium">8 left</span>
               </div>
             </div>
-          </motion.div>
-
+          </motion.div> */}
+{/* 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -329,7 +269,7 @@ export default function AdminDashboard() {
                 <span className="text-gray-400 ml-1">6 hours ago</span>
               </div>
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
     </AdminLayout>

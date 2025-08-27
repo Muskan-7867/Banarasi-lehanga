@@ -1,12 +1,5 @@
 "use client";
-import {
-  getCategoriesQuery,
-  getSizesQuery,
-  getQuanlityQuery,
-  getColorQuery
-} from "@/lib/query";
-import { CategoryT, SubCategoryT, SizeT, QualityT, ColorT } from "@/types";
-import { useQuery } from "@tanstack/react-query";
+import { SizeT, QualityT, ColorT } from "@/types";
 import { Save, Upload, X } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
@@ -14,32 +7,38 @@ import { useRouter } from "next/navigation";
 import { base_url } from "@/lib/services";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import Image from "next/image";
+import {
+  ProductFormData,
+  staticCategories,
+  staticColors,
+  staticQualities,
+  staticSizes
+} from "@/components/data/categories";
 
-interface ProductFormData {
-  name: string;
-  shortDescription: string;
-  detailedDescription: string;
-  price: number;
-  originalPrice: number;
-  discount: number;
-  tax: number;
-  qualityId: string;
-  categoryId: string;
-  subcategoryId: string;
-  sizeId: string;
-  colors: string[];
-  inStock: boolean;
-  images: File[];
-  tag: string;
-}
+// Create compatible versions of the static data that match the expected types
+const compatibleSizes: SizeT[] = staticSizes.map((size) => ({
+  ...size,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  Product: []
+}));
+
+const compatibleQualities: QualityT[] = staticQualities.map((quality) => ({
+  ...quality,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  Product: []
+}));
+
+const compatibleColors: ColorT[] = staticColors.map((color) => ({
+  ...color,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  products: []
+}));
 
 export default function AddProductPage() {
-  const { data: categories } = useQuery(getCategoriesQuery());
-  const { data: sizes } = useQuery(getSizesQuery());
-  const { data: qualities = [] } = useQuery(getQuanlityQuery());
-  const { data: colors = [] } = useQuery(getColorQuery());
   const router = useRouter();
-
   const [formData, setFormData] = useState<ProductFormData>({
     name: "",
     shortDescription: "",
@@ -48,45 +47,66 @@ export default function AddProductPage() {
     originalPrice: 0,
     discount: 0,
     tax: 0,
-    qualityId: "",
-    categoryId: "",
-    subcategoryId: "",
-    sizeId: "",
+    categoryName: "",
+    subcategoryName: "",
+    qualityName: "",
+    sizeName: "",
     colors: [],
     inStock: true,
     images: [],
     tag: ""
   });
 
-  const [filteredSubcategories, setFilteredSubcategories] = useState<
-    SubCategoryT[]
-  >([]);
+  const [filteredSubcategories, setFilteredSubcategories] = useState<string[]>(
+    []
+  );
   const [filteredSizes, setFilteredSizes] = useState<SizeT[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
-  // Filter subcategories based on selected category
+  // Update subcategories on category change
   useEffect(() => {
-    if (formData.categoryId && categories) {
-      const selectedCategory = categories.find(
-        (cat: CategoryT) => cat.id === formData.categoryId
+    if (formData.categoryName) {
+      const selectedCategory = staticCategories.find(
+        (cat) => cat.name === formData.categoryName
       );
-      setFilteredSubcategories(selectedCategory?.subcategories || []);
-      setFormData((prev) => ({ ...prev, subcategoryId: "" }));
-    }
-  }, [formData.categoryId, categories]);
+      let subs: string[] = [];
 
- 
+      if (Array.isArray(selectedCategory?.subcategories)) {
+        selectedCategory.subcategories.forEach(
+          (sub: string | { name: string; subcategories?: string[] }) => {
+            if (typeof sub === "string") {
+              subs.push(sub);
+            } else if (sub?.name) {
+              subs.push(sub.name);
+              if (Array.isArray(sub.subcategories)) {
+                subs = [...subs, ...sub.subcategories]; // Flatten nested subcategories
+              }
+            }
+          }
+        );
+      }
+
+      setFilteredSubcategories(subs);
+      setFormData((prev) => ({ ...prev, subcategoryName: "" }));
+    } else {
+      setFilteredSubcategories([]);
+      setFormData((prev) => ({ ...prev, subcategoryName: "" }));
+    }
+  }, [formData.categoryName]);
+
   useEffect(() => {
-    if (formData.categoryId && Array.isArray(sizes)) {
-      // Add Array.isArray check
-      const categorySizes = sizes.filter(
-        (size: SizeT) => size?.category?.id === formData.categoryId
+    if (formData.categoryName) {
+      const categorySizes = compatibleSizes.filter(
+        (size) => size?.category?.id === formData.categoryName
       );
       setFilteredSizes(categorySizes);
-      setFormData((prev) => ({ ...prev, sizeId: "" }));
+      setFormData((prev) => ({ ...prev, sizeName: "" }));
+    } else {
+      setFilteredSizes([]);
+      setFormData((prev) => ({ ...prev, sizeName: "" }));
     }
-  }, [formData.categoryId, sizes]);
+  }, [formData.categoryName]);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -108,24 +128,20 @@ export default function AddProductPage() {
     }));
   };
 
+  // Image handling
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) {
       toast.error("No files selected");
       return;
     }
-
     const files = Array.from(e.target.files);
-
-    // Check total image count
     if (files.length + formData.images.length > 5) {
       toast.error("Maximum 5 images allowed");
       return;
     }
 
-    // Validate each file
     const validFiles: File[] = [];
     const invalidFiles: string[] = [];
-
     files.forEach((file) => {
       if (!file.type.match("image.*")) {
         invalidFiles.push(`${file.name} - not an image`);
@@ -136,40 +152,29 @@ export default function AddProductPage() {
       }
     });
 
-    // Show errors for invalid files
-    if (invalidFiles.length > 0) {
+    if (invalidFiles.length > 0)
       toast.error(`Invalid files:\n${invalidFiles.join("\n")}`);
-    }
-
-    // If no valid files, return early
     if (validFiles.length === 0) return;
 
-    // Update form data with valid files only
     setFormData((prev) => ({
       ...prev,
       images: [...prev.images, ...validFiles]
     }));
 
-    // Create previews for valid files
     const newPreviews: string[] = [];
     validFiles.forEach((file) => {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        if (e.target?.result) {
-          newPreviews.push(e.target.result as string);
-          // Update previews only after all files are processed
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          newPreviews.push(event.target.result as string);
           if (newPreviews.length === validFiles.length) {
             setImagePreviews((prev) => [...prev, ...newPreviews]);
           }
         }
       };
-      reader.onerror = () => {
-        console.error(`Failed to read file: ${file.name}`);
-      };
       reader.readAsDataURL(file);
     });
 
-   
     e.target.value = "";
   };
 
@@ -181,23 +186,20 @@ export default function AddProductPage() {
     setImagePreviews((prev) => prev.filter((_, i) => i !== index));
   };
 
+  // Submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("from form", formData);
 
-    // Validation
     if (
       !formData.name ||
       !formData.shortDescription ||
       !formData.detailedDescription ||
       !formData.price ||
       !formData.originalPrice ||
-      !formData.qualityId ||
-      !formData.categoryId ||
-      !formData.subcategoryId ||
-      !formData.sizeId ||
-      !formData.colors ||
-      (Array.isArray(formData.colors) && formData.colors.length === 0)
+      !formData.qualityName ||
+      !formData.categoryName ||
+      !formData.sizeName ||
+      formData.colors.length === 0
     ) {
       toast.error("Please fill all required fields");
       return;
@@ -207,43 +209,33 @@ export default function AddProductPage() {
     try {
       const formDataToSend = new FormData();
 
-      // Append all form data except images and colors
+      // Add all form data except images and colors
       Object.entries(formData).forEach(([key, value]) => {
         if (key !== "images" && key !== "colors") {
           formDataToSend.append(key, value.toString());
         }
       });
 
-      // Append colors as array
-      const colorsArray = Array.isArray(formData.colors)
-        ? formData.colors
-        : formData.colors
-        ? [formData.colors]
-        : [];
+      // Add colors as array of names
+      formData.colors.forEach((color) =>
+        formDataToSend.append("colors", color)
+      );
 
-      colorsArray.forEach((color) => {
-        formDataToSend.append("colors", color);
-      });
-
-      // Append each image file separately
-      formData.images.forEach((file) => {
-        formDataToSend.append("images", file);
-      });
+      // Add images
+      formData.images.forEach((file) => formDataToSend.append("images", file));
 
       const response = await fetch(`${base_url}/product`, {
         method: "POST",
         body: formDataToSend
       });
 
+      const responseData = await response.json();
+
       if (!response.ok) {
-        throw new Error("Failed to create product");
+        throw new Error(responseData.message || "Failed to create product");
       }
 
-      const result = await response.json();
-      console.log(result);
       toast.success("Product created successfully!");
-
-      // Reset form
       setFormData({
         name: "",
         shortDescription: "",
@@ -252,21 +244,19 @@ export default function AddProductPage() {
         originalPrice: 0,
         discount: 0,
         tax: 0,
-        qualityId: "",
-        categoryId: "",
-        subcategoryId: "",
-        sizeId: "",
+        categoryName: "",
+        subcategoryName: "",
+        qualityName: "",
+        sizeName: "",
         colors: [],
         inStock: true,
         images: [],
         tag: ""
       });
       setImagePreviews([]);
-
-      // Redirect to products list or edit page
       router.push(`/admin/products`);
     } catch (error) {
-      console.error("Error creating product:", error);
+      console.error("Error details:", error);
       toast.error("Failed to create product");
     } finally {
       setIsSubmitting(false);
@@ -289,7 +279,7 @@ export default function AddProductPage() {
               name="name"
               value={formData.name}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-0 focus: ring-none"
+              className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-0 focus:ring-none"
               placeholder="Enter product name"
               required
             />
@@ -305,7 +295,7 @@ export default function AddProductPage() {
               name="tag"
               value={formData.tag}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-0 focus: ring-none"
+              className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-0 focus:ring-none"
               placeholder="Enter product tag (optional)"
             />
           </div>
@@ -317,45 +307,46 @@ export default function AddProductPage() {
                 Category *
               </label>
               <select
-                name="categoryId"
-                value={formData.categoryId}
+                name="categoryName"
+                value={formData.categoryName}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border text-black  border-gray-300 rounded-lg focus:ring-0 focus:ring-none"
+                className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg"
                 required
               >
-                <option value="" className="text-black">
-                  Select Category
-                </option>
-                {Array.isArray(categories) &&
-                  categories.map((category: CategoryT) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
+                <option value="">Select Category</option>
+                {staticCategories.map((cat) => (
+                  <option key={cat.name} value={cat.name}>
+                    {cat.name}
+                  </option>
+                ))}
               </select>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Subcategory *
+                Subcategory
               </label>
               <select
-                name="subcategoryId"
-                value={formData.subcategoryId}
+                name="subcategoryName"
+                value={formData.subcategoryName}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-none"
-                required
-                disabled={!formData.categoryId}
+                className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg"
+                disabled={
+                  !formData.categoryName || filteredSubcategories.length === 0
+                }
               >
-                <option value="" className="text-black">
-                  Select Subcategory
-                </option>
-                {filteredSubcategories.map((subcategory: SubCategoryT) => (
-                  <option key={subcategory.id} value={subcategory.id}>
-                    {subcategory.name}
+                <option value="">Select Subcategory</option>
+                {filteredSubcategories.map((sub, index) => (
+                  <option key={index} value={sub}>
+                    {sub}
                   </option>
                 ))}
               </select>
+              {filteredSubcategories.length === 0 && formData.categoryName && (
+                <p className="mt-1 text-sm text-gray-500">
+                  No subcategories available for this category
+                </p>
+              )}
             </div>
           </div>
 
@@ -366,20 +357,25 @@ export default function AddProductPage() {
                 Size *
               </label>
               <select
-                name="sizeId"
-                value={formData.sizeId}
+                name="sizeName"
+                value={formData.sizeName}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-0 focus:ring-none"
                 required
-                disabled={!formData.categoryId}
+                disabled={!formData.categoryName}
               >
                 <option value="">Select Size</option>
                 {filteredSizes.map((size: SizeT) => (
-                  <option key={size.id} value={size.id}>
+                  <option key={size.id} value={size.name}>
                     {size.name}
                   </option>
                 ))}
               </select>
+              {filteredSizes.length === 0 && formData.categoryName && (
+                <p className="mt-1 text-sm text-gray-500">
+                  No sizes available for this category
+                </p>
+              )}
             </div>
 
             <div>
@@ -387,19 +383,18 @@ export default function AddProductPage() {
                 Quality *
               </label>
               <select
-                name="qualityId"
-                value={formData.qualityId}
+                name="qualityName"
+                value={formData.qualityName}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-0 focus:ring-none"
                 required
               >
                 <option value="">Select Quality</option>
-                {Array.isArray(qualities) &&
-                  qualities.map((quality: QualityT) => (
-                    <option key={quality.id} value={quality.id}>
-                      {quality.name}
-                    </option>
-                  ))}
+                {compatibleQualities.map((quality: QualityT) => (
+                  <option key={quality.id} value={quality.name}>
+                    {quality.name}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -408,39 +403,34 @@ export default function AddProductPage() {
                 Colors *
               </label>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2 p-3 border border-gray-300 rounded-lg">
-                {Array.isArray(colors) &&
-                  colors.map((color: ColorT) => (
-                    <div key={color.id} className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id={`color-${color.id}`}
-                        value={color.id}
-                        checked={formData.colors.includes(color.id)}
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setFormData((prev) => ({
-                              ...prev,
-                              colors: [...prev.colors, color.id]
-                            }));
-                          } else {
-                            setFormData((prev) => ({
-                              ...prev,
-                              colors: prev.colors.filter(
-                                (id) => id !== color.id
-                              )
-                            }));
-                          }
-                        }}
-                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                      />
-                      <label
-                        htmlFor={`color-${color.id}`}
-                        className="ml-2 block text-sm text-gray-900"
-                      >
-                        {color.name}
-                      </label>
-                    </div>
-                  ))}
+                {compatibleColors.map((color: ColorT) => (
+                  <div key={color.id} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      value={color.name}
+                      checked={formData.colors.includes(color.name)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setFormData((prev) => ({
+                            ...prev,
+                            colors: [...prev.colors, color.name]
+                          }));
+                        } else {
+                          setFormData((prev) => ({
+                            ...prev,
+                            colors: prev.colors.filter(
+                              (name) => name !== color.name
+                            )
+                          }));
+                        }
+                      }}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <label className="ml-2 block text-sm text-gray-900">
+                      {color.name}
+                    </label>
+                  </div>
+                ))}
               </div>
               {formData.colors.length === 0 && (
                 <p className="mt-1 text-sm text-red-600">
