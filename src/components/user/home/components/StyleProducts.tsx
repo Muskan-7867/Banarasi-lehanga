@@ -58,7 +58,7 @@ export default function StyleProducts() {
               }
             ]}
             imageOverlay={
-              <ImageNamingOverlay title="Printed" buttonText="Shop Now" onButtonClick={() => router.push("/women/fulkaries")}/>
+              <ImageNamingOverlay title="Printed" buttonText="Shop Now" onButtonClick={() => router.push("/women/phulkaries")}/>
             }
           ></ProductCard>
         </div>

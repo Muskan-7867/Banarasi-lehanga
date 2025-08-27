@@ -7,7 +7,7 @@ export const WomenCategoryNavbar = () => {
     "GOWNS",
     "ARTIFICIAL JEWELLERY",
     "BRIDAL CLUTCHES",
-    "FULKARIES",
+    "PHULKARIES",
     "SUITS",
 
     "INDO WESTERN"
@@ -19,7 +19,7 @@ export const WomenCategoryNavbar = () => {
     GOWNS: "/women/gowns",
     "ARTIFICIAL JEWELLERY": "/women/artificialjewellery",
     "BRIDAL CLUTCHES": "/women/bridalclutches",
-    FULKARIES: "/women/fulkaries",
+    "PHULKARIES": "/women/phulkaries",
     SUITS: "/women/suits",
 
     "INDO WESTERN": "/women/indowestern"

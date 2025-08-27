@@ -12,12 +12,12 @@ function AppointmentBanner() {
           <p className="text-base sm:text-lg mb-6 text-pink-500 text-center">
             Call us to book your personal bridal consultation and find the perfect wedding dress.
           </p>
-          <a
-            href="tel:+911234567890"
+          <p
+            
             className="app-color text-white font-bold py-2 px-4 sm:px-6 rounded text-sm sm:text-base"
           >
-            CALL NOW: +91 12345 67890
-          </a>
+            CALL NOW: +91 9988363656
+          </p>
         </div>
       </div>
     </div>

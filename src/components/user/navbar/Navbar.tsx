@@ -148,9 +148,9 @@ const Navbar = () => {
         <div className="absolute left-1/2 transform -translate-x-1/2 text-center">
           <Link
             href="/"
-            className="text-lg md:text-2xl lg:text-4xl text-black font-bold font-serif tracking-tight"
+            className="text-lg md:text-2xl lg:text-4xl text-black font-bold font-serif "
           >
-            BANARASI LEHANGA
+            BANARASI  LEHNGA
           </Link>
           <Link
             href="/"

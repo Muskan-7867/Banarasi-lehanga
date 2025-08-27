@@ -11,7 +11,7 @@ import Link from "next/link";
 import FilterBar from "../../bridal/bridallehanga/components/FilterBar";
 
 export default function FulkariProducts() {
-  const tag = "Fulkaries";
+  const tag = "Phulkaries";
 
   const { data, isLoading, isError } = useQuery(getProductsByTagQuery(tag));
 

@@ -1,14 +1,14 @@
 import { IoIosMail } from "react-icons/io";
 import { MdLocalPhone, MdLocationOn } from "react-icons/md";
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaFacebook,  FaInstagram } from "react-icons/fa";
 import  Link  from "next/link"
 
 const Footer = () => {
   const quickLinks = [
     { name: "Home", link: "/" },
-    { name: "About Us", link: "/about" },
-    { name: "Contact", link: "/contact" },
-    { name: "Products", link: "/products" }
+    { name: "Women", link: "/women" },
+    { name: "Bridal", link: "/bridal" },
+    { name: "Men", link: "/men" }
   ];
 
   return (
@@ -26,18 +26,14 @@ const Footer = () => {
                 from.
               </p>
               <div className="flex space-x-4">
-                <Link href="#" className="text-white hover:text-black transition">
+                <Link href="#" className="text-white  transition">
                   <FaFacebook size={20} />
                 </Link>
-                <Link href="#" className="text-white hover:text-black transition">
-                  <FaTwitter size={20} />
-                </Link>
-                <Link href="#" className="text-white hover:text-black transition">
+          
+                <Link href="https://www.instagram.com/banarsi_lehnga_house.in?igsh=M2RqODB6eG43bGl0" className="text-white  transition">
                   <FaInstagram size={20} />
                 </Link>
-                <Link href="#" className="text-white hover:text-black transition">
-                  <FaLinkedin size={20} />
-                </Link>
+           
               </div>
             </div>
 
@@ -51,7 +47,7 @@ const Footer = () => {
                   <li key={index}>
                     <Link
                       href={item.link}
-                      className="text-white hover:text-black transition duration-300 text-sm"
+                      className="text-white  transition duration-300 text-sm"
                     >
                       {item.name}
                     </Link>
@@ -76,28 +72,19 @@ const Footer = () => {
                     size={18}
                   />
                   <p className="text-sm text-white mt-1">
-                    23-A, near Lal Chand Shoe Maker, Prakash Nagar, Shankar Garden
-                    Colony, <br /> Model Town, Jalandhar, Punjab 144003
+                    NF 1, Circular Road, Quilla Mohalla, Bhairon Bazar Near Mai Hira Gate, Jalandhar, Punjab 144001
                   </p>
                 </div>
                 <div className="flex items-center space-x-3">
                   <MdLocalPhone className="text-white" size={18} />
                   <Link
                     href="tel:+14578986546"
-                    className="text-white hover:text-black transition text-sm"
+                    className="text-white  transition text-sm"
                   >
                     09872144408
                   </Link>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <IoIosMail className="text-white" size={18} />
-                  <Link
-                    href="mailto:info@example.com"
-                    className="text-white hover:text-black transition text-sm"
-                  >
-                    omegbazaarofficial@gmail.com
-                  </Link>
-                </div>
+           
               </div>
             </div>
           </div>
@@ -105,7 +92,7 @@ const Footer = () => {
           {/* Copyright */}
           <div className="border-t border-white mt-12 pt-8 text-center text-sm">
             <p className="text-white">
-              &copy; {new Date().getFullYear()} Omeg Bazaar. All rights reserved.
+              &copy; {new Date().getFullYear()} Banarasi Lehnga House. All rights reserved.
               |
               <Link href="/privacyandpolicy" className="hover:text-white ml-2">
                 Privacy Policy
