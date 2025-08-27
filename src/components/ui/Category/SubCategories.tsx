@@ -16,7 +16,7 @@ export const subcategories: SubcategoriesType = {
     "Unstiched Suits",
     "Readymate Suits",
     "Unstiched Partwear Anarkali Suits",
-    "Unstiched Wedding Anarkali suits",
-    "3 Pieces Articles"
+ 
+
   ]
 };

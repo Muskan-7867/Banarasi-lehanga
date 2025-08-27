@@ -1,7 +1,9 @@
-
 export const staticCategories = [
   { name: "Bridal Lehanga", subcategories: ["Upto 150K", "150K and above"] },
-  { name: "Party Wear", subcategories: ["Party Wear Suits" , "Party Wear Dress"] },
+  {
+    name: "Party Wear",
+    subcategories: ["Party Wear Suits", "Party Wear Dress"]
+  },
   { name: "Gowns" },
   {
     name: "Artificial Jewellery",
@@ -15,8 +17,8 @@ export const staticCategories = [
     ]
   },
   { name: "Bridal Clutches" },
-  { name: "Footwears" },
-  { name: "Wedding Sherwani" },
+  { name: "Phulkaries" },
+  { name: "Wedding Sherwanis" },
   { name: "Party Wear Indo Western" },
   { name: "Designer Coat Pents" },
   {
@@ -24,62 +26,53 @@ export const staticCategories = [
     subcategories: [
       {
         name: "Unstitched Suit",
-        subcategories: ["Unstitched Partywear", "Unstitched Wedding"]
+        subcategories: ["Unstitched Partywear"]
       },
       "Readymade Suit",
-      "3 Pieces Articles",
+     
       "Unstitched Partywear Anarkali Suit",
-      "Unstitched Wedding Anarkali Suit"
+      
     ]
   }
 ];
 
 export const staticSizes = [
-  {  name: "Small", category: { id: "Bridal Lehanga" } },
-  {  name: "Medium", category: { id: "Bridal Lehanga" } },
-  {  name: "Large", category: { id: "Bridal Lehanga" } },
+  { name: "Small", category: { id: "Bridal Lehanga" } },
+  { name: "Medium", category: { id: "Bridal Lehanga" } },
+  { name: "Large", category: { id: "Bridal Lehanga" } },
 
+  { name: "no size", category: { id: "Bridal Clutches" } },
 
-   {  name: "small", category: { id: "Suits" } },
-   {  name: "Medium", category: { id: "Suits" } },
-   {  name: "Large", category: { id: "Suits" } },
+  { name: "small", category: { id: "Suits" } },
+  { name: "Medium", category: { id: "Suits" } },
+  { name: "Large", category: { id: "Suits" } },
 
-     {  name: "Small", category: { id: "Party Wear" } },
-     {  name: "Medium", category: { id: "Party Wear" } },
-     {  name: "Large", category: { id: "Party Wear" } },
+  { name: "Small", category: { id: "Party Wear" } },
+  { name: "Medium", category: { id: "Party Wear" } },
+  { name: "Large", category: { id: "Party Wear" } },
 
-   {  name: "small", category: { id: "Gowns" } },
-   {  name: "Medium", category: { id: "Gowns" } },
-   {  name: "Large", category: { id: "Gowns" } },
+  { name: "small", category: { id: "Gowns" } },
+  { name: "Medium", category: { id: "Gowns" } },
+  { name: "Large", category: { id: "Gowns" } },
 
-     {  name: "Small", category: { id: "Artificial Jewellery" } },
-     {  name: "Medium", category: { id: "Artificial Jewellery" } },
-     {  name: "Large", category: { id: "Artificial Jewellery" } },
+  { name: "Small", category: { id: "Artificial Jewellery" } },
+  { name: "Medium", category: { id: "Artificial Jewellery" } },
+  { name: "Large", category: { id: "Artificial Jewellery" } },
 
-   {  name: "small", category: { id: "Fulkaries" } },
-   {  name: "Medium", category: { id: "Fulkaries" } },
-   {  name: "Large", category: { id: "Fulkaries" } },
+  { name: "full size", category: { id: "Phulkaries" } },
 
-     {  name: "Small", category: { id: "Wedding Sherwani" } },
-     {  name: "Medium", category: { id: "Wedding Sherwani" } },
-     {  name: "Large", category: { id: "Wedding Sherwani" } },
+  { name: "Small", category: { id: "Wedding Sherwanis" } },
+  { name: "Medium", category: { id: "Wedding Sherwanis" } },
+  { name: "Large", category: { id: "Wedding Sherwanis" } },
 
+  { name: "small", category: { id: "Party Wear Indo Western" } },
+  { name: "Medium", category: { id: "Party Wear Indo Western" } },
 
+  { name: "Large", category: { id: "Party Wear Indo Western" } },
 
-
-
-
-   {  name: "small", category: { id: "Party Wear Indo Western" } },
-   {  name: "Medium", category: { id: "Party Wear Indo Western" } },
-
-   {  name: "Large", category: { id: "Party Wear Indo Western" } },
-
-   {  name: "small", category: { id: "Designer Coat Pents" } },
-   {  name: "Medium", category: { id: "Designer Coat Pents" } },
-   {  name: "Large", category: { id: "Designer Coat Pents" } },
-
-
-
+  { name: "small", category: { id: "Designer Coat Pents" } },
+  { name: "Medium", category: { id: "Designer Coat Pents" } },
+  { name: "Large", category: { id: "Designer Coat Pents" } }
 ];
 export const staticQualities = [
   { id: "quality-premium", name: "Premium" },
@@ -89,17 +82,13 @@ export const staticColors = [
   { id: "color-red", name: "Red" },
   { id: "color-pink", name: "Pink" },
   { id: "color-gold", name: "Gold" },
-    { id: "color-red", name: "Green" },
-  { id: "color-pink", name: "White" },
-  { id: "color-gold", name: "Black" },
-    { id: "color-red", name: "Purple" },
-  { id: "color-pink", name: "Yellow" },
-  { id: "color-pink", name: "Sea-Green" },
-
-
-
-
-
+  { id: "color-green", name: "Green" },
+  { id: "color-white", name: "White" },
+  { id: "color-black", name: "Black" },
+  { id: "color-purple", name: "Purple" },
+  { id: "color-yellow", name: "Yellow" },
+  { id: "color-seagreen", name: "Sea-Green" },
+  { id: "color-brown", name: "Brown" }
 ];
 
 export interface ProductFormData {
@@ -134,4 +123,3 @@ export interface ColorT {
   id: string;
   name: string;
 }
-

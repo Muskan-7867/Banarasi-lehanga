@@ -20,15 +20,26 @@ const subcategoryImages: Record<
       alt: "Elegant bridal necklace set"
     },
     {
-      name: "Bridal Earrings",
-      image: "https://example.com/earrings.jpg",
+      name: "Bridal Set",
+      image: "https://res.cloudinary.com/debzdd4wk/image/upload/v1756289253/set2_dxbykb.jpg",
       alt: "Beautiful bridal earrings"
     }
   ],
   "Party Wear Set": [
-    {
+ 
+     {
+      name: "Sparkling party wear necklace",
+      image: "https://res.cloudinary.com/debzdd4wk/image/upload/v1756289253/set_kxexqc.jpg",
+      alt: "necklace"
+    },
+        {
       name: "Party Wear Necklace",
       image: "https://lh3.googleusercontent.com/pw/AP1GczOtdvr9I5fai5mSGUbJqk-EHtei7iqDX880JiSnvYTpUEzvfPA6LuLKuYJcYR-xwB0yLPY7rO2dHEdwiGlz9VWC_RpX3Lkw-p-B7xqwhvbLKuWo-NDDxUPd0ZAgvOD3frf4YZcukYfePN07lsueTe1YLw=w720-h663-s-no-gm?authuser=0",
+      alt: "Sparkling party wear necklace"
+    },
+     {
+      name: "Silver Party Wear Necklace",
+      image: "https://res.cloudinary.com/debzdd4wk/image/upload/v1756289252/set3_zmr6w7.jpg",
       alt: "Sparkling party wear necklace"
     }
   ],
@@ -38,7 +49,48 @@ const subcategoryImages: Record<
       image: "https://res.cloudinary.com/dwgxfctju/image/upload/fl_preserve_transparency/v1756110110/Screenshot_20250825_134157_wew2fk.jpg?_s=public-apps",
       alt: "Sparkling party wear necklace"
     }
-  ]
+  ],
+   "Kalire": [
+    {
+      name: "Wedding Kalire",
+      image: "https://swadeshiclick.com/api/assets/uploads/media/IMG_20200110_173148-scaled.webp",
+      alt: "Sparkling party wear necklace"
+    }
+  ],
+
+    "American Diamond Jewellery": [
+    {
+      name: "Diamond Jewellery",
+      image: "https://res.cloudinary.com/debzdd4wk/image/upload/v1756289253/set_kxexqc.jpg", 
+      alt: "Sparkling party wear necklace"
+    }
+  ],
+    "Maiyan Stuff": [
+    {
+      name: "Maiyan Stuff",
+  
+      image: "    https://slawawalczak.com/wp-content/uploads/2015/09/Maya-ceremony-sikh-wedding-photography_0001.jpg",
+      alt: "Sparkling party wear necklace"
+    }
+  ],
+    "Unstiched Suits": [
+    {
+      name: "Black Unstiched Suits",
+  
+      image: "https://res.cloudinary.com/debzdd4wk/image/upload/v1756290035/un-suit_wxtqfy.jpg",
+      alt: "Sparkling party wear necklace"
+    }
+  ],
+
+    "Unstiched Party Wear Anarkali Suits": [
+    {
+      name: "",
+  
+      image: "https://img.faballey.com/images/Product/ILK00008Z/z5.jpg",
+      alt: "Sparkling party wear necklace"
+    }
+  ],
+
 
 };
 
@@ -60,7 +112,7 @@ function CategoryDropdown({
     <div
       className="absolute top-full left-0 right-0 z-10 bg-white px-4 shadow-lg"
       onMouseEnter={() => setShowDropdown(true)}
-      onMouseLeave={() => setShowDropdown(false)}
+    
     >
       <div className="mx-auto flex w-full gap-8 py-4">
         {/* Left side - subcategories list */}
@@ -93,15 +145,15 @@ function CategoryDropdown({
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {subcategoryImages[selectedSubcategory || subcategories[hoveredCategory]?.[0]]?.map((item, index) => (
               <div key={index} className="group flex flex-col">
-                <div className="relative aspect-square overflow-hidden rounded-md mb-2">
+                <div className="relative aspect-square w-42 h-42  overflow-hidden rounded-md mb-2">
                   <Image
                     src={item.image}
                     alt={item.alt}
                     fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
-                <p className="text-center text-gray-800 text-sm font-medium">
+                <p className=" text-gray-800 text-sm font-medium">
                   {item.name}
                 </p>
               </div>
