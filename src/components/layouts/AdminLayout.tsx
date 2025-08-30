@@ -1,21 +1,9 @@
-"use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import {
-  LayoutDashboard,
-  Package,
-  Users,
-
-  LogOut,
-  Menu,
-  X,
-  Bell,
-
-  User,
-
-} from "lucide-react";
+import { LayoutDashboard, Package, LogOut, Menu, X, User } from "lucide-react";
+import { useAdminStore } from "@/lib/hooks/useAdmin";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -23,20 +11,39 @@ interface AdminLayoutProps {
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const pathname = usePathname();
+    const pathname = usePathname();
+
+  const { admin, hydrate, fetchAdminData } = useAdminStore();
+
+  useEffect(() => {
+    hydrate();
+    const token = localStorage.getItem("adminToken");
+    if (token) {
+      fetchAdminData(token); // ✅ ensure latest data
+    }
+  }, []);
+
+  if (!admin) return <p>Loading admin...</p>;
+
 
   const sidebarItems = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-    { name: "Products", href: "/admin/products", icon: Package },
-
-    // { name: "Customers", href: "/admin/customers", icon: Users },
+    { name: "Products", href: "/admin/products", icon: Package }
   ];
 
   const isActive = (href: string) => {
-    if (href === "/admin") {
-      return pathname === href;
-    }
+    if (href === "/admin") return pathname === href;
     return pathname.startsWith(href);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminInfo");
+    window.location.href = "/admin/login";
+  };
+
+  const getFirstLetter = (username: string | undefined) => {
+    return username?.charAt(0).toUpperCase();
   };
 
   return (
@@ -51,7 +58,9 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
         <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
           <Link href="/admin" className="flex items-center space-x-2">
             <div className="w-8 h-8 app-color rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">C</span>
+              <span className="text-white font-bold text-sm">
+                {getFirstLetter(admin?.username)}
+              </span>
             </div>
             <span className="text-lg font-bold text-gray-900">Admin Panel</span>
           </Link>
@@ -87,13 +96,13 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
 
         {/* Logout */}
         <div className="absolute bottom-6 left-3 right-3">
-          <Link
-            href="/auth/login"
-            className="flex items-center px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+          <button
+            onClick={handleLogout}
+            className="flex items-center px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors w-full"
           >
             <LogOut className="mr-3" size={18} />
             Logout
-          </Link>
+          </button>
         </div>
       </div>
 
@@ -102,42 +111,25 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
         {/* Top Header */}
         <header className="bg-white shadow-sm border-b border-gray-200">
           <div className="flex items-center justify-between h-16 px-6">
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={() => setIsSidebarOpen(true)}
-                className="lg:hidden p-2 rounded-md hover:bg-gray-100"
-              >
-                <Menu size={20} />
-              </button>
-{/* 
-              <div className="relative">
-                <Search
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                  size={18}
-                />
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="pl-10 pr-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent"
-                />
-              </div> */}
-            </div>
+            <button
+              onClick={() => setIsSidebarOpen(true)}
+              className="lg:hidden p-2 rounded-md hover:bg-gray-100"
+            >
+              <Menu size={20} />
+            </button>
 
             <div className="flex items-center space-x-4">
-              <button className="p-2 text-gray-400 hover:text-gray-600 relative">
-                <Bell size={20} />
-                <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
-              </button>
-
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 bg-gray-300 text-black rounded-full flex items-center justify-center">
                   <User size={16} />
                 </div>
                 <div className="hidden md:block">
                   <p className="text-sm font-medium text-gray-900">
-                    Admin User
+                    {admin?.username || "Admin User"}
                   </p>
-                  <p className="text-xs text-gray-500">admin@banarasi.com</p>
+                  <p className="text-xs text-gray-500">
+                    {admin?.email || "admin@banarasi.com"}
+                  </p>
                 </div>
               </div>
             </div>
