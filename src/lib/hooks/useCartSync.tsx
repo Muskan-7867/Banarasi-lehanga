@@ -1,4 +1,3 @@
-// lib/hooks/useCartSync.ts
 import { useState, useEffect } from "react";
 import useCart from "./useCart";
 import axios from "axios";

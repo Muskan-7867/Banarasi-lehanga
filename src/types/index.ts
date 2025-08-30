@@ -1,3 +1,5 @@
+import { ProductFormData } from "@/components/data/categories";
+
 export interface UserT {
   id: string;
   username: string;
@@ -128,32 +130,30 @@ export interface SubCategoryT {
   Product: ProductT[];
 }
 
-export interface ColorT {
+export interface SizeT {
   id: string;
   name: string;
-  products: ProductT[];
-  createdAt: string | Date;
-  updatedAt: string;
+  category: { id: string }; // Changed to match your data
+  createdAt: Date;
+  updatedAt: Date;
+  Product: ProductFormData[];
 }
 
 export interface QualityT {
   id: string;
   name: string;
-  createdAt: string | Date;
-  updatedAt: string;
-  Product: ProductT[];
+  createdAt: Date;
+  updatedAt: Date;
+  Product: ProductFormData[];
 }
 
-export interface SizeT {
+export interface ColorT {
   id: string;
   name: string;
-  categoryId?: string;
-  category?: CategoryT;
-  createdAt: string;
-  updatedAt: string;
-  Product: ProductT[];
+  createdAt: Date;
+  updatedAt: Date;
+  products: ProductFormData[];
 }
-
 // types.ts (or inline)
 export type ProductQueryParamsT = {
   maxPrice?: number;

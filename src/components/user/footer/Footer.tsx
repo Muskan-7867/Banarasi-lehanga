@@ -1,4 +1,4 @@
-import { IoIosMail } from "react-icons/io";
+
 import { MdLocalPhone, MdLocationOn } from "react-icons/md";
 import { FaFacebook,  FaInstagram } from "react-icons/fa";
 import  Link  from "next/link"

@@ -1,8 +1,8 @@
 import { CategoryT } from "@/types";
-import { Filter, Search } from "lucide-react";
+import {  Search } from "lucide-react";
 import React from "react";
 
-import { Dropdown } from "@/components/ui/CustomDropDown";
+
 
 interface ProductFilterProps {
   searchTerm: string;
@@ -15,18 +15,17 @@ interface ProductFilterProps {
 export default function ProductFilter({
   searchTerm,
   setSearchTerm,
-  selectedCategory,
-  setSelectedCategory,
-  categories = [] // Provide default empty array
-}: ProductFilterProps) {
-  const categoryOptions = [
-    { value: "all", label: "All Categories" },
-  ...((Array.isArray(categories) ? categories : []).map((category) => ({
-  value: category.id,
-  label: category.name,
-})))
 
-  ];
+
+}: ProductFilterProps) {
+//   const categoryOptions = [
+//     { value: "all", label: "All Categories" },
+//   ...((Array.isArray(categories) ? categories : []).map((category) => ({
+//   value: category.id,
+//   label: category.name,
+// })))
+
+//   ];
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">

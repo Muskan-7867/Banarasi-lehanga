@@ -1,7 +1,6 @@
 "use client";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import {
-  Eye,
   Mail,
   Phone,
   Calendar,
@@ -14,7 +13,6 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
 import { getCustomers } from "@/lib/services/CustomerService";
-import { useRouter } from "next/navigation";
 
 interface Customer {
   id: string;
@@ -35,8 +33,7 @@ export default function CustomersPage() {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
-  console.log(loading)
-  const router = useRouter();
+  console.log(loading);
 
   // Fetch customers from API
   useEffect(() => {
@@ -209,8 +206,6 @@ export default function CustomersPage() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Total Spent
                   </th>
-
-              
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">

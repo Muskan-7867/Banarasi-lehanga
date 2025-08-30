@@ -209,9 +209,9 @@ const startEditSize = (size: SizeT) => {
             ) : (
               <>
                 <span className="flex-1">{size.name}</span>
-                <span className="text-sm text-gray-500">
+                {/* <span className="text-sm text-gray-500">
                   ({size.category?.name || "No category"})
-                </span>
+                </span> */}
 
                 <button
                   onClick={() => startEditSize(size)}

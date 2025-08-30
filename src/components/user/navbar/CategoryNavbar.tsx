@@ -36,6 +36,7 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
     left: 0,
     width: 0
   });
+  console.log(dropdownPosition)
   
   // Add a timer to handle dropdown hiding with a delay
   const [dropdownTimeout, setDropdownTimeout] = useState<NodeJS.Timeout | null>(null);

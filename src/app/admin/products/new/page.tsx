@@ -18,6 +18,7 @@ import {
 // Create compatible versions of the static data that match the expected types
 const compatibleSizes: SizeT[] = staticSizes.map((size) => ({
   ...size,
+  id: "",
   createdAt: new Date(),
   updatedAt: new Date(),
   Product: []

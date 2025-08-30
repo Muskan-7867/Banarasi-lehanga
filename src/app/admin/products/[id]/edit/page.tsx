@@ -5,12 +5,14 @@ import { useRouter, useParams } from "next/navigation";
 import { Save, Upload, X } from "lucide-react";
 import Link from "next/link";
 
-import { SizeT, QualityT, ColorT, ProductImageT } from "@/types";
 import { toast } from "sonner";
 import { updateProduct } from "@/lib/services";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import Image from "next/image";
 import {
+  ColorT,
+  QualityT,
+  SizeT,
   staticCategories,
   staticColors,
   staticQualities,
@@ -18,6 +20,7 @@ import {
 } from "@/components/data/categories";
 import { useQuery } from "@tanstack/react-query";
 import { getProductByIdQuery } from "@/lib/query";
+import { ProductImageT } from "@/types";
 
 interface ProductFormData {
   name: string;

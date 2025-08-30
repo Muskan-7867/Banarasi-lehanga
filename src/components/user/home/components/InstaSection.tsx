@@ -45,7 +45,8 @@ const InstaSection = () => {
   const centerVideo: VideoPost = {
     type: "video",
     videoSrc:
-      "https://res.cloudinary.com/debzdd4wk/video/upload/video8_cdhxb7.mp4"
+      "https://res.cloudinary.com/debzdd4wk/video/upload/video8_cdhxb7.mp4",
+    thumbnail: ""
   };
 
   const [hoverIndex, setHoverIndex] = useState<string | null>(null);
@@ -65,16 +66,20 @@ const InstaSection = () => {
           loop
           className="w-full h-full object-cover"
         />
-      ) : (
+      ) : post.thumbnail ?  (
         <Image
           src={post.thumbnail}
           alt="Video thumbnail"
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-300"
         />
+      ) : (
+        <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+          <span className="text-gray-500">No thumbnail</span>
+        </div>
       )}
 
-      {/* Instagram hover overlay */}
+   
       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
         <FaInstagram className="text-white text-4xl drop-shadow-lg" />
       </div>

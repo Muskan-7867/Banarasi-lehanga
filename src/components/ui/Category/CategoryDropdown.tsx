@@ -171,7 +171,11 @@ function CategoryDropdown({
               <div
                 key={index}
                 className="group flex flex-col cursor-pointer"
-                onClick={() => router.push(item.link)}
+               onClick={() => {
+  if (item.link) {
+    router.push(item.link);
+  }
+}}
               >
                 <div className="relative aspect-square w-42 h-42 overflow-hidden rounded-md mb-2">
                   <Image

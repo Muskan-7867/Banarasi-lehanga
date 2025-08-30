@@ -21,7 +21,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     if (token) {
       fetchAdminData(token); // ✅ ensure latest data
     }
-  }, []);
+  }, [fetchAdminData, hydrate]);
 
   if (!admin) return <p>Loading admin...</p>;
 

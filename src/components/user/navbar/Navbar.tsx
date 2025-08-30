@@ -12,6 +12,7 @@ const Navbar = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  console.log(userEmail, showUserMenu)
   const userMenuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { cartCount, syncCartFromStorage } = useCart();
