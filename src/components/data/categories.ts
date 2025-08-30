@@ -30,7 +30,7 @@ export const staticCategories = [
       },
       "Readymade Suit",
      
-      "Unstitched Partywear Anarkali Suit",
+      "Unstiched Partywear Anarkali Suits",
       
     ]
   }

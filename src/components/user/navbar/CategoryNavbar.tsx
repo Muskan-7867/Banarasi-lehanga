@@ -36,7 +36,9 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
     left: 0,
     width: 0
   });
-  console.log(dropdownPosition);
+  
+  // Add a timer to handle dropdown hiding with a delay
+  const [dropdownTimeout, setDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const handleCategoryClick = (category: string) => {
     const path = categoryRoutes[category];
@@ -57,6 +59,12 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
     category: string,
     event: React.MouseEvent<HTMLLIElement>
   ) => {
+    // Clear any existing timeout
+    if (dropdownTimeout) {
+      clearTimeout(dropdownTimeout);
+      setDropdownTimeout(null);
+    }
+    
     // Only show dropdown if category has subcategories
     if (
       hasSubcategories(category) &&
@@ -75,14 +83,31 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
     }
   };
 
-  const handleMouseLeave = () => {
-    setShowDropdown(false);
+  const handleNavbarMouseLeave = () => {
+    // Set a timeout before hiding the dropdown
+    const timeout = setTimeout(() => {
+      setShowDropdown(false);
+    }, 300); // 300ms delay
+    
+    setDropdownTimeout(timeout);
+  };
+
+  const handleNavbarMouseEnter = () => {
+    // Clear timeout when mouse enters navbar again
+    if (dropdownTimeout) {
+      clearTimeout(dropdownTimeout);
+      setDropdownTimeout(null);
+    }
   };
 
   const uniqueCategories = [...new Set(categories)];
 
   return (
-    <div className="border-b border-gray-300 bg-white relative">
+    <div 
+      className="border-b border-gray-300 bg-white relative"
+      onMouseLeave={handleNavbarMouseLeave}
+      onMouseEnter={handleNavbarMouseEnter}
+    >
       {/* Desktop View */}
       <div className="hidden md:block relative">
         <div className="flex items-center justify-center px-6 py-3">
@@ -103,7 +128,6 @@ const CategoryNavbar: React.FC<CategoryNavbarProps> = ({
                   }`}
                 onClick={() => handleCategoryClick(category)}
                 onMouseEnter={(e) => handleCategoryHover(category, e)}
-                onMouseLeave={handleMouseLeave}
               >
                 {category}
                 {hasSubcategories(category) && (
