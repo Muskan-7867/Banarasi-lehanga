@@ -37,6 +37,8 @@ export const staticCategories = [
 ];
 
 export const staticSizes = [
+
+
   { name: "Small", category: { id: "Bridal Lehanga" } },
   { name: "Medium", category: { id: "Bridal Lehanga" } },
   { name: "Large", category: { id: "Bridal Lehanga" } },
@@ -74,12 +76,14 @@ export const staticSizes = [
   { name: "Medium", category: { id: "Designer Coat Pents" } },
   { name: "Large", category: { id: "Designer Coat Pents" } }
 ];
+
+
 export const staticQualities = [
   { id: "quality-premium", name: "Premium" },
   { id: "quality-standard", name: "Standard" }
 ];
 export const staticColors = [
-  { id: "color-red", name: "Red" },
+ 
   { id: "color-pink", name: "Pink" },
   { id: "color-gold", name: "Gold" },
   { id: "color-green", name: "Green" },
@@ -88,7 +92,12 @@ export const staticColors = [
   { id: "color-purple", name: "Purple" },
   { id: "color-yellow", name: "Yellow" },
   { id: "color-seagreen", name: "Sea-Green" },
-  { id: "color-brown", name: "Brown" }
+  { id: "color-brown", name: "Brown" },
+  { id: "color-orange", name: "Orange" },
+  { id: "color-red", name: "Red" },
+
+  
+
 ];
 
 export interface ProductFormData {

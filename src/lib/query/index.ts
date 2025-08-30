@@ -64,4 +64,5 @@ const getProductByIdQuery = (id:string) => {
 
 
 
+
 export { getCategoriesQuery, getSizesQuery, getQuanlityQuery, getColorQuery,getProductsQuery, getProductByIdQuery, getProductsByTagQuery };

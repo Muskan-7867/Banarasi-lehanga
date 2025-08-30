@@ -25,7 +25,7 @@ export default function SwiperCards() {
       poster: "https://example.com/poster2.jpg"
     },
       {
-      src: "https://res.cloudinary.com/dwgxfctju/video/upload/v1756108416/VID_20250825_003749_807_nbzwqk.mp4?_s=public-apps",
+      src: "https://res.cloudinary.com/debzdd4wk/video/upload/lehngavideo_qtjd0z.mp4",
       alt: "Video 5",
       poster: "https://example.com/poster1.jpg"
     },
@@ -35,22 +35,22 @@ export default function SwiperCards() {
       poster: "https://example.com/poster2.jpg"
     },
      {
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video8_rmp7fx.mp4",
+      src: "https://res.cloudinary.com/debzdd4wk/video/upload/lehangavideo3_i6wlhv.mp4",
       alt: "Video 7",
       poster: "https://example.com/poster1.jpg"
     },
     {
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video7_iakpc5.mp4",
+      src: "https://res.cloudinary.com/debzdd4wk/video/upload/lehngavid4_bvzbad.mp4",
       alt: "Video 8",
       poster: "https://example.com/poster2.jpg"
     },
       {
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video9_khkd9r.mp4",
+      src: "https://res.cloudinary.com/dwgxfctju/video/upload/v1756108770/VID_20250825_003909_447_jofwcq.mp4?_s=public-apps",
       alt: "Video 9",
       poster: "https://example.com/poster1.jpg"
     },
     {
-      src: "https://res.cloudinary.com/debzdd4wk/video/upload/video10_yncqrk.mp4",
+      src: "https://res.cloudinary.com/debzdd4wk/video/upload/lehngavideo2_ai4xa5.mp4",
       alt: "Video 10",
       poster: "https://example.com/poster2.jpg"
     },

@@ -65,18 +65,18 @@ export default function Banner({
           <>
             <button
               onClick={goToPrevious}
-              className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all"
+              className="absolute top-1/2 w-8 h-8 lg:w-10 lg:h-10 left-4 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all"
               aria-label="Previous image"
             >
-              <SlArrowLeft size={28} />
+              <SlArrowLeft />
             </button>
 
             <button
               onClick={goToNext}
-              className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all"
+              className="absolute top-1/2 w-8 h-8 lg:w-10 lg:h-10  right-4 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all"
               aria-label="Next image"
             >
-              <SlArrowRight size={28} />
+              <SlArrowRight  />
             </button>
           </>
         )}

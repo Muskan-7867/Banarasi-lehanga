@@ -109,7 +109,7 @@ export default function EditProductPage() {
         subcategoryName: product.subcategoryName || "",
         tag: product.tag || "",
         sizeName: product.sizeName || "",
-        colors: product.colors?.map((color: ColorT) => color.id) || [],
+        colors: product.colors?.map((color: ColorT) => color.name) || [],
         images: [],
         existingImages: product.images || []
       });

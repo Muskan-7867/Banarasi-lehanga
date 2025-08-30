@@ -47,13 +47,13 @@ export default function ProductFilter({
         </div>
 
         {/* Custom Animated Dropdown */}
-        <Dropdown
+        {/* <Dropdown
           options={categoryOptions}
           selected={selectedCategory}
           onSelect={setSelectedCategory}
           icon={<Filter size={18} className="text-gray-400" />}
           className="min-w-[200px] text-black"
-        />
+        /> */}
       </div>
     </div>
   );
