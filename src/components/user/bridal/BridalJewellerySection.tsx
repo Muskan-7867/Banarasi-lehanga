@@ -20,7 +20,7 @@ export default function BridalJewellerySection() {
 
       {/* Right Content */}
       <div className="flex flex-col items-center justify-center text-center px-6">
-        <h2 className="text-2xl md:text-3xl font-light tracking-wide mb-6 text-black">
+        <h2 style={{ fontFamily: "var(--font-geist-sans)" }} className="text-2xl md:text-3xl font-medium tracking-wide mb-6 text-black ">
           BRIDAL JEWELRY FOR <br /> YOUR BIG DAY
         </h2>
         <button onClick={() => router.push("/women/artificialjewellery") } className="px-6 py-2 rounded-full bg-black text-white font-medium hover:bg-gray-800 transition cursor-pointer" >

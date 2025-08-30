@@ -40,7 +40,7 @@ export default function CartOverlay({ onClose, onViewCart }: CartProps) {
       <div
         className={`fixed inset-0 transition-opacity duration-300 ${
           isVisible ? "bg-opacity-50" : "bg-opacity-0"
-        }`}
+        } `}
         onClick={handleClose}
       ></div>
 
@@ -64,24 +64,33 @@ export default function CartOverlay({ onClose, onViewCart }: CartProps) {
               </div>
 
               <div className="mt-8">
-                <div className="flow-root">
-                  <ul className="-my-6 divide-y divide-gray-200">
-                    {cartItems.map((item) => (
-                      <CartItem
-                        key={item.id}
-                        item={item}
-                        onRemove={handleRemoveItem}
-                      />
-                    ))}
-                  </ul>
-                </div>
+                {cartItems.length === 0 ? (
+                  <div className="text-center text-gray-500 py-10">
+                    <p className="text-lg font-medium">No items found</p>
+                    <p className="text-sm">Your wishlist is empty.</p>
+                  </div>
+                ) : (
+                  <div className="flow-root">
+                    <ul className="-my-6 divide-y divide-gray-200">
+                      {cartItems.map((item) => (
+                        <CartItem
+                          key={item.id}
+                          item={item}
+                          onRemove={handleRemoveItem}
+                        />
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
 
-            <CartSummary
-              subtotal={formattedSubtotal}
-              onViewCart={onViewCart || (() => {})} // fallback
-            />
+            {cartItems.length > 0 && (
+              <CartSummary
+                subtotal={formattedSubtotal}
+                onViewCart={onViewCart || (() => {})} // fallback
+              />
+            )}
           </div>
         </div>
       </div>

@@ -2,23 +2,13 @@
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { FaInstagram } from "react-icons/fa";
-import {
-  instapost3,
-  poster,
-  poster1,
-  poster2,
-  poster3
-} from "@/app/constants/imagePath";
+import { poster, poster1, poster2, poster3 } from "@/app/constants/imagePath";
+import Link from "next/link";
 
 type VideoPost = {
   type: "video";
   videoSrc: string;
-  thumbnail: string | StaticImageData;
-};
-
-type ImagePost = {
-  type: "image";
-  src: string | StaticImageData;
+  thumbnail?: string | StaticImageData | undefined;
 };
 
 const InstaSection = () => {
@@ -52,9 +42,10 @@ const InstaSection = () => {
     }
   ];
 
-  const centerImage: ImagePost = {
-    type: "image",
-    src: instapost3
+  const centerVideo: VideoPost = {
+    type: "video",
+    videoSrc:
+      "https://res.cloudinary.com/debzdd4wk/video/upload/video8_cdhxb7.mp4"
   };
 
   const [hoverIndex, setHoverIndex] = useState<string | null>(null);
@@ -82,11 +73,16 @@ const InstaSection = () => {
           className="object-cover group-hover:scale-105 transition-transform duration-300"
         />
       )}
+
+      {/* Instagram hover overlay */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+        <FaInstagram className="text-white text-4xl drop-shadow-lg" />
+      </div>
     </div>
   );
 
   return (
-    <div className="px-4 md:px-8 py-8  min-h-screen md:min-h-0 md:h-auto">
+    <div className="px-4 md:px-8 py-8 min-h-screen md:min-h-0 md:h-auto">
       <div className="text-center mb-8 md:mb-12">
         <h2 className="text-2xl text-black md:text-3xl font-bold uppercase mb-4">
           VISIT OUR INSTAGRAM DIARIES
@@ -103,13 +99,15 @@ const InstaSection = () => {
           {videosLeft.map((v, i) => renderVideo(v, `left-${i}`))}
         </div>
 
-        {/* Center image - hidden on mobile */}
-        <div className="hidden md:flex relative aspect-square md:aspect-1/2 items-center justify-center overflow-hidden group">
-          <Image
-            src={centerImage.src}
-            alt="Instagram post"
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
+        {/* Center video - hidden on mobile */}
+        <div className="hidden md:flex relative aspect-[1/2] items-center justify-center overflow-hidden group mt-3">
+          <video
+            src={centerVideo.videoSrc}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
             <FaInstagram className="text-white text-4xl drop-shadow-lg" />
@@ -124,7 +122,7 @@ const InstaSection = () => {
 
       {/* Mobile call to action */}
       <div className="mt-8 text-center md:hidden">
-        <a
+        <Link
           href="https://www.instagram.com/banarsi_lehnga_house.in?igsh=M2RqODB6eG43bGl0"
           target="_blank"
           rel="noopener noreferrer"
@@ -132,7 +130,7 @@ const InstaSection = () => {
         >
           <FaInstagram className="text-xl" />
           Follow Us on Instagram
-        </a>
+        </Link>
       </div>
     </div>
   );
