@@ -23,6 +23,7 @@ import poster from "../../../public/images/poster.jpeg";
 import poster1 from "../../../public/images/poster1.jpeg";
 import poster2 from "../../../public/images/poster2.jpeg";
 import poster3 from "../../../public/images/poster3.jpeg";
+import user from "../../../public/images/user.png";
 
 export {
   EasyReturn,
@@ -44,5 +45,6 @@ export {
   poster,
   poster1,
   poster2,
-  poster3
+  poster3,
+  user
 };

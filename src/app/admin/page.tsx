@@ -27,14 +27,14 @@ export default function AdminDashboard() {
       color: "bg-blue-500",
     },
  
-    {
-      name: "Total Customers",
-      value: "1,234",
-      change: "+15%",
-      changeType: "increase",
-      icon: Users,
-      color: "bg-purple-500",
-    },
+    // {
+    //   name: "Total Customers",
+    //   value: "1,234",
+    //   change: "+15%",
+    //   changeType: "increase",
+    //   icon: Users,
+    //   color: "bg-purple-500",
+    // },
    
   ];
 
@@ -108,7 +108,7 @@ export default function AdminDashboard() {
           ))}
         </div>
         <div>
-         <Graph />
+         {/* <Graph /> */}
         </div>
         {/* Recent Orders */}
         {/* <motion.div

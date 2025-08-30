@@ -15,11 +15,8 @@ export default function ProdTable({
   products,
   searchTerm,
   selectedCategory,
-  handleDeleteProduct,
+  handleDeleteProduct
 }: ProdTableProps) {
-
-
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

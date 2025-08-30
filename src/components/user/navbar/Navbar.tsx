@@ -1,5 +1,5 @@
 "use client";
-import { BiUserCircle, BiMenu, BiLogOut } from "react-icons/bi";
+import {  BiMenu } from "react-icons/bi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
@@ -36,24 +36,24 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleUserClick = () => {
-    if (userEmail) setShowUserMenu(!showUserMenu);
-    else router.push("/auth/register");
-  };
+  // const handleUserClick = () => {
+  //   if (userEmail) setShowUserMenu(!showUserMenu);
+  //   else router.push("/auth/register");
+  // };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userEmail");
-    setUserEmail(null);
-    setShowUserMenu(false);
-    setIsMenuOpen(false);
-    router.push("/");
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("userEmail");
+  //   setUserEmail(null);
+  //   setShowUserMenu(false);
+  //   setIsMenuOpen(false);
+  //   router.push("/");
+  // };
 
-  const handleProfileClick = () => {
-    setShowUserMenu(false);
-    router.push("/profile");
-  };
+  // const handleProfileClick = () => {
+  //   setShowUserMenu(false);
+  //   router.push("/profile");
+  // };
 
   const handleMobileLinkClick = () => setIsMenuOpen(false);
   const handleMenuToggle = () => setIsMenuOpen(!isMenuOpen);
@@ -163,7 +163,7 @@ const Navbar = () => {
         {/* Right Icons */}
         <div className="flex items-center gap-2 lg:gap-4 md:gap-6">
           <div className="flex  gap-1 lg:gap-3 md:gap-4 text-gray-600">
-            {userEmail ? (
+            {/* {userEmail ? (
               <div className="relative" ref={userMenuRef}>
                 <button
                   type="button"
@@ -207,7 +207,7 @@ const Navbar = () => {
               >
                 <BiUserCircle className="text-xl md:text-2xl hover:text-black transition" />
               </button>
-            )}
+            )} */}
             <button
               type="button"
               className="p-1 relative"

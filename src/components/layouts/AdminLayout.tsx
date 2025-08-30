@@ -29,7 +29,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { name: "Products", href: "/admin/products", icon: Package },
 
-    { name: "Customers", href: "/admin/customers", icon: Users },
+    // { name: "Customers", href: "/admin/customers", icon: Users },
   ];
 
   const isActive = (href: string) => {

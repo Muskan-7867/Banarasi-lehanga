@@ -14,6 +14,7 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
 import { getCustomers } from "@/lib/services/CustomerService";
+import { useRouter } from "next/navigation";
 
 interface Customer {
   id: string;
@@ -35,6 +36,7 @@ export default function CustomersPage() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   console.log(loading)
+  const router = useRouter();
 
   // Fetch customers from API
   useEffect(() => {
@@ -208,9 +210,7 @@ export default function CustomersPage() {
                     Total Spent
                   </th>
 
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
+              
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -291,12 +291,12 @@ export default function CustomersPage() {
                           customer.status.slice(1)}
                       </span>
                     </td> */}
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <button className="text-blue-600 hover:text-blue-900 flex items-center gap-1">
+                    {/* <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <button  className="text-blue-600 hover:text-blue-900 flex items-center gap-1 cursor-pointer">
                         <Eye className="h-4 w-4" />
                         View Profile
                       </button>
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>
